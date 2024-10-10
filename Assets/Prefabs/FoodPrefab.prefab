@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6963781043082816650}
   - component: {fileID: 7930446166524864979}
   - component: {fileID: 7140420446320033659}
+  - component: {fileID: 2131012171891754206}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: FoodPrefab
   m_TagString: FoodItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2131012171891754206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2300804982110550946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f0a17ae3af66f459509a2ba28bba45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0

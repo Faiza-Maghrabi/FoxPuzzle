@@ -24,26 +24,33 @@ public class FoodScript : MonoBehaviour
     private int healthRegen;
     private int scoreVal;
 
-    public FoodScript(string name, int health, int score) {
-        this.foodName = name;
-        this.healthRegen = health;
-        this.scoreVal = score;
-    }
-
     void Start() {
-        jsonFilePath = Application.data
+        Debug.Log(id);
+        jsonFilePath = Application.dataPath + "/Scripts/Food/FoodList.json";
+        if (File.Exists(jsonFilePath)){
+            string jsonContent = File.ReadAllText(jsonFilePath);
+            FoodList foodList = JsonUtility.FromJson<FoodList>(jsonContent);
+
+            foodName = foodList.foods[id].foodName;
+            healthRegen = foodList.foods[id].healthRegen;
+            scoreVal = foodList.foods[id].scoreVal;
+            Debug.Log(""+foodName+""+healthRegen+""+scoreVal);
+        }
+        else {
+            Debug.LogError("No file at " + jsonFilePath);
+        }
     }
 
     public virtual string getName() {
-        return this.foodName;
+        return foodName;
     }
 
     public virtual int getHealth() {
-        return this.healthRegen;
+        return healthRegen;
     }
 
     public virtual int getScore() {
-        return this.scoreVal;
+        return scoreVal;
     }
 
 }
