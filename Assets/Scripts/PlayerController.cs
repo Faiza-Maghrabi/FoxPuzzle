@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveValue;
     public float speed;
     private int health = 100;
-    private int attackValue = 10;
     private float normalSpeed;
     private float slowSpeed;
 
@@ -38,9 +37,5 @@ public class PlayerController : MonoBehaviour
 
     public virtual int getPlayerHealth(){
         return health;
-    }
-
-    public virtual int getPlayerAttackValue(){
-        return attackValue;
     }
 }
