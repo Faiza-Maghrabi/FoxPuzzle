@@ -12,14 +12,19 @@ public class PlayerController : MonoBehaviour
     private float normalSpeed;
     private float slowSpeed;
 
+    // hold score here as player has easy access to values on collision
+    public int score;
+
     void Start (){
         normalSpeed = speed;  // Store the normal speed
         slowSpeed = speed / 2;  // Define the reduced speed
+
+        score = 0;
     }
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();  
-        Debug.Log("speed: " + speed);
+        // Debug.Log("speed: " + speed);
     }
 
     
@@ -37,5 +42,14 @@ public class PlayerController : MonoBehaviour
 
     public virtual int getPlayerHealth(){
         return health;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        // if collided with a FoodItem, hide the item and add score to counter
+        if (other.gameObject.tag == "FoodItem") {
+            other.gameObject.SetActive(false);
+            FoodScript food = other.GetComponent<FoodScript>();
+            score += food.getScore();
+        }
     }
 }
