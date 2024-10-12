@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private int health = 100;
     private float normalSpeed;
     private float slowSpeed;
+    public TextMeshProUGUI scoreText;
 
     // hold score here as player has easy access to values on collision
     public int score;
@@ -37,7 +39,12 @@ public class PlayerController : MonoBehaviour
             speed = normalSpeed;  // Restore normal speed when shift is not held
         }
 
+        if (Input.GetKeyDown(KeyCode.I)) {
+            health -= 5;
+        }
+
         GetComponent<Rigidbody>().AddForce(speed * Time.fixedDeltaTime * movement);
+        scoreText.text = "Score: " + score.ToString();
     }
 
     public virtual int getPlayerHealth(){
