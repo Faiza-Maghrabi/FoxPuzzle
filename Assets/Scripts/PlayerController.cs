@@ -33,13 +33,22 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public SpeedSettings speedSettings;
     // player health
-    private int health = 100;
+    public int health;
+
+    public int PlayerHealth{
+        get { return health; }
+        set { health = value; }
+    }
     public TextMeshProUGUI scoreText;
     private Rigidbody rb;
     public JumpSettings jump;
 
     // hold score here as player has easy access to values on collision
-    private int score;
+    public int score;
+    public int PlayerScore{
+        get { return score; }
+        set { score = value; }
+    }
 
 
     void Start (){
@@ -50,12 +59,12 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 3; 
-        score = 0;
+        PlayerScore = 0;
+        PlayerHealth = 100;        
     }
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();  
-        // Debug.Log("speed: " + speed);
     }
 
     private void Update(){
@@ -94,12 +103,9 @@ public class PlayerController : MonoBehaviour
             speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
         }
 
-        if (Input.GetKeyDown(KeyCode.I)) {
-            health -= 5;
-        }
-
         rb.AddForce(speed * Time.fixedDeltaTime * movement);
-        scoreText.text = "Score: " + score.ToString();
+        //Player Score displayed on screen
+        scoreText.text = "Score: " + PlayerScore.ToString();
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
@@ -117,19 +123,9 @@ public class PlayerController : MonoBehaviour
         jump.duration = 0;
     }
 
-    // return player health
-    public virtual int GetPlayerHealth(){
-        return health;
-    }
- 
-    //return player score
-    public virtual int GetPlayerScore(){
-        return score;
-    }
-
     void OnTriggerEnter(Collider other) {
         // if collided with a FoodItem, hide the item and add score to counter
-        if (other.gameObject.tag == "FoodItem") {
+        if (other.gameObject.CompareTag("FoodItem")) {
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
             score += food.getScore();
