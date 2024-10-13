@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 3; 
-        PlayerScore = 0;
-        PlayerHealth = 100;        
+        score = 0;
+        health = 100;        
     }
 
     void OnMove(InputValue value){
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(speed * Time.fixedDeltaTime * movement);
         //Player Score displayed on screen
-        scoreText.text = "Score: " + PlayerScore.ToString();
+        scoreText.text = "Score: " + score.ToString();
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
