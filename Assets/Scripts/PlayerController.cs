@@ -127,5 +127,10 @@ public class PlayerController : MonoBehaviour
             FoodScript food = other.GetComponent<FoodScript>();
             score += food.getScore();
         }
+        else if (other.gameObject.tag == "Enemy") {
+            EnemyScript enemy = other.GetComponent<EnemyScript>();
+            health -= enemy.getAttackVal();
+            Debug.Log(health);
+        }
     }
 }
