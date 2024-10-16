@@ -39,14 +39,12 @@ public class PlayerController : MonoBehaviour
         set { health = value; }
     }
 
+    public Inventory inventory;
+
     public TextMeshProUGUI scoreText;
     private Rigidbody rb;
     public JumpSettings jump;
-    public List<FoodList> items = new();
-    public List<FoodList> PlayerInventory{
-        get { return items; }
-        set { items = value; }
-    }
+
 
     // hold score here as player has easy access to values on collision
     public int score;
@@ -133,8 +131,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("FoodItem")) {
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
-            items.Add(other.gameObject);
-            score += food.getScore();
+            inventory.AddItemToInventory(food.food);
+            score += food.scoreVal;
         }
+        // Debug.LogFormat(items[0].foodName);
+        // Debug.Log(items[0].scoreVal);
+        // Debug.Log(items[0].healthRegen);
     }
 }
