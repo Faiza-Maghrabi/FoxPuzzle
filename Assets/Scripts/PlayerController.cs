@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         get { return health; }
         set { health = value; }
     }
-    public TextMeshProUGUI scoreText;
+    //public TextMeshProUGUI scoreText;
     private Rigidbody rb;
     public JumpSettings jump;
 
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(speed * Time.fixedDeltaTime * movement);
         //Player Score displayed on screen
-        scoreText.text = "Score: " + score.ToString();
+        //scoreText.text = "Score: " + score.ToString();
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
