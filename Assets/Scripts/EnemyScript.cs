@@ -16,6 +16,7 @@ public class EnemyScript : MonoBehaviour
     private bool playerInView;
     //damage enemy does to player
     public int attackVal;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class EnemyScript : MonoBehaviour
         attackVal = attackVal == 0 ? 10 : attackVal;
         playerInView = false;
         player = GameObject.Find("Player").transform;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -30,11 +32,17 @@ public class EnemyScript : MonoBehaviour
     {
         //Look for player
         playerInView = FoundPlayer();
-        //if seen, look towards player and travel towards them
+        // if seen, look towards player and travel towards them
         if (playerInView) {
-            transform.LookAt(player);
+            //move enemy to face player on x and z
+            Vector3 targetPosition = player.position;
+            targetPosition.y = rb.position.y;
+            transform.LookAt(targetPosition);
+            //calculate distance per fram
             var step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, player.position, step);
+            //move enemy towards player via rb
+            Vector3 newPosition = Vector3.MoveTowards(rb.position, player.position, step);
+            rb.MovePosition(newPosition);
         }
 
     }
