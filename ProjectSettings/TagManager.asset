@@ -5,12 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - FoodItem
+  - Enemy
   - HealthBar
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PlayerLayer
   - Water
   - UI
   - 
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PlayerLayer
+    uniqueID: 3484726141
     locked: 0
