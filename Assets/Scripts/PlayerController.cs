@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
 
 
     void Start (){
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
         rb = GetComponent<Rigidbody>(); // Allows access to the rigid body for readability purposes
