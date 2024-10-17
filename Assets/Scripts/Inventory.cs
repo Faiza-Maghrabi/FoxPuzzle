@@ -9,14 +9,8 @@ public class Inventory : MonoBehaviour
     //Player Inventory
     public GameObject inventoryMenu;
     private bool menuActivated;
-    public List<FoodListItem> playerInventory = new();
-    public List<FoodListItem> PlayerInventory{
-        get { return playerInventory; }
-        set { playerInventory = value; }
-    }
     public PlayerController player;
     public ItemSlot[] itemSlot;
-    // Start is called before the first frame update
 
     void Update(){
         if(Input.GetButtonDown("Inventory") && !menuActivated){
@@ -24,11 +18,15 @@ public class Inventory : MonoBehaviour
             // Debug.Log("I don't");
             inventoryMenu.SetActive(true);
             menuActivated =  true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else if(Input.GetButtonDown("Inventory") && menuActivated){
             Time.timeScale = 1;
             inventoryMenu.SetActive(false);
             menuActivated = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -38,23 +36,37 @@ public class Inventory : MonoBehaviour
         menuActivated = false;
     }
 
-    public void AddItemToInventory(FoodListItem food){
-        Debug.Log(food.foodName);
+    public bool EatFood(string foodName, int scoreVal, int healthRegen){
         for (int i = 0; i < itemSlot.Length; i++)
         {
+            if(itemSlot[i].foodName == foodName){
+                if(player.health == 100){
+                    return false;
+                }
+                player.health += healthRegen;
+                player.score -= scoreVal;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void AddItemToInventory(FoodListItem food){
+        Debug.Log(food.foodName);
+        for (int i = 0; i < itemSlot.Length; i++){
             Debug.Log("Hi");
             if(itemSlot[i].isFull == false){
                 Debug.Log("H2i");
                 itemSlot[i].AddItem(food);
-                playerInventory.Add(food);
                 return;
             }
         }
     }
 
-    public void EatFood(FoodListItem food){
-        player.health += food.healthRegen;
-        playerInventory.Remove(food);
-        player.score -= food.scoreVal;
+    public void DeselectAllSlots(){
+        for (int i = 0; i < itemSlot.Length; i++){
+            itemSlot[i].selectedShader.SetActive(false);
+            itemSlot[i].thisItemSelected = false;
+        }
     }
 }
