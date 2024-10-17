@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public Inventory inventory;
-    public InventoryDisplay inventoryDisplay;
+    // public InventoryDisplay inventoryDisplay;
 
     // public TextMeshProUGUI scoreText;
     private Rigidbody rb;
@@ -107,13 +107,13 @@ public class PlayerController : MonoBehaviour
             speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
         }
 
-        if(Input.GetKey(KeyCode.I)){
-            inventoryDisplay.OpenInventory();
-        }
+        // if(Input.GetKey(KeyCode.I)){
+        //     inventoryDisplay.OpenInventory();
+        // }
 
-        if(Input.GetKey(KeyCode.Escape)){
-            inventoryDisplay.CloseInventory();
-        }
+        // if(Input.GetKey(KeyCode.Escape)){
+        //     inventoryDisplay.CloseInventory();
+        // }
 
         rb.AddForce(speed * Time.fixedDeltaTime * movement);
         //Player Score displayed on screen

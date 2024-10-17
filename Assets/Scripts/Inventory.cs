@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour
         set { playerInventory = value; }
     }
     public PlayerController player;
+    public ItemSlot[] itemSlot;
     // Start is called before the first frame update
     void Start(){
         inventoryMenu.SetActive(false);
@@ -29,7 +30,7 @@ public class Inventory : MonoBehaviour
         }
         else if(Input.GetButtonDown("Inventory") && menuActivated){
             // Time.timeScale = 1;
-            gameObject.SetActive(false);
+            inventoryMenu.SetActive(false);
             menuActivated = false;
         }
     }
@@ -41,7 +42,14 @@ public class Inventory : MonoBehaviour
     }
 
     public void AddItemToInventory(FoodListItem food){
-        playerInventory.Add(food);
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if(!itemSlot[i].isFull){
+                itemSlot[i].AddItem(food);
+                // playerInventory.Add(food);
+                return;
+            }
+        }
     }
 
     public void EatFood(FoodListItem food){
