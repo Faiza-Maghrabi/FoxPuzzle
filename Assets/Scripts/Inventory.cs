@@ -17,19 +17,16 @@ public class Inventory : MonoBehaviour
     public PlayerController player;
     public ItemSlot[] itemSlot;
     // Start is called before the first frame update
-    void Start(){
-        inventoryMenu.SetActive(false);
-    }
 
     void Update(){
         if(Input.GetButtonDown("Inventory") && !menuActivated){
-            // Time.timeScale = 0;
-            Debug.Log("I don't");
+            Time.timeScale = 0;
+            // Debug.Log("I don't");
             inventoryMenu.SetActive(true);
             menuActivated =  true;
         }
         else if(Input.GetButtonDown("Inventory") && menuActivated){
-            // Time.timeScale = 1;
+            Time.timeScale = 1;
             inventoryMenu.SetActive(false);
             menuActivated = false;
         }
@@ -37,16 +34,19 @@ public class Inventory : MonoBehaviour
 
     public void CloseInventory(){
         Time.timeScale = 1;
-        gameObject.SetActive(false);
+        inventoryMenu.SetActive(false);
         menuActivated = false;
     }
 
     public void AddItemToInventory(FoodListItem food){
+        Debug.Log(food.foodName);
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            if(!itemSlot[i].isFull){
+            Debug.Log("Hi");
+            if(itemSlot[i].isFull == false){
+                Debug.Log("H2i");
                 itemSlot[i].AddItem(food);
-                // playerInventory.Add(food);
+                playerInventory.Add(food);
                 return;
             }
         }

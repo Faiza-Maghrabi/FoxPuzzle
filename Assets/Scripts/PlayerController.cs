@@ -40,9 +40,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public Inventory inventory;
-    // public InventoryDisplay inventoryDisplay;
-
-    // public TextMeshProUGUI scoreText;
     private Rigidbody rb;
     public JumpSettings jump;
 
@@ -56,8 +53,8 @@ public class PlayerController : MonoBehaviour
 
 
     void Start (){
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed

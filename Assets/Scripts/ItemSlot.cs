@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class ItemSlot : MonoBehaviour
 {
@@ -20,14 +21,22 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     private Image itemImage;
 
+    void Start(){
+        isFull = false;
+    }
+
     public void AddItem(FoodListItem food){
+
+        Debug.Log("Hello world");
         this.foodName = food.foodName;
         this.scoreVal = food.scoreVal;
         this.healthRegen = food.healthRegen;
         isFull = true;
 
         itemName.text = foodName;
-        itemName.enabled = true;
+        Debug.Log(itemName.text);
+        // itemName.enabled = true;
+        // Debug.Log(itemName.enabled);
 
         itemImage.color = Color.white;
 
