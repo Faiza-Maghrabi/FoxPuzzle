@@ -56,9 +56,15 @@ public class PlayerController : MonoBehaviour
 
 
     void Start (){
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
         rb = GetComponent<Rigidbody>(); // Allows access to the rigid body for readability purposes
+        rb.freezeRotation= true;
+        //rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        rb.drag = 1f;
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
@@ -68,7 +74,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnMove(InputValue value){
-        moveValue = value.Get<Vector2>();  
+        moveValue = value.Get<Vector2>();
+        
     }
 
     private void Update(){
@@ -98,7 +105,20 @@ public class PlayerController : MonoBehaviour
     
     void FixedUpdate() {
         // handles movement logic
-        Vector3 movement = new(moveValue.x, 0.0f, moveValue.y);
+        //use the camera to find out direction of movement for player
+        float horizontalAxis = moveValue.x;
+        float verticalAxis = moveValue.y;
+        var camera = Camera.main;
+
+        var forward = camera.transform.forward;
+        var right = camera.transform.right;
+        //remove the differences in y axis and normalise
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
         // adjust speed when shift key is held as player is crouching
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
@@ -107,17 +127,9 @@ public class PlayerController : MonoBehaviour
             speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
         }
 
-        // if(Input.GetKey(KeyCode.I)){
-        //     inventoryDisplay.OpenInventory();
-        // }
-
-        // if(Input.GetKey(KeyCode.Escape)){
-        //     inventoryDisplay.CloseInventory();
-        // }
-
-        rb.AddForce(speed * Time.fixedDeltaTime * movement);
+        rb.AddForce(desiredMoveDirection * speed * Time.deltaTime);
         //Player Score displayed on screen
-        // scoreText.text = "Score: " + score.ToString();
+        //scoreText.text = "Score: " + score.ToString();
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
@@ -146,5 +158,14 @@ public class PlayerController : MonoBehaviour
         // Debug.LogFormat(items[0].foodName);
         // Debug.Log(items[0].scoreVal);
         // Debug.Log(items[0].healthRegen);
+    }
+
+    void OnCollisionEnter(Collision other) {
+        //if collided with Enemy then take damage
+        if (other.gameObject.tag == "Enemy") {
+            EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
+            health -= enemy.getAttackVal();
+            Debug.Log(health);
+        }
     }
 }
