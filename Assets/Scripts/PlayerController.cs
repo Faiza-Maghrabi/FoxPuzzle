@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
         rb = GetComponent<Rigidbody>(); // Allows access to the rigid body for readability purposes
+        rb.freezeRotation= true;
+        rb.drag = 1f;
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
@@ -64,7 +66,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnMove(InputValue value){
-        moveValue = value.Get<Vector2>();  
+        moveValue = value.Get<Vector2>();
+        
     }
 
     private void Update(){
