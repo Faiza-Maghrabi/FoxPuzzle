@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
     void Update(){
         if(Input.GetButtonDown("Inventory") && !menuActivated){
             Time.timeScale = 0;
-            // Debug.Log("I don't");
             inventoryMenu.SetActive(true);
             menuActivated =  true;
             Cursor.lockState = CursorLockMode.None;
@@ -34,6 +33,8 @@ public class Inventory : MonoBehaviour
         Time.timeScale = 1;
         inventoryMenu.SetActive(false);
         menuActivated = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public bool EatFood(string foodName, int scoreVal, int healthRegen){
@@ -52,11 +53,8 @@ public class Inventory : MonoBehaviour
     }
 
     public void AddItemToInventory(FoodListItem food){
-        Debug.Log(food.foodName);
         for (int i = 0; i < itemSlot.Length; i++){
-            Debug.Log("Hi");
             if(itemSlot[i].isFull == false){
-                Debug.Log("H2i");
                 itemSlot[i].AddItem(food);
                 return;
             }
@@ -67,9 +65,6 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < itemSlot.Length; i++){
             itemSlot[i].selectedShader.SetActive(false);
             itemSlot[i].thisItemSelected = false;
-            // itemSlot[i].ItemDescriptionName.text = "";
-            // itemSlot[i].ItemDescriptionText.text = "";
-            // itemSlot[i].ItemDescriptionImage.color = Color.white;
         }
     }
 }

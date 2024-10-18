@@ -153,9 +153,6 @@ public class PlayerController : MonoBehaviour
             inventory.AddItemToInventory(food.food);
             score += food.scoreVal;
         }
-        // Debug.LogFormat(items[0].foodName);
-        // Debug.Log(items[0].scoreVal);
-        // Debug.Log(items[0].healthRegen);
     }
 
     void OnCollisionEnter(Collision other) {

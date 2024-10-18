@@ -21,6 +21,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     [SerializeField]
     private Image itemImage;
+
+    Color resetColor;
     //=======ITEM DESCRIPTION=====//
     public TMP_Text ItemDescriptionName;
     public Image ItemDescriptionImage;
@@ -34,6 +36,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     void Start(){
         inventoryManager = GameObject.Find("Inventory").GetComponent<Inventory>();
         isFull = false;
+        UnityEngine.ColorUtility.TryParseHtmlString("#eeeeee", out resetColor);
     }
 
     public void AddItem(FoodListItem food){
@@ -62,10 +65,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if(thisItemSelected){
             bool usable = inventoryManager.EatFood(foodName, scoreVal, healthRegen);
             if(usable){
-                // this.foodName = "";
-                // this.scoreVal = 0;
-                // this.healthRegen = 0;
-                // this.foodDescription = "";
                 EmptySlot();
             }
         }
@@ -81,7 +80,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         ItemDescriptionName.text = foodName;
         ItemDescriptionText.text = foodDescription;
         ItemDescriptionImage.color = Color.white;
-        Debug.Log($"Updated description for: {foodName}");
     }
 
 
@@ -97,6 +95,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         // Clear the description UI
         ItemDescriptionName.text = "";
         ItemDescriptionText.text = "";
-        ItemDescriptionImage.color = Color.clear;  // Make image transparent.
+        ItemDescriptionImage.color = resetColor;  // Make image transparent.
     }
 }
