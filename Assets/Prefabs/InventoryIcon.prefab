@@ -127,7 +127,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3360604120532918967, guid: fb40a06d17216324c88c8e3b3e4f1ebe, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InventoryDisplay, Assembly-CSharp
         m_MethodName: OnItemClicked
         m_Mode: 3
@@ -155,8 +155,12 @@ MonoBehaviour:
   scoreVal: 0
   healthRegen: 0
   isFull: 0
+  foodDescription: 
   itemName: {fileID: 16117479604634857}
   itemImage: {fileID: 8139608754436277665}
+  ItemDescriptionName: {fileID: 0}
+  ItemDescriptionImage: {fileID: 0}
+  ItemDescriptionText: {fileID: 0}
   selectedShader: {fileID: 4512282048092432227}
   thisItemSelected: 0
 --- !u!223 &297826932436389596

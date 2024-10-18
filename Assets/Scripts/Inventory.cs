@@ -67,6 +67,9 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < itemSlot.Length; i++){
             itemSlot[i].selectedShader.SetActive(false);
             itemSlot[i].thisItemSelected = false;
+            // itemSlot[i].ItemDescriptionName.text = "";
+            // itemSlot[i].ItemDescriptionText.text = "";
+            // itemSlot[i].ItemDescriptionImage.color = Color.white;
         }
     }
 }

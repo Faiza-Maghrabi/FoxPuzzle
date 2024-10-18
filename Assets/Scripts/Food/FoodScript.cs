@@ -10,6 +10,7 @@ public class FoodListItem
     public string foodName;
     public int healthRegen;
     public int scoreVal;
+    public string foodDescription;
 }
 
 [System.Serializable]
@@ -46,6 +47,11 @@ public class FoodScript : MonoBehaviour
         get {return scoreVal;}
         set {scoreVal = value; }
     }
+    public string foodDescription;
+    public string Description {
+        get {return foodDescription;}
+        set {foodDescription = value; }
+    }
 
     // import JSON file with FoodList, read contents, parse JSON and index with id
     void Start() {
@@ -58,6 +64,7 @@ public class FoodScript : MonoBehaviour
             foodName = food.foodName;
             healthRegen = food.healthRegen;
             scoreVal = food.scoreVal;
+            foodDescription = food.foodDescription;
         }
         else {
             Debug.LogError("No file at " + jsonFilePath);
