@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         get { return health; }
         set { health = value; }
     }
-
+    //player inventory
     public Inventory inventory;
     private Rigidbody rb;
     public JumpSettings jump;
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        // if collided with a FoodItem, hide the item and add score to counter
+        // if collided with a FoodItem, hide the item and calls the function to add the item to the players inventory and add score to counter
         if (other.gameObject.CompareTag("FoodItem")) {
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
