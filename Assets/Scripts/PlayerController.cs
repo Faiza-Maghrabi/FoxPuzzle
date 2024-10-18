@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveValue;
     //player speed
     public float speed;
-    public SpeedSettings speedSettings;
+    private SpeedSettings speedSettings;
     // player health
     public int health;
     public int PlayerHealth{
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     //player inventory
     public Inventory inventory;
     private Rigidbody rb;
-    public JumpSettings jump;
+    private JumpSettings jump;
 
 
     // hold score here as player has easy access to values on collision
@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
     void Start (){
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        // inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
@@ -68,7 +67,7 @@ public class PlayerController : MonoBehaviour
         jump.duration = 0;
         jump.height = 3; 
         score = 0;
-        health = 60;        
+        health = 100;        
     }
 
     void OnMove(InputValue value){
