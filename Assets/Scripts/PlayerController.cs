@@ -31,17 +31,18 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveValue;
     //player speed
     public float speed;
-    public SpeedSettings speedSettings;
+    private SpeedSettings speedSettings;
     // player health
     public int health;
-
     public int PlayerHealth{
         get { return health; }
         set { health = value; }
     }
-    //public TextMeshProUGUI scoreText;
+    //player inventory
+    public Inventory inventory;
     private Rigidbody rb;
-    public JumpSettings jump;
+    private JumpSettings jump;
+
 
     // hold score here as player has easy access to values on collision
     public int score;
@@ -52,8 +53,8 @@ public class PlayerController : MonoBehaviour
 
 
     void Start (){
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
@@ -144,11 +145,12 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        // if collided with a FoodItem, hide the item and add score to counter
+        // if collided with a FoodItem, hide the item and calls the function to add the item to the players inventory and add score to counter
         if (other.gameObject.CompareTag("FoodItem")) {
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
-            score += food.getScore();
+            inventory.AddItemToInventory(food.food);
+            score += food.scoreVal;
         }
     }
 

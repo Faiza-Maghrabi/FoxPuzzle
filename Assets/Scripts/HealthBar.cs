@@ -7,14 +7,15 @@ public class HealthBar : MonoBehaviour
 {
     public Slider healthSlider;
     public Slider easeHealthSlider;
-    public PlayerController player;
-    public float maxHealth = 100f;
-    public float health;
-    public float lerpSpeed = 0.05f;
+    private PlayerController player;
+    private readonly float maxHealth = 100f;
+    private float health;
+    private readonly float lerpSpeed = 0.05f;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
         healthSlider.maxValue = maxHealth; 
         healthSlider.minValue = 0; 
         easeHealthSlider.maxValue = maxHealth; 
