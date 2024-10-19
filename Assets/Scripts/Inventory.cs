@@ -9,12 +9,8 @@ public class Inventory : MonoBehaviour
     //Player Inventory
     public GameObject inventoryMenu;
     private bool menuActivated;
-    private PlayerController player;
+    public PlayerController player;
     public ItemSlot[] itemSlot;
-
-    void Start(){
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
-    }
 
     //Updates so we can open and close inventory when pressing the I key by checking if it has been activated via the menuActivated bool
     void Update(){

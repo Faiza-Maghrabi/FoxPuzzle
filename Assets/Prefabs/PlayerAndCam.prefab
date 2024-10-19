@@ -216,17 +216,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveValue: {x: 0, y: 0}
   speed: 1000
-  speedSettings:
-    normalSpeed: 0
-    slowSpeed: 0
   health: 0
   inventory: {fileID: 0}
-  jump:
-    buttonTime: 0
-    height: 0
-    duration: 0
-    isJumping: 0
-    isJumpCancelled: 0
   score: 0
 --- !u!136 &492821547473025764
 CapsuleCollider:
@@ -264,8 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryMenu: {fileID: 947780782398069487, guid: 7801d99e90d1b554bac5bc8d06c8624c, type: 3}
-  playerInventory: []
-  player: {fileID: 0}
+  player: {fileID: 1116393022783268044}
   itemSlot:
   - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
   - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
