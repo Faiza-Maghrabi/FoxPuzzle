@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
 
     //Player Inventory
-    public GameObject inventoryMenu;
+    public GameObject inventory;
     private bool menuActivated;
     public PlayerController player;
     public ItemSlot[] itemSlot;
@@ -16,14 +16,14 @@ public class Inventory : MonoBehaviour
     void Update(){
         if(Input.GetButtonDown("Inventory") && !menuActivated){
             Time.timeScale = 0; //Pauses the game
-            inventoryMenu.SetActive(true);
+            inventory.SetActive(true);
             menuActivated =  true; 
             Cursor.lockState = CursorLockMode.None; //Unlocks cursor so player can freely select items
             Cursor.visible = true;
         }
         else if(Input.GetButtonDown("Inventory") && menuActivated){
             Time.timeScale = 1; //Unpauses the game
-            inventoryMenu.SetActive(false);
+            inventory.SetActive(false);
             menuActivated = false;
             Cursor.lockState = CursorLockMode.Locked; //Locks cursor so player can play normally again
             Cursor.visible = false;
@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     //An onclick function to close the inventory for the close button
     public void CloseInventory(){
         Time.timeScale = 1;
-        inventoryMenu.SetActive(false);
+        inventory.SetActive(false);
         menuActivated = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
