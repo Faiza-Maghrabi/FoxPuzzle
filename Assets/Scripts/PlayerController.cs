@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 
 // Jump functionality properties
 [Serializable]
@@ -125,8 +124,6 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.AddForce(desiredMoveDirection * speed * Time.deltaTime);
-        //Player Score displayed on screen
-        //scoreText.text = "Score: " + score.ToString();
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
