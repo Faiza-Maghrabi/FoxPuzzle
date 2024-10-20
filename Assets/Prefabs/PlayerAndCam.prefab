@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3438141996728285726}
+  - component: {fileID: 7177990370732360671}
   m_Layer: 0
   m_Name: PlayerAndCam
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7177990370732360671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672458429405236834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c419c34ef3c019c48964cfbdab6f8656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMagnitude: 1
 --- !u!1 &765151858615536209
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7504c207ac2aa144992b5ccb16538595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryMenu: {fileID: 947780782398069487, guid: 7801d99e90d1b554bac5bc8d06c8624c, type: 3}
+  inventoryObj: {fileID: 0}
   player: {fileID: 1116393022783268044}
   itemSlot:
   - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}

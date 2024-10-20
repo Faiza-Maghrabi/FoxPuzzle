@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4709204170022133136}
   - component: {fileID: 8380232064871141046}
   - component: {fileID: 2881985131994213296}
+  - component: {fileID: 3039843492103486347}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -184,17 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveValue: {x: 0, y: 0}
   speed: 1000
-  speedSettings:
-    normalSpeed: 0
-    slowSpeed: 0
   health: 0
   inventory: {fileID: 0}
-  jump:
-    buttonTime: 0
-    height: 0
-    duration: 0
-    isJumping: 0
-    isJumpCancelled: 0
   score: 0
 --- !u!136 &4709204170022133136
 CapsuleCollider:
@@ -231,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7504c207ac2aa144992b5ccb16538595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryMenu: {fileID: 0}
+  inventoryObj: {fileID: 0}
   player: {fileID: 0}
   itemSlot:
   - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
@@ -259,3 +251,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectIndex: 0
+--- !u!114 &3039843492103486347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553768642119658789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c419c34ef3c019c48964cfbdab6f8656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceMagnitude: 1
