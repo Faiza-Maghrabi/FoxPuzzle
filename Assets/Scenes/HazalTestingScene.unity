@@ -150,6 +150,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1642673784465041241, guid: 9d51e8d73fffed8469e9aa52c8bc2bdb, type: 3}
+      propertyPath: m_Name
+      value: door5
+      objectReference: {fileID: 0}
     - target: {fileID: 1772451958381960793, guid: 9d51e8d73fffed8469e9aa52c8bc2bdb, type: 3}
       propertyPath: m_Name
       value: Fox Den
@@ -201,8 +205,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1642673784465041241, guid: 9d51e8d73fffed8469e9aa52c8bc2bdb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 481889427}
   m_SourcePrefab: {fileID: 100100000, guid: 9d51e8d73fffed8469e9aa52c8bc2bdb, type: 3}
+--- !u!1 &481889426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642673784465041241, guid: 9d51e8d73fffed8469e9aa52c8bc2bdb, type: 3}
+  m_PrefabInstance: {fileID: 481889425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &481889427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481889426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcfc16d536b8ff6428197f98dd4155fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 4
 --- !u!114 &482197400 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6462492752660657632, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
@@ -1003,11 +1028,11 @@ PrefabInstance:
       objectReference: {fileID: 999183313}
     - target: {fileID: 1132117809269730583, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.042388123
+      value: 0.04238809
       objectReference: {fileID: 0}
     - target: {fileID: 1132117809269730583, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.023596065
+      value: -0.023596074
       objectReference: {fileID: 0}
     - target: {fileID: 2424750997301985547, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: inventoryObj
