@@ -5,16 +5,16 @@ using TMPro;
 
 public class EndScene : MonoBehaviour
 {
-    private PlayerController player;
+    //private PlayerController player;
     public TMP_Text scoreText;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerController>();
-        Debug.Log(player.score);
+        //player = GameObject.Find("Player").GetComponent<PlayerController>();
+        Debug.Log(PlayerController.score);
         // Player Score displayed on screen
-        scoreText.text = "You have accumilated a score of : " + player.score.ToString();
+        scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();
         
     }
 }

@@ -20,13 +20,13 @@ public class HealthBar : MonoBehaviour
         healthSlider.minValue = 0; 
         easeHealthSlider.maxValue = maxHealth; 
         easeHealthSlider.minValue = 0;
-        health = player.health; // player health
+        health = PlayerController.health; // player health
         
     }
 
     // Update is called once per frame
     void Update(){
-        health = player.health; // update player health
+        health = PlayerController.health; // update player health
 
         // Check if health slider value is equal to player health and update value appropriately
         if(healthSlider.value != health){

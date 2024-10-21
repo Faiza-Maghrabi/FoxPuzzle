@@ -45,11 +45,11 @@ public class Inventory : MonoBehaviour
         {   
             // Checks if the food equals the foodname given ans checks if the players health is max before allowing player to eat.
             if(itemSlot[i].foodName == foodName){
-                if(player.health == 100){
+                if(PlayerController.health == 100){
                     return false;
                 }
-                player.health += healthRegen; //health increase
-                player.score -= scoreVal; //score is decreased
+                PlayerController.health += healthRegen; //health increase
+                PlayerController.score -= scoreVal; //score is decreased
                 return true;
             }
         }

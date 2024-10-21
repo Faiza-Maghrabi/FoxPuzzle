@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private SpeedSettings speedSettings;
     // player health
-    public int health;
+    public static int health;
     public int PlayerHealth{
         get { return health; }
         set { health = value; }
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
 
     // hold score here as player has easy access to values on collision
-    public int score;
+    public static int score;
     public int PlayerScore{
         get { return score; }
         set { score = value; }
@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     
     void FixedUpdate() {
+        Debug.Log(PlayerController.score);
         // handles movement logic
         //use the camera to find out direction of movement for player
         float horizontalAxis = moveValue.x;
