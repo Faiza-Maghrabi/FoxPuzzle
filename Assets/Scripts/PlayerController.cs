@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public GameObject gameOverObj;
     private Rigidbody rb;
     private JumpSettings jump;
+    private float triggerTime;
 
 
     // hold score here as player has easy access to values on collision
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 3; 
+        jump.height = 15; 
         score = 0;
         health = 100;        
     }
@@ -163,6 +164,10 @@ public class PlayerController : MonoBehaviour
             inventory.AddItemToInventory(food.food);
             score += food.scoreVal;
         }
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            triggerTime = Time.time;
+        }
     }
 
     void OnCollisionEnter(Collision other) {
@@ -171,6 +176,21 @@ public class PlayerController : MonoBehaviour
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             health -= enemy.getAttackVal();
             Debug.Log(health);
+        }
+    }
+
+    void OnCollisionStay(Collision other) {
+        //if still collided with Enemy then continue to take damage;
+        Debug.Log(Time.time - triggerTime);  //HERE
+        if (Time.time - triggerTime > 1)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
+                health -= enemy.getAttackVal();
+                Debug.Log("IVE BEEN HIT !");
+            }
+            triggerTime += 1;
         }
     }
 }
