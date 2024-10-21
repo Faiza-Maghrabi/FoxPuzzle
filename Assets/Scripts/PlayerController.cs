@@ -74,6 +74,10 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    void OnInventory(InputValue value){
+        inventory.OnInventory(value);
+    }
+
     private void Update(){
         // Player jumps when the space key is pressed and not in mid air
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()){

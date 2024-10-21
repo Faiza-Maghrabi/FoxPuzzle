@@ -13,15 +13,15 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] itemSlot;
 
     //Updates so we can open and close inventory when pressing the I key by checking if it has been activated via the menuActivated bool
-    void Update(){
-        if(Input.GetButtonDown("Inventory") && !menuActivated){
+    public void OnInventory(InputValue value){
+        if(!menuActivated){
             Time.timeScale = 0; //Pauses the game
             inventoryObj.SetActive(true);
             menuActivated =  true; 
             Cursor.lockState = CursorLockMode.None; //Unlocks cursor so player can freely select items
             Cursor.visible = true;
         }
-        else if(Input.GetButtonDown("Inventory") && menuActivated){
+        else if(menuActivated){
             Time.timeScale = 1; //Unpauses the game
             inventoryObj.SetActive(false);
             menuActivated = false;
