@@ -33,10 +33,10 @@ public class PlayerController : MonoBehaviour
     private SpeedSettings speedSettings;
     // player health
     public static int health;
-    public int PlayerHealth{
-        get { return health; }
-        set { health = value; }
-    }
+    // public int PlayerHealth{
+    //     get { return health; }
+    //     set { health = value; }
+    // }
     //player inventory
     public Inventory inventory;
     public GameObject gameOverObj;
@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     //     get { return score; }
     //     set { score = value; }
     // }
+
+    public static bool init = false;
 
 
     void Start (){
@@ -67,8 +69,11 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
-        score = 0;
-        health = 100;        
+        if (!init){
+            score = 0;
+            health = 100;
+            init = true;
+        }
     }
 
     void OnMove(InputValue value){
