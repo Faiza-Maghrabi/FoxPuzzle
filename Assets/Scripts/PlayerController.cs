@@ -33,12 +33,12 @@ public class PlayerController : MonoBehaviour
     private SpeedSettings speedSettings;
     // player health
     public static int health;
-    // public int PlayerHealth{
-    //     get { return health; }
-    //     set { health = value; }
-    // }
+    public int PlayerHealth{
+        get { return health; }
+        set { health = value; }
+    }
     //player inventory
-    private GameObject inventory;
+    public Inventory inventory;
     private Rigidbody rb;
     private JumpSettings jump;
 
@@ -52,13 +52,7 @@ public class PlayerController : MonoBehaviour
 
 
     void Start (){
-        // Debug.Log(Inventory.itemSlot.Length);
-        // for (int i = 0; i < Inventory.itemSlot.Length; i++)
-        // {
-        //     if (Inventory.itemSlot[i].isFull == true){
-        //         Debug.Log(Inventory.itemSlot[i].foodName);
-        //     }
-        // }
+        Debug.Log("score is" + PlayerController.score);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -73,8 +67,7 @@ public class PlayerController : MonoBehaviour
         jump.duration = 0;
         jump.height = 3; 
         score = 0;
-        PlayerController.health = 100;
-        inventory = GameObject.Find("Inventory");  
+        health = 100;        
     }
 
     void OnMove(InputValue value){
@@ -110,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     
     void FixedUpdate() {
+        //Debug.Log(score == 0 ? "" : score);
         // handles movement logic
         //use the camera to find out direction of movement for player
         float horizontalAxis = moveValue.x;
@@ -156,8 +150,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("FoodItem")) {
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
-            inventory.GetComponent<Inventory>().AddItemToInventory(food.food);
+            inventory.AddItemToInventory(food.food);
             PlayerController.score += food.scoreVal;
+            Debug.Log("THIS IS SCORE" + PlayerController.score);
         }
     }
 
@@ -165,8 +160,8 @@ public class PlayerController : MonoBehaviour
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
-            PlayerController.health -= enemy.getAttackVal();
-            Debug.Log(PlayerController.health);
+            health -= enemy.getAttackVal();
+            Debug.Log(health);
         }
     }
 }
