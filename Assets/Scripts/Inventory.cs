@@ -45,7 +45,6 @@ public class Inventory : MonoBehaviour
     public static ItemData[] items;
 
     void Awake(){
-        Debug.Log(Inventory.items);
         if(Inventory.items == null){
             Inventory.items = new ItemData[12];
             for (int i = 0; i < items.Length; i++)
