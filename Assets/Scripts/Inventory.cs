@@ -7,10 +7,14 @@ public class Inventory : MonoBehaviour
 {
 
     //Player Inventory
-    public GameObject inventoryObj;
+    private GameObject inventoryObj;
     private bool menuActivated;
     public PlayerController player;
     public ItemSlot[] itemSlot;
+
+    void Start(){
+        inventoryObj = GameObject.Find("Inventory");
+    }
 
     //Updates so we can open and close inventory when pressing the I key by checking if it has been activated via the menuActivated bool
     void Update(){
@@ -49,7 +53,7 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
                 PlayerController.health += healthRegen; //health increase
-                PlayerController.score -= scoreVal; //score is decreased
+                PlayerController.health -= scoreVal; //score is decreased
                 return true;
             }
         }

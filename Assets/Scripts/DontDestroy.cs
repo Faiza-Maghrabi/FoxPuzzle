@@ -5,18 +5,22 @@ using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
 {
-    private static GameObject[] persistentObjects = new GameObject[3];
+    private static GameObject persistentObjects;
     public int objectIndex;
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
-        if(persistentObjects[objectIndex]==null){
-            persistentObjects[objectIndex] = gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if(persistentObjects[objectIndex] != gameObject){
-            Destroy(gameObject);
-        }
+        persistentObjects = GameObject.Find("PlayerCanvas");
+
+        DontDestroyOnLoad(persistentObjects);
+
+        // if(persistentObjects[objectIndex]==null){
+        //     persistentObjects[objectIndex] = gameObject;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else if(persistentObjects[objectIndex] != gameObject){
+        //     Destroy(gameObject);
+        // }
 
     }
 }
