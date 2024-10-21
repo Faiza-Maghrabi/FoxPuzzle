@@ -39,7 +39,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1659986037689291484
 MeshFilter:
@@ -187,6 +187,7 @@ MonoBehaviour:
   speed: 1000
   health: 0
   inventory: {fileID: 0}
+  gameOverObj: {fileID: 0}
   score: 0
 --- !u!136 &4709204170022133136
 CapsuleCollider:
@@ -230,18 +231,18 @@ MonoBehaviour:
   player: {fileID: 5256429887555896248}
 >>>>>>> main
   itemSlot:
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
-  - {fileID: 7416149204458044772, guid: e47cb765eeb5d0b43ab33005d1a14950, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2881985131994213296
 MonoBehaviour:
   m_ObjectHideFlags: 0
