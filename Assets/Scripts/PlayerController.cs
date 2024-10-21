@@ -175,20 +175,17 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Enemy") {
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             health -= enemy.getAttackVal();
-            Debug.Log(health);
         }
     }
 
     void OnCollisionStay(Collision other) {
         //if still collided with Enemy then continue to take damage;
-        Debug.Log(Time.time - triggerTime);  //HERE
         if (Time.time - triggerTime > 1)
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
                 EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
                 health -= enemy.getAttackVal();
-                Debug.Log("IVE BEEN HIT !");
             }
             triggerTime += 1;
         }
