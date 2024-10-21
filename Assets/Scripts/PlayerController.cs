@@ -75,15 +75,19 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    //Opens inventory when the e key is pressed
     void OnInventory(InputValue value){
         inventory.OnInventory(value);
     }
 
-    private void Update(){
+    void OnJump(InputValue input){
         // Player jumps when the space key is pressed and not in mid air
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()){
+        if (IsGrounded()){
             Jump();
         }
+    }
+
+    private void Update(){
 
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
