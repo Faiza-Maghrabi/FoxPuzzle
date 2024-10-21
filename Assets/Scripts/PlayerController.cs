@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 
 // Jump functionality properties
 [Serializable]
@@ -75,11 +74,14 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void Update(){
+    void OnJump(InputValue input){
         // Player jumps when the space key is pressed and not in mid air
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded()){
+        if (IsGrounded()){
             Jump();
         }
+    }
+
+    private void Update(){
 
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
@@ -125,8 +127,6 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.AddForce(desiredMoveDirection * speed * Time.deltaTime);
-        //Player Score displayed on screen
-        //scoreText.text = "Score: " + score.ToString();
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
