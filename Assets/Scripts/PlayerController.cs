@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
 
     void Start (){
-        Debug.Log("score is" + PlayerController.score);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -152,7 +151,6 @@ public class PlayerController : MonoBehaviour
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
             PlayerController.score += food.scoreVal;
-            Debug.Log("THIS IS SCORE" + PlayerController.score);
         }
     }
 

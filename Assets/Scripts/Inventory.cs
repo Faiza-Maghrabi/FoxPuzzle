@@ -3,6 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[System.Serializable]
+//Class to hold data each JSON object obtains
+public class ItemData
+{
+    public string foodName;
+    public int healthRegen;
+    public int scoreVal;
+    public string foodDescription;
+    public bool isFull;
+
+    public ItemData(){
+        ResetItem();
+    }
+
+    public void AddItem(FoodListItem food){
+        this.foodName = food.foodName;
+        this.scoreVal = food.scoreVal;
+        this.healthRegen = food.healthRegen;
+        this.foodDescription = food.foodDescription;
+        isFull = true;
+    }
+
+    public void ResetItem(){
+        foodName = "";
+        scoreVal = 0;
+        healthRegen = 0;
+        foodDescription = "";
+        isFull = false;
+    }
+}
+
 public class Inventory : MonoBehaviour
 {
 
@@ -11,6 +42,18 @@ public class Inventory : MonoBehaviour
     private bool menuActivated;
     public PlayerController player;
     public ItemSlot[] itemSlot;
+    public static ItemData[] items;
+
+    void Awake(){
+        Debug.Log(Inventory.items);
+        if(Inventory.items == null){
+            Inventory.items = new ItemData[12];
+            for (int i = 0; i < items.Length; i++)
+            {
+                items[i] = new ItemData();
+            }
+        }
+    }
 
     //Updates so we can open and close inventory when pressing the I key by checking if it has been activated via the menuActivated bool
     void Update(){
@@ -44,7 +87,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < itemSlot.Length; i++)
         {   
             // Checks if the food equals the foodname given ans checks if the players health is max before allowing player to eat.
-            if(itemSlot[i].foodName == foodName){
+            if(items[i].foodName == foodName){
                 if(PlayerController.health == 100){
                     return false;
                 }
@@ -58,9 +101,9 @@ public class Inventory : MonoBehaviour
 
     //Adds an item to the itemslot when player picks it up. 
     public void AddItemToInventory(FoodListItem food){
-        for (int i = 0; i < itemSlot.Length; i++){
+        for (int i = 0; i < items.Length; i++){
             // checks if the item slot is full and if it isn't it updates the empty item slot
-            if(itemSlot[i].isFull == false){
+            if(items[i].isFull == false){
                 itemSlot[i].AddItem(food);
                 return;
             }
