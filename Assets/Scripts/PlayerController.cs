@@ -39,8 +39,10 @@ public class PlayerController : MonoBehaviour
     }
     //player inventory
     public Inventory inventory;
+    public GameObject gameOverObj;
     private Rigidbody rb;
     private JumpSettings jump;
+    private float triggerTime;
 
 
     // hold score here as player has easy access to values on collision
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 3; 
+        jump.height = 15; 
         score = 0;
         health = 100;        
     }
@@ -72,6 +74,11 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
         
+    }
+
+    //Opens inventory when the e key is pressed
+    void OnInventory(InputValue value){
+        inventory.OnInventory(value);
     }
 
     void OnJump(InputValue input){
@@ -92,6 +99,11 @@ public class PlayerController : MonoBehaviour
             if (jump.duration > jump.buttonTime){
                 jump.isJumping = false;
             }
+        }
+
+        if(health == 0){
+            gameOverObj.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
@@ -152,6 +164,10 @@ public class PlayerController : MonoBehaviour
             inventory.AddItemToInventory(food.food);
             PlayerController.score += food.scoreVal;
         }
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            triggerTime = Time.time;
+        }
     }
 
     void OnCollisionEnter(Collision other) {
@@ -159,7 +175,19 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Enemy") {
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             health -= enemy.getAttackVal();
-            Debug.Log(health);
+        }
+    }
+
+    void OnCollisionStay(Collision other) {
+        //if still collided with Enemy then continue to take damage;
+        if (Time.time - triggerTime > 1)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
+                health -= enemy.getAttackVal();
+            }
+            triggerTime += 1;
         }
     }
 }
