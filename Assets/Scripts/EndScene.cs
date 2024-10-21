@@ -18,3 +18,11 @@ public class EndScene : MonoBehaviour
         
     }
 }
+
+/*
+        //player = GameObject.Find("Player").GetComponent<PlayerController>();
+        Debug.Log(PlayerController.score);
+        // Player Score displayed on screen
+        scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();
+        
+        */

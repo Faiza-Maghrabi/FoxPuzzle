@@ -45,13 +45,14 @@ public class PlayerController : MonoBehaviour
 
     // hold score here as player has easy access to values on collision
     public static int score;
-    public int PlayerScore{
-        get { return score; }
-        set { score = value; }
-    }
+    // public int PlayerScore{
+    //     get { return score; }
+    //     set { score = value; }
+    // }
 
 
     void Start (){
+        Debug.Log("score is" + PlayerController.score);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -82,7 +83,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
-
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.Space)){
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     
     void FixedUpdate() {
-        Debug.Log(PlayerController.score);
+        //Debug.Log(score == 0 ? "" : score);
         // handles movement logic
         //use the camera to find out direction of movement for player
         float horizontalAxis = moveValue.x;
@@ -151,7 +151,8 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
-            score += food.scoreVal;
+            PlayerController.score += food.scoreVal;
+            Debug.Log("THIS IS SCORE" + PlayerController.score);
         }
     }
 
