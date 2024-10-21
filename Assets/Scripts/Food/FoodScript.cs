@@ -55,7 +55,6 @@ public class FoodScript : MonoBehaviour
 
     // import JSON file with FoodList, read contents, parse JSON and index with id
     void Start() {
-        Debug.Log("food thinks score is" + PlayerController.score);
         jsonFilePath = Application.dataPath + "/Scripts/Food/FoodList.json";
         if (File.Exists(jsonFilePath)){
             string jsonContent = File.ReadAllText(jsonFilePath);
