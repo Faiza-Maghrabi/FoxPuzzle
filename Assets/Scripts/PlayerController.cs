@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     }
     //player inventory
     public Inventory inventory;
+    public GameObject gameOverObj;
     private Rigidbody rb;
     private JumpSettings jump;
 
@@ -94,6 +95,11 @@ public class PlayerController : MonoBehaviour
             if (jump.duration > jump.buttonTime){
                 jump.isJumping = false;
             }
+        }
+
+        if(health == 0){
+            gameOverObj.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 

@@ -120,85 +120,9 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &309886354
+--- !u!1 &309886354 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 309886355}
-  - component: {fileID: 309886357}
-  - component: {fileID: 309886356}
-  m_Layer: 5
-  m_Name: GameOverPanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &309886355
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309886354}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 464222920}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.4039307, y: -23.32782}
-  m_SizeDelta: {x: -742.8408, y: -533.3466}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &309886356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309886354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.03773582, g: 0.032538246, b: 0.032538246, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &309886357
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309886354}
-  m_CullTransparentMesh: 1
---- !u!224 &464222920 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2517838941473510725, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3092671061178434305, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
   m_PrefabInstance: {fileID: 999183312}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &656435139
@@ -335,18 +259,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1288413458595788347, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -162
-      objectReference: {fileID: 0}
     - target: {fileID: 1565771871829535895, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1572259636}
-    - target: {fileID: 1565771871829535895, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
-      propertyPath: inventoryObj
-      value: 
-      objectReference: {fileID: 999183314}
     - target: {fileID: 2517838941473510725, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -453,14 +369,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2517838941473510725, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 309886355}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2463875783768249331, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 999183318}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
 --- !u!114 &999183313 stripped
 MonoBehaviour:
@@ -478,36 +388,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2463875783768249331, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
   m_PrefabInstance: {fileID: 999183312}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &999183318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999183314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: cee55330bba655a46b90a1ffc520a355, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &1010376107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +986,10 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 999183313}
+    - target: {fileID: 1116393022783268044, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: gameOverObj
+      value: 
+      objectReference: {fileID: 309886354}
     - target: {fileID: 1132117809269730583, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0.04238809
