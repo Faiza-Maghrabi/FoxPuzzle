@@ -9,11 +9,13 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     //========ITEM DATA=======//
-    public string foodName;
-    public int scoreVal;
-    public int healthRegen;
-    public bool isFull;
-    public string foodDescription;
+    // public string foodName;
+    // public int scoreVal;
+    // public int healthRegen;
+    // public bool isFull;
+    // public string foodDescription;
+
+    public int id;
 
     //========ITEM SLOT=======//
     [SerializeField]
@@ -37,22 +39,22 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     void Start(){
         inventoryManager = GameObject.Find("Inventory").GetComponent<Inventory>(); //Inventory
-        isFull = false;
+        //Debug.Log(assignedItem.isFull);
         UnityEngine.ColorUtility.TryParseHtmlString("#eeeeee", out resetColour1); //asigns a hexcode to a colour field
         UnityEngine.ColorUtility.TryParseHtmlString("#ffffff", out resetColour2); //asigns a hexcode to a colour field
+        if (Inventory.items[id].isFull){
+            itemName.text = Inventory.items[id].foodName;
+            itemName.gameObject.SetActive(true);
+
+            itemImage.color = Color.white;
+        }
     }
 
     //Updates the empty slot to change it to the given item data
     public void AddItem(FoodListItem food){
-
-        this.foodName = food.foodName;
-        this.scoreVal = food.scoreVal;
-        this.healthRegen = food.healthRegen;
-        this.foodDescription = food.foodDescription;
-        isFull = true;
-
         //Sets the text itemName to the food name and sets it to active to appear on the inventory menu
-        itemName.text = foodName;
+        Inventory.items[id].AddItem(food);
+        itemName.text = food.foodName;
         itemName.gameObject.SetActive(true);
 
         itemImage.color = Color.white;
@@ -70,8 +72,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void OnLeftClick(){
         //If the item is selected and used we empty the item slot
         if(thisItemSelected){
-            bool usable = inventoryManager.EatFood(foodName, scoreVal, healthRegen);
+            bool usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
             if(usable){
+                Inventory.items[id].ResetItem();
                 EmptySlot();
             }
         }
@@ -86,18 +89,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     //Updates the description to reflect the data of the selected item
     public void UpdateDescription() {
-        ItemDescriptionName.text = foodName;
-        ItemDescriptionText.text = foodDescription;
+        ItemDescriptionName.text = Inventory.items[id].foodName;
+        ItemDescriptionText.text = Inventory.items[id].foodDescription;
         ItemDescriptionImage.color = Color.white;
     }
 
     //deletes all item slot data and item data
     public void EmptySlot(){
-        foodName = "";
-        scoreVal = 0;
-        healthRegen = 0;
-        foodDescription = "";
-
         itemName.text = "";
         itemName.gameObject.SetActive(false);
         itemImage.color = resetColour1;

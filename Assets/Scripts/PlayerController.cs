@@ -32,11 +32,11 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private SpeedSettings speedSettings;
     // player health
-    public int health;
-    public int PlayerHealth{
-        get { return health; }
-        set { health = value; }
-    }
+    public static int health;
+    // public int PlayerHealth{
+    //     get { return health; }
+    //     set { health = value; }
+    // }
     //player inventory
     public Inventory inventory;
     public GameObject gameOverObj;
@@ -46,11 +46,13 @@ public class PlayerController : MonoBehaviour
 
 
     // hold score here as player has easy access to values on collision
-    public int score;
-    public int PlayerScore{
-        get { return score; }
-        set { score = value; }
-    }
+    public static int score;
+    // public int PlayerScore{
+    //     get { return score; }
+    //     set { score = value; }
+    // }
+
+    public static bool init = false;
 
 
     void Start (){
@@ -67,8 +69,11 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
-        score = 0;
-        health = 100;        
+        if (!init){
+            score = 0;
+            health = 100;
+            init = true;
+        }
     }
 
     void OnMove(InputValue value){
@@ -89,7 +94,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
-
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.Space)){
@@ -115,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
     
     void FixedUpdate() {
+        //Debug.Log(score == 0 ? "" : score);
         // handles movement logic
         //use the camera to find out direction of movement for player
         float horizontalAxis = moveValue.x;
@@ -162,7 +167,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
-            score += food.scoreVal;
+            PlayerController.score += food.scoreVal;
         }
         if (other.gameObject.CompareTag("Enemy"))
         {
