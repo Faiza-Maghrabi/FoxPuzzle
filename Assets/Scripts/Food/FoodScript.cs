@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains
@@ -54,11 +56,22 @@ public class FoodScript : MonoBehaviour
     }
 
     // import JSON file with FoodList, read contents, parse JSON and index with id
-    void Start() {
+    async void Start() {
         jsonFilePath = Application.streamingAssetsPath + "/FoodList.json";
+
         Debug.Log(jsonFilePath);
-        if (File.Exists(jsonFilePath)){
-            string jsonContent = File.ReadAllText(jsonFilePath);
+
+        UnityWebRequest request = UnityWebRequest.Get(jsonFilePath);
+        UnityWebRequestAsyncOperation operation = request.SendWebRequest();
+
+        while (!operation.isDone)
+        {
+            await Task.Yield();
+        }
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+        string jsonContent = File.ReadAllText(jsonFilePath);
             foodList = JsonUtility.FromJson<FoodList>(jsonContent);
             food = foodList.foods[id];
 
@@ -67,8 +80,9 @@ public class FoodScript : MonoBehaviour
             scoreVal = food.scoreVal;
             foodDescription = food.foodDescription;
         }
-        else {
-            Debug.LogError("No file at " + jsonFilePath);
+        else
+        {
+            Debug.LogError("Cannot load file at " + jsonFilePath);
         }
     }
 }
