@@ -55,7 +55,8 @@ public class FoodScript : MonoBehaviour
 
     // import JSON file with FoodList, read contents, parse JSON and index with id
     void Start() {
-        jsonFilePath = Application.dataPath + "/Scripts/Food/FoodList.json";
+        jsonFilePath = Application.streamingAssetsPath + "/FoodList.json";
+        Debug.Log(jsonFilePath);
         if (File.Exists(jsonFilePath)){
             string jsonContent = File.ReadAllText(jsonFilePath);
             foodList = JsonUtility.FromJson<FoodList>(jsonContent);
