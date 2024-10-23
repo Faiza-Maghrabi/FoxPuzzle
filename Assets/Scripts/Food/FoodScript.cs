@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+//using System.IO;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 
@@ -71,7 +71,9 @@ public class FoodScript : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-        string jsonContent = File.ReadAllText(jsonFilePath);
+            //string jsonContent = File.ReadAllText(jsonFilePath);
+            string jsonContent = request.downloadHandler.text;
+            Debug.Log(jsonContent);
             foodList = JsonUtility.FromJson<FoodList>(jsonContent);
             food = foodList.foods[id];
 
