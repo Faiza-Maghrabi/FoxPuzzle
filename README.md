@@ -3,7 +3,7 @@ This is a game for module ECS657U Multi-platform Game Development for the Projec
 
 ### Contributors:
 - Faiza Maghrabi -> [Faiza-Maghrabi](https://github.com/Faiza-Maghrabi)
-- Hazal Kara -> [hazalDK](https://github.com/hazalDK)
+- Hazal Deniz Kara -> [hazalDK](https://github.com/hazalDK)
 - Nadia Yvonne Balbontin-Ponce -> [nbal21388](https://github.com/nbal21388)
 - Christina Quynh Trang Nguyen -> [quytra25](https://github.com/quytra25)
 
