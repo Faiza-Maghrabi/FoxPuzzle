@@ -114,7 +114,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded() {
         // Simple check for whether the player is on the ground
-        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        //does not hit the floor if using transform.position - hence the slight upwards movement
+        var pos = transform.position;
+        pos.y = pos.y + 1f;
+        return Physics.Raycast(pos, Vector3.down, 1.1f);
     }
 
     
@@ -143,7 +146,8 @@ public class PlayerController : MonoBehaviour
             speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
         }
 
-        rb.AddForce(desiredMoveDirection * speed * Time.deltaTime);
+        //Debug.Log(desiredMoveDirection * speed * Time.deltaTime);
+        rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.VelocityChange);
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
