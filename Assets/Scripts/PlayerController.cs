@@ -33,27 +33,21 @@ public class PlayerController : MonoBehaviour
     private SpeedSettings speedSettings;
     // player health
     public static int health;
-    // public int PlayerHealth{
-    //     get { return health; }
-    //     set { health = value; }
-    // }
     //player inventory
     public Inventory inventory;
     public GameObject gameOverObj;
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
-
-
     // hold score here as player has easy access to values on collision
     public static int score;
-    // public int PlayerScore{
-    //     get { return score; }
-    //     set { score = value; }
-    // }
-
     public static bool init = false;
-
+    //animator variables
+    int runStateHash = Animator . StringToHash (" Base Layer.Run ");
+    int jumpHash = Animator . StringToHash ("Jump");
+    int speedHash = Animator . StringToHash ("Speed");
+    int dirHash = Animator . StringToHash ("Direction");
+    public Animator anim;
 
     void Start (){
         Cursor.lockState = CursorLockMode.Locked;
@@ -94,15 +88,20 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (jump.isJumping){
+            if (stateInfo.IsName("Base layer.Run"))
+                anim.SetBool(jumpHash, true);
             jump.duration += Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.Space)){
                 jump.isJumpCancelled = true;
                 jump.isJumping = false;
+                anim.SetBool(jumpHash, false);
             }
 
             if (jump.duration > jump.buttonTime){
                 jump.isJumping = false;
+                anim.SetBool(jumpHash, false);
             }
         }
 
@@ -152,6 +151,7 @@ public class PlayerController : MonoBehaviour
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
             jump.isJumping = false;
+            anim.SetBool(jumpHash, false);
         }
     }
 
