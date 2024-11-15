@@ -43,10 +43,10 @@ public class PlayerController : MonoBehaviour
     public static int score;
     public static bool init = false;
     //animator variables
-    int runStateHash = Animator . StringToHash (" Base Layer.Run ");
-    int jumpHash = Animator . StringToHash ("Jump");
-    int speedHash = Animator . StringToHash ("Speed");
-    int dirHash = Animator . StringToHash ("Direction");
+    int runStateHash = Animator.StringToHash("Base Layer.Run");
+    int jumpHash = Animator.StringToHash("Jump");
+    int speedHash = Animator.StringToHash("Speed");
+    int dirHash = Animator.StringToHash("Direction");
     public Animator anim;
 
     void Start (){
@@ -146,6 +146,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //Debug.Log(desiredMoveDirection * speed * Time.deltaTime);
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        anim.SetFloat(speedHash, moveValue.x* moveValue.x + moveValue.y* moveValue.y);
+        anim.SetFloat(dirHash, right.z * horizontalAxis);
         rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.VelocityChange);
 
         if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
