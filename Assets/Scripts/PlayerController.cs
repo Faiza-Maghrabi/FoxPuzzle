@@ -27,7 +27,7 @@ public struct SpeedSettings {
 
 public class PlayerController : MonoBehaviour
 {
-    public Vector2 moveValue;
+    private Vector2 moveValue;
     //player speed
     public float speed;
     private SpeedSettings speedSettings;
@@ -43,10 +43,9 @@ public class PlayerController : MonoBehaviour
     public static int score;
     public static bool init = false;
     //animator variables
-    int runStateHash = Animator.StringToHash("Base Layer.Run");
     int jumpHash = Animator.StringToHash("Jump");
     int speedHash = Animator.StringToHash("Speed");
-    int dirHash = Animator.StringToHash("Direction");
+    int groundHash = Animator.StringToHash("isGrounded");
     public Animator anim;
 
     void Start (){
@@ -62,7 +61,7 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 15; 
+        jump.height = 10; 
         if (!init){
             score = 0;
             health = 100;
@@ -88,20 +87,19 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
-        Debug.Log(moveValue);
         anim.SetFloat(speedHash, moveValue.x* moveValue.x + moveValue.y* moveValue.y);
+        anim.SetBool(jumpHash, jump.isJumping);
+        anim.SetBool(groundHash, IsGrounded());
 
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.Space)){
                 jump.isJumpCancelled = true;
                 jump.isJumping = false;
-                anim.SetBool(jumpHash, false);
             }
 
             if (jump.duration > jump.buttonTime){
                 jump.isJumping = false;
-                anim.SetBool(jumpHash, false);
             }
         }
 
@@ -138,7 +136,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
-
         if (desiredMoveDirection.magnitude >= 0.1f){
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
 
@@ -154,7 +151,6 @@ public class PlayerController : MonoBehaviour
             if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
                 jump.isJumping = false;
-                anim.SetBool(jumpHash, false);
             }
         }
 
@@ -162,13 +158,10 @@ public class PlayerController : MonoBehaviour
 
     // handles jump logic
     private void Jump() {
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         float jumpForce = Mathf.Sqrt(2 * jump.height * -Physics.gravity.y);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         jump.isJumping = true;
-        if (stateInfo.IsName("Base layer.Run"))
-                anim.SetBool(jumpHash, true);
         jump.isJumpCancelled = false;
         jump.duration = 0;
     }
