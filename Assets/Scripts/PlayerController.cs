@@ -88,10 +88,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        Debug.Log(moveValue);
+        anim.SetFloat(speedHash, moveValue.x* moveValue.x + moveValue.y* moveValue.y);
+
         if (jump.isJumping){
-            if (stateInfo.IsName("Base layer.Run"))
-                anim.SetBool(jumpHash, true);
             jump.duration += Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.Space)){
                 jump.isJumpCancelled = true;
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
         var forward = camera.transform.forward;
         var right = camera.transform.right;
-        //remove the differences in y axis and normalise
+        // //remove the differences in y axis and normalise
         forward.y = 0f;
         right.y = 0f;
         forward.Normalize();
@@ -138,32 +138,37 @@ public class PlayerController : MonoBehaviour
 
         Vector3 desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
-        // adjust speed when shift key is held as player is crouching
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-            speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
-        } else {
-            speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
+
+        if (desiredMoveDirection.magnitude >= 0.1f){
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
+
+            // adjust speed when shift key is held as player is crouching
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+                speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
+            } else {
+                speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
+            }
+
+            rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.Impulse);
+
+            if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
+                jump.isJumping = false;
+                anim.SetBool(jumpHash, false);
+            }
         }
 
-        //Debug.Log(desiredMoveDirection * speed * Time.deltaTime);
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        anim.SetFloat(speedHash, moveValue.x* moveValue.x + moveValue.y* moveValue.y);
-        anim.SetFloat(dirHash, right.z * horizontalAxis);
-        rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.VelocityChange);
-
-        if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
-            jump.isJumping = false;
-            anim.SetBool(jumpHash, false);
-        }
     }
 
     // handles jump logic
     private void Jump() {
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         float jumpForce = Mathf.Sqrt(2 * jump.height * -Physics.gravity.y);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         jump.isJumping = true;
+        if (stateInfo.IsName("Base layer.Run"))
+                anim.SetBool(jumpHash, true);
         jump.isJumpCancelled = false;
         jump.duration = 0;
     }
