@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,6 +49,9 @@ public class PlayerController : MonoBehaviour
     int speedHash = Animator.StringToHash("Speed");
     int groundHash = Animator.StringToHash("isGrounded");
     public Animator anim;
+
+    //cinemachine collider to add damping when jumping
+    public CinemachineCollider cinemachineCollider;
 
     void Start (){
         Cursor.lockState = CursorLockMode.Locked;
@@ -103,6 +108,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
+            cinemachineCollider.m_Damping = 0f;
+            cinemachineCollider.m_DampingWhenOccluded = 0f;
+        }   
+
         if(health == 0){
             gameOverObj.SetActive(true);
             Time.timeScale = 0;
@@ -158,6 +168,8 @@ public class PlayerController : MonoBehaviour
 
     // handles jump logic
     private void Jump() {
+        cinemachineCollider.m_Damping = 2f;
+        cinemachineCollider.m_DampingWhenOccluded = 2f;
         float jumpForce = Mathf.Sqrt(2 * jump.height * -Physics.gravity.y);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
