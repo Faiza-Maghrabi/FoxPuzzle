@@ -171,6 +171,8 @@ GameObject:
   - component: {fileID: 8286373253147543310}
   - component: {fileID: 5582529522576148137}
   - component: {fileID: 9176593446370932684}
+  - component: {fileID: 436288402002981402}
+  - component: {fileID: 4697678081438432064}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -214,7 +216,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 6462802557214472140}
+  m_LookAt: {fileID: 1275853212738171466}
   m_Follow: {fileID: 6462802557214472140}
   m_CommonLens: 1
   m_Lens:
@@ -317,6 +319,52 @@ MonoBehaviour:
   AutoEnableInputs: 1
   XYAxis: {fileID: -5630151704836100654, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   ZAxis: {fileID: 0}
+--- !u!114 &436288402002981402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341711964976629732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Width: 12
+  m_Damping: 6
+  m_MinFOV: 60
+  m_MaxFOV: 120
+--- !u!114 &4697678081438432064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341711964976629732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IgnoreTag: Player
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &2375930897944293094
 GameObject:
   m_ObjectHideFlags: 3
@@ -341,7 +389,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2375930897944293094}
-  m_LocalRotation: {x: 0.08693619, y: 0.13479264, z: -0.043637887, w: 0.9860877}
+  m_LocalRotation: {x: 0.086936206, y: 0.13479269, z: -0.0436379, w: 0.9860877}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -422,8 +470,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2651201705635916265}
-  m_LocalRotation: {x: 0.20693335, y: -0.027872037, z: 0.0058977567, w: 0.9779402}
-  m_LocalPosition: {x: 0.4556415, y: 4, z: -7.987014}
+  m_LocalRotation: {x: 0.1969442, y: -0.02979926, z: 0.0059889085, w: 0.97994345}
+  m_LocalPosition: {x: 0.48609686, y: 4, z: -7.985218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -464,7 +512,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50
+  field of view: 67.70902
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -548,7 +596,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3452179141802257657}
-  m_LocalRotation: {x: 0.10988491, y: 0.13373944, z: -0.04676623, w: 0.9837947}
+  m_LocalRotation: {x: 0.11990623, y: 0.13325591, z: -0.048126917, w: 0.9826237}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -754,7 +802,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5211696938419716036}
-  m_LocalRotation: {x: 0.06403984, y: 0.13576859, z: -0.040499546, w: 0.9878389}
+  m_LocalRotation: {x: 0.05416311, y: 0.13616665, z: -0.03914051, w: 0.9884296}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1826,7 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22426e6357a4342a165399e20b2526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 30
   inventory: {fileID: 0}
   gameOverObj: {fileID: 0}
   anim: {fileID: 7718186533059038090}
