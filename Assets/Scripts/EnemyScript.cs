@@ -18,6 +18,8 @@ public class EnemyScript : MonoBehaviour
     public int attackVal;
     private Rigidbody rb;
 
+    private Vector3 directionToPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,11 +58,11 @@ public class EnemyScript : MonoBehaviour
         int layerMask = LayerMask.GetMask("PlayerLayer");
         Collider[] FOVTargets = Physics.OverlapSphere(transform.position, detectionRadius, layerMask);
         if (FOVTargets.Count() > 0) {   //if nearby then count > 0
-            Vector3 directionToPlayer = (FOVTargets[0].transform.position - transform.position).normalized;
+            //[0] should be FoxEnemyCollider - was not able to hit the mesh collider in Fox_Model
+            directionToPlayer = FOVTargets[0].transform.position - transform.position;
             float angle = Vector3.Angle(transform.forward, directionToPlayer);  //Find angle between enemy and player
-
             RaycastHit hit;
-            if (angle < fovAngle / 2) { //if angle less than FOV/2 use a raycast to see if enemy can see player
+            if (angle < fovAngle / 2) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
                 if (Physics.Raycast(transform.position, directionToPlayer, out hit, detectionRadius)) {
                     if (hit.transform == player) {  //return true if player is hit
                         return true;
@@ -69,5 +71,12 @@ public class EnemyScript : MonoBehaviour
             }
         }
         return false;
+    }
+
+    //gizmo for testing
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, directionToPlayer * detectionRadius);
     }
 }

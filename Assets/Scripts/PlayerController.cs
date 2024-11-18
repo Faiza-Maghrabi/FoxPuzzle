@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,33 +29,29 @@ public struct SpeedSettings {
 
 public class PlayerController : MonoBehaviour
 {
-    public Vector2 moveValue;
+    private Vector2 moveValue;
     //player speed
     public float speed;
     private SpeedSettings speedSettings;
     // player health
     public static int health;
-    // public int PlayerHealth{
-    //     get { return health; }
-    //     set { health = value; }
-    // }
     //player inventory
     public Inventory inventory;
     public GameObject gameOverObj;
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
-
-
     // hold score here as player has easy access to values on collision
     public static int score;
-    // public int PlayerScore{
-    //     get { return score; }
-    //     set { score = value; }
-    // }
-
     public static bool init = false;
+    //animator variables
+    int jumpHash = Animator.StringToHash("Jump");
+    int speedHash = Animator.StringToHash("Speed");
+    int groundHash = Animator.StringToHash("isGrounded");
+    public Animator anim;
 
+    //cinemachine collider to add damping when jumping
+    public CinemachineCollider cinemachineCollider;
 
     void Start (){
         Cursor.lockState = CursorLockMode.Locked;
@@ -68,7 +66,7 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 15; 
+        jump.height = 10; 
         if (!init){
             score = 0;
             health = 100;
@@ -94,6 +92,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
+        anim.SetFloat(speedHash, moveValue.x* moveValue.x + moveValue.y* moveValue.y);
+        anim.SetBool(jumpHash, jump.isJumping);
+        anim.SetBool(groundHash, IsGrounded());
+
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
             if (Input.GetKeyUp(KeyCode.Space)){
@@ -106,6 +108,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
+            cinemachineCollider.m_Damping = 0f;
+            cinemachineCollider.m_DampingWhenOccluded = 0f;
+        }   
+
         if(health == 0){
             gameOverObj.SetActive(true);
             Time.timeScale = 0;
@@ -114,7 +121,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded() {
         // Simple check for whether the player is on the ground
-        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        //does not hit the floor if using transform.position - hence the slight upwards movement
+        var pos = transform.position;
+        pos.y = pos.y + 1f;
+        return Physics.Raycast(pos, Vector3.down, 1.1f);
     }
 
     
@@ -128,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
         var forward = camera.transform.forward;
         var right = camera.transform.right;
-        //remove the differences in y axis and normalise
+        // //remove the differences in y axis and normalise
         forward.y = 0f;
         right.y = 0f;
         forward.Normalize();
@@ -136,23 +146,30 @@ public class PlayerController : MonoBehaviour
 
         Vector3 desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
-        // adjust speed when shift key is held as player is crouching
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-            speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
-        } else {
-            speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
+        if (desiredMoveDirection.magnitude >= 0.1f){
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
+
+            // adjust speed when shift key is held as player is crouching
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+                speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
+            } else {
+                speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
+            }
+
+            rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.Impulse);
+
+            if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
+                jump.isJumping = false;
+            }
         }
 
-        rb.AddForce(desiredMoveDirection * speed * Time.deltaTime);
-
-        if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
-            jump.isJumping = false;
-        }
     }
 
     // handles jump logic
     private void Jump() {
+        cinemachineCollider.m_Damping = 2f;
+        cinemachineCollider.m_DampingWhenOccluded = 2f;
         float jumpForce = Mathf.Sqrt(2 * jump.height * -Physics.gravity.y);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
