@@ -116,6 +116,8 @@ public class PlayerController : MonoBehaviour
         if(health == 0){
             gameOverObj.SetActive(true);
             Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None; //Unlocks cursor so player can freely select items
+            Cursor.visible = true;
         }
     }
 

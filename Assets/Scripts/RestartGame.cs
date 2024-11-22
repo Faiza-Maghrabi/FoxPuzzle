@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RestartGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PlayerController player;
+    public Inventory inventory;
+    public GameObject gameOverObj;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Start(){
+        player = GameObject.Find("Player").GetComponent<PlayerController>(); //Player
     }
+    public void LoadScene(string sceneName){
+        SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
+        PlayerController.health = 100;
+        PlayerController.score = 0;
+        
+        for (int i = 0; i < Inventory.items.Length; i++)
+        {
+            if (Inventory.items[i].isFull){
+                Inventory.items[i].ResetItem();
+            }
+        }
+    } 
+
+    
 }
