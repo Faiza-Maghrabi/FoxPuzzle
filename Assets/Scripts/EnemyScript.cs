@@ -32,18 +32,23 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Debug.Log("transform:");
+        // Debug.Log(transform.position);
         //Look for player
         playerInView = FoundPlayer();
         // if seen, look towards player and travel towards them
         if (playerInView) {
             //move enemy to face player on x and z
             Vector3 targetPosition = player.position;
-            targetPosition.y = rb.position.y;
+            targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
             //calculate distance per fram
             var step = speed * Time.deltaTime;
             //move enemy towards player via rb
             Vector3 newPosition = Vector3.MoveTowards(rb.position, player.position, step);
+            // Debug.Log(rb.position);
+            // Debug.Log(player.position);
+            // Debug.Log(step);
             rb.MovePosition(newPosition);
         }
 
