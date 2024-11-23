@@ -8,6 +8,9 @@ public class StartGame : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
     }
 
 }

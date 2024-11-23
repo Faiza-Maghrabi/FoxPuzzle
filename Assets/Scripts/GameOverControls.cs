@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RestartGame : MonoBehaviour
+public class GameOverControls : MonoBehaviour
 {
     private PlayerController player;
     public Inventory inventory;
@@ -12,11 +12,20 @@ public class RestartGame : MonoBehaviour
     public void Start(){
         player = GameObject.Find("Player").GetComponent<PlayerController>(); //Player
     }
-    public void LoadScene(string sceneName){
+    public void Restart(string sceneName){
         SceneManager.LoadScene(sceneName);
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
+        RestartProperties();
+    } 
+
+    public void OpenMainMenu(string sceneName){
+        SceneManager.LoadScene(sceneName);
+        RestartProperties();
+    } 
+
+    public void RestartProperties(){
         PlayerController.health = 100;
         PlayerController.score = 0;
         
@@ -26,7 +35,5 @@ public class RestartGame : MonoBehaviour
                 Inventory.items[i].ResetItem();
             }
         }
-    } 
-
-    
+    }
 }
