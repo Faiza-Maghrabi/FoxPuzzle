@@ -5,6 +5,7 @@ using Cinemachine;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 // Jump functionality properties
 [Serializable]
@@ -54,8 +55,16 @@ public class PlayerController : MonoBehaviour
     public CinemachineCollider cinemachineCollider;
 
     void Start (){
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        string currentScene = SceneManager.GetActiveScene().name;
+        
+        if (currentScene == "EndScene"){
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true;
+        }
+        else{
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
@@ -116,7 +125,7 @@ public class PlayerController : MonoBehaviour
         if(health == 0){
             gameOverObj.SetActive(true);
             Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None; //Unlocks cursor so player can freely select items
+            Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
     }
