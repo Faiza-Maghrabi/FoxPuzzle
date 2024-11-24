@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000023841858
+      value: 0.062
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalPosition.z
@@ -63,6 +63,46 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0016668879
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.006977364
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0023150053
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99110407
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0039572087
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.0073742485
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.13282591
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.562
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.777
+      objectReference: {fileID: 0}
+    - target: {fileID: -4022214973803909462, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 15.263
       objectReference: {fileID: 0}
     - target: {fileID: -790153962733035089, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalPosition.x
@@ -107,6 +147,26 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_Name
       value: DogEnemy1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -195,6 +255,7 @@ MonoBehaviour:
   detectionRadius: 10
   speed: 5
   attackVal: 10
+  anim: {fileID: 1325845901006779924}
 --- !u!54 &4196398904435795440
 Rigidbody:
   m_ObjectHideFlags: 0

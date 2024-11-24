@@ -17,6 +17,11 @@ public class EnemyScript : MonoBehaviour
     //damage enemy does to player
     public int attackVal;
     private Rigidbody rb;
+    private bool hitPlayer = false;
+    //animator variables
+    int hitHash = Animator.StringToHash("HitPlayer");
+    int moveHash = Animator.StringToHash("Moving");
+    public Animator anim;
 
     private Vector3 directionToPlayer;
 
@@ -32,12 +37,12 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Debug.Log("transform:");
-        // Debug.Log(transform.position);
         //Look for player
         playerInView = FoundPlayer();
+        anim.SetBool(moveHash, playerInView && !hitPlayer);
+        anim.SetBool(hitHash, hitPlayer);
         // if seen, look towards player and travel towards them
-        if (playerInView) {
+        if (playerInView && !hitPlayer) {
             //move enemy to face player on x and z
             Vector3 targetPosition = player.position;
             targetPosition.y = transform.position.y;
@@ -46,8 +51,6 @@ public class EnemyScript : MonoBehaviour
             var step = speed * Time.deltaTime;
             //move enemy towards player via rb
             Vector3 newPosition = Vector3.MoveTowards(rb.position, player.position, step);
-            // Debug.Log(rb.position);
-            // Debug.Log(player.position);
             // Debug.Log(step);
             rb.MovePosition(newPosition);
         }
@@ -78,10 +81,27 @@ public class EnemyScript : MonoBehaviour
         return false;
     }
 
+    void OnCollisionEnter(Collision other) {
+        // if collided with a Player, set hitHash to true
+        if (other.gameObject.tag == "Player")
+        {
+            hitPlayer = true;
+        }
+    }
+
+    void OnCollisionExit(Collision other) {
+        // if left collision with a Player, set hitHash to false
+        if (other.gameObject.tag == "Player")
+        {
+            hitPlayer = false;
+        }
+    }
+
     //gizmo for testing
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, directionToPlayer * detectionRadius);
     }
+    
 }
