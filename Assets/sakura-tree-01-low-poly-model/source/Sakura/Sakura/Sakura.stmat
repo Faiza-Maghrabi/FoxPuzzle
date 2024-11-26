@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated using SpeedTree tools -->
+<Materials Count="2" Mesh="Sakura.fbx" FlipOpacity="0">
+	<Material ID="1" Name="Bark001_2K_JPG_Mat" TwoSided="0" UserData="" VertexOpacity="1" FlipNormalsOnBackside="1">
+		<Map Name="Color" File="Bark001_2K_JPG.png" Source="C:/Users/Dell/Downloads/Compressed/Bark001_2K-JPG/Bark001_2K-JPG_Color.jpg" />
+		<Map Name="Gloss" File="Bark001_2K_JPG_Gloss.png" Source="C:/Users/Dell/Downloads/Compressed/Bark001_2K-JPG/Bark001_2K-JPG_Roughness.jpg" />
+		<Map Name="Specular" ColorR="0.75" ColorG="0.75" ColorB="0.75" />
+		<Map Name="Height" File="Bark001_2K_JPG_Height.png" Source="C:/Users/Dell/Downloads/Compressed/Bark001_2K-JPG/Bark001_2K-JPG_Displacement.jpg" />
+		<Map Name="Custom" ColorR="0" ColorG="0" ColorB="0" />
+		<Map Name="Custom2" Value="0" />
+	</Material>
+	<Material ID="2" Name="Sakura_Mat" TwoSided="1" UserData="" VertexOpacity="1" FlipNormalsOnBackside="1">
+		<Map Name="Color" File="Sakura.png" Source="C:/Users/Dell/Downloads/Leafs/Sakura.png" />
+		<Map Name="Opacity" File="Sakura_Opacity.png" Source="C:/Users/Dell/Downloads/Leafs/Sakura_Alpha.png" />
+		<Map Name="Gloss" Value="0.25" />
+		<Map Name="Specular" ColorR="0.75" ColorG="0.75" ColorB="0.75" />
+		<Map Name="Height" Value="0.5" />
+		<Map Name="Custom" ColorR="0" ColorG="0" ColorB="0" />
+		<Map Name="Custom2" Value="0" />
+	</Material>
+</Materials>
