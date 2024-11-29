@@ -59,8 +59,6 @@ public class FoodScript : MonoBehaviour
     async void Start() {
         jsonFilePath = Application.streamingAssetsPath + "/FoodList.json";
 
-        Debug.Log(jsonFilePath);
-
         UnityWebRequest request = UnityWebRequest.Get(jsonFilePath);
         UnityWebRequestAsyncOperation operation = request.SendWebRequest();
 

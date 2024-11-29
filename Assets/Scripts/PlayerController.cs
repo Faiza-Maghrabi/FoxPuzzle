@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
+    private bool hitEnemy = false;
+    private int enemyDamage = 0;
     // hold score here as player has easy access to values on collision
     public static int score;
     public static bool init = false;
@@ -164,6 +166,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (hitEnemy && (Time.time - triggerTime > 1))
+        {
+            health -= enemyDamage;
+            triggerTime += 1;
+        }
+
     }
 
     // handles jump logic
@@ -195,21 +203,18 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
+            triggerTime = Time.time;
+            hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
-            health -= enemy.getAttackVal();
+            enemyDamage = enemy.getAttackVal();
+            health -= enemyDamage;
         }
     }
 
-    void OnCollisionStay(Collision other) {
-        //if still collided with Enemy then continue to take damage;
-        if (Time.time - triggerTime > 1)
-        {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
-                health -= enemy.getAttackVal();
-            }
-            triggerTime += 1;
+    void OnCollisionExit(Collision other) {
+        //if collision with enemy ends then set hitEnemy false
+        if (other.gameObject.tag == "Enemy") {
+            hitEnemy = false;
         }
     }
 }
