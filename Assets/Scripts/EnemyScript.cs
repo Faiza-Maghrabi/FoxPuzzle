@@ -40,6 +40,7 @@ public class EnemyScript : MonoBehaviour
         //Look for player
         playerInView = FoundPlayer();
         anim.SetBool(moveHash, playerInView && !hitPlayer);
+        Debug.Log(playerInView && !hitPlayer);
         anim.SetBool(hitHash, hitPlayer);
         // if seen, look towards player and travel towards them
         if (playerInView && !hitPlayer) {

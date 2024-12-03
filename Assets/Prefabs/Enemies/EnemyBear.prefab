@@ -66,7 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fee6338cd5438bc4d85837ea2d880729, type: 3}
       propertyPath: m_Name
-      value: EnemyBear Variant
+      value: EnemyBear
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fee6338cd5438bc4d85837ea2d880729, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2184957340903119115, guid: fee6338cd5438bc4d85837ea2d880729, type: 3}
       propertyPath: m_LocalPosition.x
@@ -240,7 +244,7 @@ MonoBehaviour:
   detectionRadius: 10
   speed: 8
   attackVal: 20
-  anim: {fileID: 0}
+  anim: {fileID: 2057684722596297693}
 --- !u!95 &2057684722596297693
 Animator:
   serializedVersion: 7

@@ -217,4 +217,12 @@ public class PlayerController : MonoBehaviour
             hitEnemy = false;
         }
     }
+
+    //gizmo for testing
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.down * 1.1f);
+    }
 }
+
