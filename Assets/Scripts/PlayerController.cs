@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
             cinemachineCollider.m_DampingWhenOccluded = 0f;
         }   
 
-        if(health == 0){
+        if(health <= 0){
             gameOverObj.SetActive(true);
             Time.timeScale = 0;
         }
