@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
         Vector3 desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
         if (desiredMoveDirection.magnitude >= 0.1f){
+            //axis on fox are wrong so negate directions
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
 
             // adjust speed when shift key is held as player is crouching
@@ -193,10 +194,6 @@ public class PlayerController : MonoBehaviour
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
             PlayerController.score += food.scoreVal;
-        }
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            triggerTime = Time.time;
         }
     }
 
