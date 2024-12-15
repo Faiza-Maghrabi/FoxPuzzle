@@ -14,13 +14,13 @@ public class EnemyScript : MonoBehaviour
     //speed of enemy
     public float speed = 1.0f;
     //boolean to control behaviour
-    private bool playerInView;
+    public bool playerInView;
     //variable height to eye-level for enemies
     public float eyeLevel;
     //damage enemy does to player
     public int attackVal;
     private Rigidbody rb;
-    private bool hitPlayer = false;
+    public bool hitPlayer = false;
     //animator variables
     int hitHash = Animator.StringToHash("HitPlayer");
     int moveHash = Animator.StringToHash("Moving");
@@ -39,7 +39,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         //Look for player
         playerInView = FoundPlayer();

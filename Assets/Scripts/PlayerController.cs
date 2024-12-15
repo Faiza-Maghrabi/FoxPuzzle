@@ -206,6 +206,10 @@ public class PlayerController : MonoBehaviour
             enemyDamage = enemy.getAttackVal();
             health -= enemyDamage;
         }
+        else if (other.gameObject.tag == "Projectile") {
+            //set damage dealt as 15
+            health -= 15;
+        }
     }
 
     void OnCollisionExit(Collision other) {
