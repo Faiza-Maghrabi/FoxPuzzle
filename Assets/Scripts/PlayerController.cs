@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 10; 
+        jump.height = 13; 
         if (!init){
             score = 0;
             health = 100;
@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             enemyDamage = enemy.getAttackVal();
-            health -= enemyDamage;
+            health -= enemyDamage/5;
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
