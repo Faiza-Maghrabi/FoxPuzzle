@@ -67,14 +67,15 @@ public class EnemyScript : MonoBehaviour
 
     private bool FoundPlayer() {
         //use a sphere layers on the 'PlayerLayer' to see if player is nearby enemy
+        //is player is stealthing, detection radisus and FOV is reduced slightly
         int layerMask = LayerMask.GetMask("PlayerLayer");
-        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius, layerMask);
+        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 5 : 0 ), layerMask);
         if (FOVTargets.Count() > 0) {   //if nearby then count > 0
             //[0] should be FoxEnemyCollider - was not able to hit the mesh collider in Fox_Model
             directionToPlayer = FOVTargets[0].transform.position - (transform.position + UnityEngine.Vector3.up * eyeLevel);
             float angle = UnityEngine.Vector3.Angle(transform.forward, directionToPlayer);  //Find angle between enemy and player
             RaycastHit hit;
-            if (angle < fovAngle / 2) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
+            if (angle < fovAngle / (PlayerController.isStealth ? 2.5: 2)) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
 
                 if (Physics.Raycast(transform.position + UnityEngine.Vector3.up * eyeLevel, directionToPlayer, out hit, detectionRadius, layerMask)) {
                     //Debug.Log(hit.transform);
