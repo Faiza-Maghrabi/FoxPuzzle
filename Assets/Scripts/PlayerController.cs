@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
+    private bool hitEnemy = false;
+    private int enemyDamage = 0;
     // hold score here as player has easy access to values on collision
     public static int score;
     public static bool init = false;
@@ -122,7 +124,7 @@ public class PlayerController : MonoBehaviour
             cinemachineCollider.m_DampingWhenOccluded = 0f;
         }   
 
-        if(health == 0){
+        if(health <= 0){
             gameOverObj.SetActive(true);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
@@ -158,6 +160,7 @@ public class PlayerController : MonoBehaviour
         Vector3 desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
         if (desiredMoveDirection.magnitude >= 0.1f){
+            //axis on fox are wrong so negate directions
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
 
             // adjust speed when shift key is held as player is crouching
@@ -173,6 +176,12 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
                 jump.isJumping = false;
             }
+        }
+
+        if (hitEnemy && (Time.time - triggerTime > 1))
+        {
+            health -= enemyDamage;
+            triggerTime += 1;
         }
 
     }
@@ -197,30 +206,35 @@ public class PlayerController : MonoBehaviour
             inventory.AddItemToInventory(food.food);
             PlayerController.score += food.scoreVal;
         }
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            triggerTime = Time.time;
-        }
     }
 
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
+            triggerTime = Time.time;
+            hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
-            health -= enemy.getAttackVal();
+            enemyDamage = enemy.getAttackVal();
+            health -= enemyDamage;
+        }
+        else if (other.gameObject.tag == "Projectile") {
+            //set damage dealt as 15
+            health -= 15;
         }
     }
 
-    void OnCollisionStay(Collision other) {
-        //if still collided with Enemy then continue to take damage;
-        if (Time.time - triggerTime > 1)
-        {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
-                health -= enemy.getAttackVal();
-            }
-            triggerTime += 1;
+    void OnCollisionExit(Collision other) {
+        //if collision with enemy ends then set hitEnemy false
+        if (other.gameObject.tag == "Enemy") {
+            hitEnemy = false;
         }
     }
+
+    //gizmo for testing
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.down * 1.1f);
+    }
 }
+
