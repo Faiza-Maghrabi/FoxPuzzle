@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     // hold score here as player has easy access to values on collision
     public static int score;
     public static bool init = false;
+    //stealth value
+    public static bool isStealth = false;
     //animator variables
     int jumpHash = Animator.StringToHash("Jump");
     int speedHash = Animator.StringToHash("Speed");
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 10; 
+        jump.height = 15; 
         if (!init){
             score = 0;
             health = 100;
@@ -103,9 +105,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update(){
-        anim.SetFloat(speedHash, moveValue.x* moveValue.x + moveValue.y* moveValue.y);
+        var notMoving = moveValue.x* moveValue.x + moveValue.y* moveValue.y == 0;
+        anim.SetFloat(speedHash, notMoving ? 0 : speed);
         anim.SetBool(jumpHash, jump.isJumping);
         anim.SetBool(groundHash, IsGrounded());
+        
 
         if (jump.isJumping){
             jump.duration += Time.deltaTime;
@@ -135,14 +139,21 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded() {
         // Simple check for whether the player is on the ground
         //does not hit the floor if using transform.position - hence the slight upwards movement
+        int layerMask = LayerMask.GetMask("Default");
         var pos = transform.position;
+        var forward = transform.forward;
         pos.y = pos.y + 1f;
-        return Physics.Raycast(pos, Vector3.down, 1.1f);
+        pos.z = pos.z + forward.z;
+        pos.x = pos.x + forward.x;
+        var ray1 = Physics.Raycast(pos, Vector3.down * 1.05f, layerMask);
+        pos.z = transform.position.z - forward.z;
+        pos.x = transform.position.x - forward.x;
+        var ray2 = Physics.Raycast(pos, Vector3.down * 1.05f, layerMask);
+        return ray1 | ray2;
     }
 
     
     void FixedUpdate() {
-        //Debug.Log(score == 0 ? "" : score);
         // handles movement logic
         //use the camera to find out direction of movement for player
         float horizontalAxis = moveValue.x;
@@ -151,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
         var forward = camera.transform.forward;
         var right = camera.transform.right;
-        // //remove the differences in y axis and normalise
+        // remove the differences in y axis and normalise
         forward.y = 0f;
         right.y = 0f;
         forward.Normalize();
@@ -166,8 +177,10 @@ public class PlayerController : MonoBehaviour
             // adjust speed when shift key is held as player is crouching
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
                 speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
+                PlayerController.isStealth = true;
             } else {
                 speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
+                PlayerController.isStealth = false;
             }
 
             rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.Impulse);
@@ -215,7 +228,7 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             enemyDamage = enemy.getAttackVal();
-            health -= enemyDamage;
+            health -= enemyDamage/5;
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
@@ -233,8 +246,19 @@ public class PlayerController : MonoBehaviour
     //gizmo for testing
     void OnDrawGizmosSelected()
     {
+        var forward = transform.forward;
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Vector3.down * 1.1f);
+        var pos = transform.position;
+        pos.y = pos.y + 1f;
+        Gizmos.DrawRay(pos, Vector3.down * 1.05f);
+        pos.z = pos.z + forward.z;
+        pos.x = pos.x + forward.x;
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(pos, Vector3.down * 1.05f);
+        pos.z = transform.position.z - forward.z;
+        pos.x = transform.position.x - forward.x;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(pos, Vector3.down * 1.05f);
     }
 }
 
