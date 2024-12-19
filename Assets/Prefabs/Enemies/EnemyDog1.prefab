@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalScale.x
@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.194639
+      value: 7.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalPosition.y
@@ -146,7 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_Name
-      value: DogEnemy1 Variant
+      value: EnemyDog1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8879528566716807029, guid: 147756fa5d9be7a49ad5b266dd40a622, type: 3}
       propertyPath: m_LocalRotation.w
@@ -253,8 +257,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fovAngle: 270
   detectionRadius: 10
-  speed: 5
-  attackVal: 10
+  speed: 6
+  playerInView: 0
+  eyeLevel: 0
+  attackVal: 7
+  hitPlayer: 0
   anim: {fileID: 1325845901006779924}
 --- !u!54 &4196398904435795440
 Rigidbody:
@@ -281,5 +288,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 1
