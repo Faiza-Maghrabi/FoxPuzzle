@@ -28,6 +28,11 @@ public class ItemData
         // Debug.Log(quantity);
     }
 
+    public int UseItem(){
+        this.quantity -= 1;
+        return this.quantity;
+    }
+
     public void ResetItem(){
         foodName = "";
         quantity = 0;

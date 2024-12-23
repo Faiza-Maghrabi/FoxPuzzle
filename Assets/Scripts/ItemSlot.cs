@@ -49,13 +49,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (Inventory.items[id].isFull){
             itemName.text = Inventory.items[id].foodName;
             itemName.gameObject.SetActive(true);
-            if (Inventory.items[id].quantity >= 99){
-                itemQuantity.text = Inventory.items[id].quantity.ToString();
-                itemQuantity.gameObject.SetActive(true);
-
-                int extraItems = Inventory.items[id].quantity - 99;
-
-            }
+            itemQuantity.text = Inventory.items[id].quantity.ToString();
+            itemQuantity.gameObject.SetActive(true);
             itemImage.color = Color.white;
         }
     }
@@ -86,8 +81,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if(thisItemSelected){
             bool usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
             if(usable){
-                Inventory.items[id].ResetItem();
-                EmptySlot();
+                int quantity = Inventory.items[id].UseItem();
+                itemQuantity.text = Inventory.items[id].quantity.ToString();
+                if(quantity <= 0){
+                    Inventory.items[id].ResetItem();
+                    EmptySlot();
+                }
             }
         }
         //otherwise we select another slot and set the selected panel around the item image to active and call the UpdateDescription function
