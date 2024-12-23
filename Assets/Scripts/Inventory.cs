@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class ItemData
 {
     public string foodName;
+    public int quantity;
     public int healthRegen;
     public int scoreVal;
     public string foodDescription;
@@ -20,13 +21,16 @@ public class ItemData
     public void AddItem(FoodListItem food){
         this.foodName = food.foodName;
         this.scoreVal = food.scoreVal;
+        this.quantity += food.quantity;
         this.healthRegen = food.healthRegen;
         this.foodDescription = food.foodDescription;
         isFull = true;
+        Debug.Log(quantity);
     }
 
     public void ResetItem(){
         foodName = "";
+        quantity = 0;
         scoreVal = 0;
         healthRegen = 0;
         foodDescription = "";
@@ -102,7 +106,7 @@ public class Inventory : MonoBehaviour
     public void AddItemToInventory(FoodListItem food){
         for (int i = 0; i < items.Length; i++){
             // checks if the item slot is full and if it isn't it updates the empty item slot
-            if(items[i].isFull == false){
+            if(items[i].isFull == false && items[i].foodName == food.foodName || items[i].quantity == 0){
                 itemSlot[i].AddItem(food);
                 return;
             }

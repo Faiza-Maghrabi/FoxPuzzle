@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
+using System;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -20,6 +21,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     //========ITEM SLOT=======//
     [SerializeField]
     private TMP_Text itemName;
+
+    [SerializeField]
+    public TMP_Text itemQuantity;
 
     [SerializeField]
     private Image itemImage;
@@ -45,7 +49,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (Inventory.items[id].isFull){
             itemName.text = Inventory.items[id].foodName;
             itemName.gameObject.SetActive(true);
+            if (Inventory.items[id].quantity >= 99){
+                itemQuantity.text = Inventory.items[id].quantity.ToString();
+                itemQuantity.gameObject.SetActive(true);
 
+                int extraItems = Inventory.items[id].quantity - 99;
+
+            }
             itemImage.color = Color.white;
         }
     }
@@ -56,6 +66,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         Inventory.items[id].AddItem(food);
         itemName.text = food.foodName;
         itemName.gameObject.SetActive(true);
+        itemQuantity.text = food.quantity.ToString();
+        itemQuantity.gameObject.SetActive(true);
 
         itemImage.color = Color.white;
 
@@ -98,6 +110,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void EmptySlot(){
         itemName.text = "";
         itemName.gameObject.SetActive(false);
+        itemQuantity.text = "";
+        itemQuantity.gameObject.SetActive(false);
         itemImage.color = resetColour1;
 
         // Clear the description UI
