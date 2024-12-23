@@ -66,7 +66,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         Inventory.items[id].AddItem(food);
         itemName.text = food.foodName;
         itemName.gameObject.SetActive(true);
-        itemQuantity.text = food.quantity.ToString();
+        itemQuantity.text = Inventory.items[id].quantity.ToString();
         itemQuantity.gameObject.SetActive(true);
 
         itemImage.color = Color.white;

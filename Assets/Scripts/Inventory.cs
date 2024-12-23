@@ -25,7 +25,7 @@ public class ItemData
         this.healthRegen = food.healthRegen;
         this.foodDescription = food.foodDescription;
         isFull = true;
-        Debug.Log(quantity);
+        // Debug.Log(quantity);
     }
 
     public void ResetItem(){
@@ -106,7 +106,7 @@ public class Inventory : MonoBehaviour
     public void AddItemToInventory(FoodListItem food){
         for (int i = 0; i < items.Length; i++){
             // checks if the item slot is full and if it isn't it updates the empty item slot
-            if(items[i].isFull == false && items[i].foodName == food.foodName || items[i].quantity == 0){
+            if(items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0){
                 itemSlot[i].AddItem(food);
                 return;
             }
