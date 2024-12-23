@@ -44,8 +44,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     void Start(){
         inventoryManager = GameObject.Find("Inventory").GetComponent<Inventory>(); //Inventory
         //Debug.Log(assignedItem.isFull);
-        UnityEngine.ColorUtility.TryParseHtmlString("#eeeeee", out resetColour1); //asigns a hexcode to a colour field
-        UnityEngine.ColorUtility.TryParseHtmlString("#ffffff", out resetColour2); //asigns a hexcode to a colour field
+        UnityEngine.ColorUtility.TryParseHtmlString("#DDBC95", out resetColour1); //asigns a hexcode to a colour field
+        UnityEngine.ColorUtility.TryParseHtmlString("#FFFFFF", out resetColour2); //asigns a hexcode to a colour field
+        resetColour2.a = 0.44f;
         if (Inventory.items[id].isFull){
             itemName.text = Inventory.items[id].foodName;
             itemName.gameObject.SetActive(true);
@@ -95,6 +96,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             selectedShader.SetActive(true);
             thisItemSelected = true;
             UpdateDescription();
+            if(ItemDescriptionName.text == ""){
+                Debug.Log("hello");
+                ItemDescriptionImage.color = resetColour2;
+            }
         }
     }
 
