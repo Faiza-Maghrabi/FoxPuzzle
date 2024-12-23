@@ -11,6 +11,7 @@ public class FoodListItem
 {
     public string foodName;
     public int healthRegen;
+    public int quantity;
     public int scoreVal;
     public string foodDescription;
 }
@@ -43,6 +44,11 @@ public class FoodScript : MonoBehaviour
     public int HealthRegen {
         get {return healthRegen;}
         set { healthRegen = value; }
+    }
+    public int quantity;
+    public int Quantity {
+        get {return quantity;}
+        set { quantity = value; }
     }
     public int scoreVal;
     public int ScoreVal {
@@ -77,6 +83,7 @@ public class FoodScript : MonoBehaviour
 
             foodName = food.foodName;
             healthRegen = food.healthRegen;
+            quantity =  food.quantity;
             scoreVal = food.scoreVal;
             foodDescription = food.foodDescription;
         }
