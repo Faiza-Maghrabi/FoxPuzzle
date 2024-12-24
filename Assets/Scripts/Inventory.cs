@@ -48,6 +48,7 @@ public class Inventory : MonoBehaviour
 
     //Player Inventory
     public GameObject inventoryObj;
+    public GameObject healthNotifObj;
     private bool menuActivated;
     public PlayerController player;
     public ItemSlot[] itemSlot;
@@ -90,6 +91,14 @@ public class Inventory : MonoBehaviour
         Cursor.visible = false;
     }
 
+    public void OpenHealthNotif(){
+        healthNotifObj.SetActive(true);
+    }
+
+    public void CloseHealthNotif(){
+        healthNotifObj.SetActive(false);
+    }
+
     //Allows the player to eat food
     public bool EatFood(string foodName, int scoreVal, int healthRegen){
         for (int i = 0; i < itemSlot.Length; i++)
@@ -97,6 +106,7 @@ public class Inventory : MonoBehaviour
             // Checks if the food equals the foodname given ans checks if the players health is max before allowing player to eat.
             if(items[i].foodName == foodName){
                 if(PlayerController.health == 100){
+                    OpenHealthNotif();
                     return false;
                 }
                 PlayerController.health += healthRegen; //health increase
