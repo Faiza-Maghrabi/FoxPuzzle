@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
 
+    public MeshRenderer meshRenderer;
+    Color origColor;
+    float flashTime = .15f;
+
     void Start (){
         string currentScene = SceneManager.GetActiveScene().name;
         
@@ -85,6 +89,8 @@ public class PlayerController : MonoBehaviour
             health = 100;
             init = true;
         }
+        // meshRenderer = GetComponent<MeshRenderer>();
+        origColor = meshRenderer.material.color;
     }
 
     void OnMove(InputValue value){
@@ -134,6 +140,13 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
+    }
+
+    IEnumerator EFlash(){
+        Debug.Log("hello");
+        meshRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(flashTime);
+        meshRenderer.material.color = origColor;
     }
 
     private bool IsGrounded() {
@@ -194,6 +207,7 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
+            StartCoroutine(EFlash());
             triggerTime += 1;
         }
 
