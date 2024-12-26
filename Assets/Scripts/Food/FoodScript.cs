@@ -71,7 +71,7 @@ public class FoodScript : MonoBehaviour
         {
             //string jsonContent = File.ReadAllText(jsonFilePath);
             string jsonContent = request.downloadHandler.text;
-            Debug.Log(jsonContent);
+            //Debug.Log(jsonContent);
             foodList = JsonUtility.FromJson<FoodList>(jsonContent);
             food = foodList.foods[id];
 

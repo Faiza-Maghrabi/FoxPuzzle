@@ -1,17 +1,30 @@
 {
-    "scene": {
-        "OpenHouseScene": [
-            {
-                "name": "FoodPrefab",
-                "active": true
-            },
-            {
-                "name": "FoodPrefab (1)",
-                "active": true
-            }
-        ],
-        "ParkScene": {
-
+    "scene": [
+        {
+            "name": "OpenHouseScene",
+            "food": [
+                {
+                    "name": "FoodPrefab",
+                    "active": true
+                },
+                {
+                    "name": "FoodPrefab (1)",
+                    "active": true
+                }
+            ]
+        },
+        {
+            "name": "ParkScene",
+            "food": [
+                {
+                    "name": "FoodPrefab",
+                    "active": true
+                },
+                {
+                    "name": "FoodPrefab (1)",
+                    "active": true
+                }
+            ]
         }
-    }
+    ]
 }

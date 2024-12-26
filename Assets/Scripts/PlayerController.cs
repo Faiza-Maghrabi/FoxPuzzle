@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
             score = 0;
             health = 100;
             init = true;
+            FoodTracker.Init();
         }
     }
 
