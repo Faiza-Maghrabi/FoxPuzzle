@@ -56,7 +56,7 @@ public class LoadScene : MonoBehaviour
     private void OnCollisionEnter(Collision collision){
         if (collision.gameObject.CompareTag("Player") && gameObject.name == objName){
             PlayerScenePos.position = scene.position;
-            Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
+            //Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
             SceneManager.LoadScene(sceneToLoad);
         }
     }
