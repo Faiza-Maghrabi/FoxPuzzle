@@ -86,6 +86,9 @@ public class PlayerController : MonoBehaviour
             init = true;
             FoodTracker.Init();
         }
+        //comment out if testing specific locations
+        rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
+        //Debug.Log(rb.position);
     }
 
     void OnMove(InputValue value){

@@ -10,12 +10,18 @@ public class SceneListItem
 {
     public string objName;
     public string sceneToLoad;
+    public int[] position;
 }
 
 [System.Serializable]
 //Class to create list of FoodListItems
 public class SceneList {
     public List<SceneListItem> scenes;
+}
+
+//position refrenced by the player
+public static class PlayerScenePos {
+    public static int[] position;
 }
 
 
@@ -25,7 +31,6 @@ public class LoadScene : MonoBehaviour
     private string jsonFilePath;
     private string objName;
     private string sceneToLoad;
-
     
     private SceneList sceneList = new();
     private SceneListItem scene = new();
@@ -40,6 +45,7 @@ public class LoadScene : MonoBehaviour
 
             objName = scene.objName;
             sceneToLoad = scene.sceneToLoad;
+            PlayerScenePos.position = scene.position;
         }
         else {
             Debug.LogError("No file at " + jsonFilePath);
@@ -47,9 +53,8 @@ public class LoadScene : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision){
-        Debug.Log("hello?");
         if (collision.gameObject.CompareTag("Player") && gameObject.name == objName){
-            Debug.Log("hello?");
+            PlayerScenePos.position = scene.position;
             Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
             SceneManager.LoadScene(sceneToLoad);
         }
