@@ -87,7 +87,9 @@ public class PlayerController : MonoBehaviour
             FoodTracker.Init();
         }
         //comment out if testing specific locations
+        Debug.Log(PlayerScenePos.position);
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
+        //use this to find coords to input in SceneList.json
         //Debug.Log(rb.position);
     }
 
@@ -221,6 +223,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
+            FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
             PlayerController.score += food.scoreVal;
         }
     }
