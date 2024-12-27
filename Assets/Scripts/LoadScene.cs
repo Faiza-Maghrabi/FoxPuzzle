@@ -10,12 +10,19 @@ public class SceneListItem
 {
     public string objName;
     public string sceneToLoad;
+    public float[] position;
 }
 
 [System.Serializable]
 //Class to create list of FoodListItems
 public class SceneList {
     public List<SceneListItem> scenes;
+
+}
+
+//position refrenced by the player
+public static class PlayerScenePos {
+    public static float[] position;
 }
 
 
@@ -25,7 +32,6 @@ public class LoadScene : MonoBehaviour
     private string jsonFilePath;
     private string objName;
     private string sceneToLoad;
-
     
     private SceneList sceneList = new();
     private SceneListItem scene = new();
@@ -47,10 +53,9 @@ public class LoadScene : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision){
-        Debug.Log("hello?");
         if (collision.gameObject.CompareTag("Player") && gameObject.name == objName){
-            Debug.Log("hello?");
-            Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
+            PlayerScenePos.position = scene.position;
+            //Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
             SceneManager.LoadScene(sceneToLoad);
         }
     }
