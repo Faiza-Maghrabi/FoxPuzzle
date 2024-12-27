@@ -46,7 +46,6 @@ public class LoadScene : MonoBehaviour
 
             objName = scene.objName;
             sceneToLoad = scene.sceneToLoad;
-            PlayerScenePos.position = scene.position;
         }
         else {
             Debug.LogError("No file at " + jsonFilePath);

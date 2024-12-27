@@ -71,7 +71,6 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[0] = gameObject.transform.position.x;
             PlayerScenePos.position[1] = gameObject.transform.position.y;
             PlayerScenePos.position[2] = gameObject.transform.position.z;
-
         }
     }   
 
@@ -101,7 +100,7 @@ public class PlayerController : MonoBehaviour
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
         //use this to find coords to input in SceneList.json
-        //Debug.Log(rb.position);
+        // Debug.Log(rb.position);
     }
 
     void OnMove(InputValue value){
@@ -162,10 +161,10 @@ public class PlayerController : MonoBehaviour
         pos.y = pos.y + 1f;
         pos.z = pos.z + forward.z;
         pos.x = pos.x + forward.x;
-        var ray1 = Physics.Raycast(pos, Vector3.down * 1.05f, layerMask);
+        var ray1 = Physics.Raycast(pos, Vector3.down * 1.5f, layerMask);
         pos.z = transform.position.z - forward.z;
         pos.x = transform.position.x - forward.x;
-        var ray2 = Physics.Raycast(pos, Vector3.down * 1.05f, layerMask);
+        var ray2 = Physics.Raycast(pos, Vector3.down * 1.5f, layerMask);
         return ray1 | ray2;
     }
 
@@ -237,6 +236,12 @@ public class PlayerController : MonoBehaviour
             FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
             PlayerController.score += food.scoreVal;
         }
+        else if (other.gameObject.CompareTag("Fire")) {
+            triggerTime = Time.time;
+            hitEnemy = true;
+            enemyDamage = 5;
+            health -= 5;
+        }
     }
 
     void OnCollisionEnter(Collision other) {
@@ -256,7 +261,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit(Collision other) {
         //if collision with enemy ends then set hitEnemy false
-        if (other.gameObject.tag == "Enemy") {
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Fire") {
             hitEnemy = false;
         }
     }
