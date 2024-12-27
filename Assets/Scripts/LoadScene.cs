@@ -10,18 +10,19 @@ public class SceneListItem
 {
     public string objName;
     public string sceneToLoad;
-    public int[] position;
+    public float[] position;
 }
 
 [System.Serializable]
 //Class to create list of FoodListItems
 public class SceneList {
     public List<SceneListItem> scenes;
+
 }
 
 //position refrenced by the player
 public static class PlayerScenePos {
-    public static int[] position;
+    public static float[] position;
 }
 
 

@@ -58,6 +58,23 @@ public class PlayerController : MonoBehaviour
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
 
+    void Awake(){
+        if (!init){
+            score = 0;
+            health = 100;
+            init = true;
+            FoodTracker.Init();
+            //prevent errors during dev work - remove on prod?
+            if (PlayerScenePos.position == null) {
+                PlayerScenePos.position = new float[3];
+            }
+            PlayerScenePos.position[0] = gameObject.transform.position.x;
+            PlayerScenePos.position[1] = gameObject.transform.position.y;
+            PlayerScenePos.position[2] = gameObject.transform.position.z;
+
+        }
+    }   
+
     void Start (){
         string currentScene = SceneManager.GetActiveScene().name;
         
@@ -80,14 +97,8 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
-        if (!init){
-            score = 0;
-            health = 100;
-            init = true;
-            FoodTracker.Init();
-        }
+
         //comment out if testing specific locations
-        Debug.Log(PlayerScenePos.position);
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
         //use this to find coords to input in SceneList.json
         //Debug.Log(rb.position);

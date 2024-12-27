@@ -22,7 +22,6 @@ public class FoodTracker : MonoBehaviour
         jsonFilePath = Application.streamingAssetsPath + "/SceneFood.json";
         if (File.Exists(jsonFilePath)){
             string jsonContent = File.ReadAllText(jsonFilePath);
-            Debug.Log(jsonContent);
             sceneFoodList = JsonConvert.DeserializeObject<SceneFoodList>(jsonContent);
         }
         else {
@@ -31,14 +30,11 @@ public class FoodTracker : MonoBehaviour
     }
 
     public static bool isCollected(string sceneName, string foodName) {
-        Debug.Log(sceneName);
-        Debug.Log(foodName);
-        Debug.Log(sceneFoodList.scene[sceneName][foodName]);
         return sceneFoodList.scene[sceneName][foodName];
     }
 
     public static void markCollected(string sceneName, string foodName) {
-        Debug.Log("Collected " + foodName + " from " + sceneName);
+        // Debug.Log("Collected " + foodName + " from " + sceneName);
         sceneFoodList.scene[sceneName][foodName] = true;
     }
 }
