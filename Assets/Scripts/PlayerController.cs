@@ -107,10 +107,9 @@ public class PlayerController : MonoBehaviour
             health = 100;
             init = true;
         }
+        //gets the skinned mesh renderer and the materials used
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-        Debug.Log(meshRenderer);
         origMaterials = meshRenderer.sharedMaterials;
-        Debug.Log(origMaterials);
 
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
@@ -167,8 +166,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    // changes the materials when player is attacked to reflect health decrease
     IEnumerator EFlash(){
-        Debug.Log("hello");
         meshRenderer.sharedMaterials = damageFlash;
         yield return new WaitForSeconds(flashTime);
         meshRenderer.sharedMaterials = origMaterials;
