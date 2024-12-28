@@ -58,6 +58,12 @@ public class PlayerController : MonoBehaviour
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
 
+    SkinnedMeshRenderer meshRenderer;
+    Material[] origMaterials;
+
+    public Material[] damageFlash;
+    float flashTime = .025f;
+
     void Awake(){
         if (!init){
             score = 0;
@@ -96,6 +102,14 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
+        if (!init){
+            score = 0;
+            health = 100;
+            init = true;
+        }
+        //gets the skinned mesh renderer and the materials used
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        origMaterials = meshRenderer.sharedMaterials;
 
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
@@ -150,6 +164,14 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
+    }
+
+
+    // changes the materials when player is attacked to reflect health decrease
+    IEnumerator EFlash(){
+        meshRenderer.sharedMaterials = damageFlash;
+        yield return new WaitForSeconds(flashTime);
+        meshRenderer.sharedMaterials = origMaterials;
     }
 
     private bool IsGrounded() {
@@ -210,6 +232,8 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
+            flashTime = .01f;
+            StartCoroutine(EFlash());
             triggerTime += 1;
         }
 
@@ -236,17 +260,13 @@ public class PlayerController : MonoBehaviour
             FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
             PlayerController.score += food.scoreVal;
         }
-        else if (other.gameObject.CompareTag("Fire")) {
-            triggerTime = Time.time;
-            hitEnemy = true;
-            enemyDamage = 5;
-            health -= 5;
-        }
     }
 
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
+            flashTime = .005f;
+            StartCoroutine(EFlash());
             triggerTime = Time.time;
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
@@ -255,7 +275,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
+            flashTime = .05f;
+            StartCoroutine(EFlash());
             health -= 15;
+        }
+        else if (other.gameObject.tag == "Fire") {
+            flashTime = .025f;
+            StartCoroutine(EFlash());
+            triggerTime = Time.time;
+            hitEnemy = true;
+            enemyDamage = 5;
+            health -= 5;
         }
     }
 
