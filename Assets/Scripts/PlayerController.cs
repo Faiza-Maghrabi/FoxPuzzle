@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
     public static bool init = false;
     //stealth value
     public static bool isStealth = false;
+    private PlayerInput playerInput;
+    private InputAction crouchAction;
     //animator variables
     int jumpHash = Animator.StringToHash("Jump");
     int speedHash = Animator.StringToHash("Speed");
@@ -72,6 +74,9 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[1] = gameObject.transform.position.y;
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
+        playerInput = GetComponent<PlayerInput>();
+        crouchAction = playerInput.actions["Crouch"];
+        Debug.Log(crouchAction);
     }   
 
     void Start (){
@@ -105,7 +110,6 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
-        
     }
 
     //Opens inventory when the e key is pressed
@@ -118,6 +122,28 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded()){
             Jump();
         }
+    }
+
+    void OnEnable() {
+        crouchAction.performed += OnCrouchPerformed;
+        crouchAction.canceled += OnCrouchCanceled;
+    }
+
+    void OnDisable() {
+        crouchAction.performed -= OnCrouchPerformed;
+        crouchAction.canceled -= OnCrouchCanceled;
+    }
+
+    private void OnCrouchPerformed(InputAction.CallbackContext context)
+    {
+        speed = speedSettings.slowSpeed;  // Reduce speed when crouching
+        isStealth = true;
+    }
+
+    private void OnCrouchCanceled(InputAction.CallbackContext context)
+    {
+        speed = speedSettings.normalSpeed;  // Restore normal speed
+        isStealth = false;
     }
 
     private void Update(){
@@ -138,6 +164,8 @@ public class PlayerController : MonoBehaviour
                 jump.isJumping = false;
             }
         }
+
+        
 
         if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
             cinemachineCollider.m_Damping = 0f;
@@ -189,15 +217,6 @@ public class PlayerController : MonoBehaviour
         if (desiredMoveDirection.magnitude >= 0.1f){
             //axis on fox are wrong so negate directions
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
-
-            // adjust speed when shift key is held as player is crouching
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-                speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
-                PlayerController.isStealth = true;
-            } else {
-                speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
-                PlayerController.isStealth = false;
-            }
 
             rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.Impulse);
 
