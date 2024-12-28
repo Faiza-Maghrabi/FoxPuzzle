@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
-            flashTime = .01f;
+            flashTime = .0025f;
             StartCoroutine(EFlash());
             triggerTime = Time.time;
             hitEnemy = true;
