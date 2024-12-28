@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
-            flashTime = .005f;
+            flashTime = .01f;
             StartCoroutine(EFlash());
             triggerTime += 1;
         }
@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
-            flashTime = .0025f;
+            flashTime = .005f;
             StartCoroutine(EFlash());
             triggerTime = Time.time;
             hitEnemy = true;
