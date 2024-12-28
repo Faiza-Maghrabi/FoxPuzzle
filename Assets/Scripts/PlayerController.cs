@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
 
-    public MeshRenderer meshRenderer;
+    MeshRenderer meshRenderer;
     Color origColor;
     float flashTime = .15f;
 
@@ -89,7 +89,8 @@ public class PlayerController : MonoBehaviour
             health = 100;
             init = true;
         }
-        // meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        Debug.Log(meshRenderer);
         origColor = meshRenderer.material.color;
     }
 
