@@ -57,9 +57,12 @@ public class FoodScript : MonoBehaviour
 
     // import JSON file with FoodList, read contents, parse JSON and index with id
     async void Start() {
-        jsonFilePath = Application.streamingAssetsPath + "/FoodList.json";
 
-        Debug.Log(jsonFilePath);
+        if (FoodTracker.isCollected(gameObject.scene.name, gameObject.name)) {
+            Destroy(gameObject);
+            return;
+        }
+        jsonFilePath = Application.streamingAssetsPath + "/FoodList.json";
 
         UnityWebRequest request = UnityWebRequest.Get(jsonFilePath);
         UnityWebRequestAsyncOperation operation = request.SendWebRequest();
@@ -73,7 +76,7 @@ public class FoodScript : MonoBehaviour
         {
             //string jsonContent = File.ReadAllText(jsonFilePath);
             string jsonContent = request.downloadHandler.text;
-            Debug.Log(jsonContent);
+            //Debug.Log(jsonContent);
             foodList = JsonUtility.FromJson<FoodList>(jsonContent);
             food = foodList.foods[id];
 
