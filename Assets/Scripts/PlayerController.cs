@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
-            flashTime = .01f;
+            flashTime = .005f;
             StartCoroutine(EFlash());
             triggerTime += 1;
         }
