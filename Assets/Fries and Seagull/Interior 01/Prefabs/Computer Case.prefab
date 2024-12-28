@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5241137810532266561}
-  - component: {fileID: 2974154713606232295}
   - component: {fileID: 7936018745871877978}
   - component: {fileID: 4625491339659408703}
   m_Layer: 0
@@ -26,7 +25,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7051997540589421732}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,50 +32,8 @@ Transform:
   m_Children:
   - {fileID: 5318654062300944574}
   m_Father: {fileID: 0}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2974154713606232295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7051997540589421732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484ad92b6a5840cfad5d5615c8821579, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTurnOn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2974154713606232295}
-        m_TargetAssemblyTypeName: Yurei_Sakana.Interior_01.Computer, Assembly-CSharp
-        m_MethodName: turnOn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTurnOff:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2974154713606232295}
-        m_TargetAssemblyTypeName: Yurei_Sakana.Interior_01.Computer, Assembly-CSharp
-        m_MethodName: turnOff
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  lightBoxRenderer: {fileID: 291432057030513951}
 --- !u!54 &7936018745871877978
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,7 +103,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3869083404181394870, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 7c699751e2777ab4ca443dec3af16cbb, type: 2}
     - target: {fileID: 919132149155446097, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}
@@ -159,11 +115,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}
---- !u!23 &291432057030513951 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -3869083404181394870, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}
-  m_PrefabInstance: {fileID: 5639947977593175893}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5318654062300944574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e8e80b1bde285c46946700da02dadc7, type: 3}

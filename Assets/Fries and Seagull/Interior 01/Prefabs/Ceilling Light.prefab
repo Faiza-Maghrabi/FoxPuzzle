@@ -53,7 +53,7 @@ PrefabInstance:
       value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: -2219605152452765379, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: eaf7ff63c212ad2428d8b9be5ee1e55e, type: 2}
     - target: {fileID: 919132149155446097, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
@@ -66,9 +66,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1536505067836444305}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8608727391208305005}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
       insertIndex: -1
@@ -79,49 +76,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
   m_PrefabInstance: {fileID: 2685515092716222458}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1536505067836444305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2991995913880324779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9031c48a614841cda781fee4fffc93b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTurnOn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1536505067836444305}
-        m_TargetAssemblyTypeName: Yurei_Sakana.Interior_01.CeilingLight, Assembly-CSharp
-        m_MethodName: turnOn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTurnOff:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1536505067836444305}
-        m_TargetAssemblyTypeName: Yurei_Sakana.Interior_01.CeilingLight, Assembly-CSharp
-        m_MethodName: turnOff
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  lightBoxRenderer: {fileID: 4933338662485225159}
 --- !u!54 &8608727391208305005
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -171,8 +125,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!23 &4933338662485225159 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -2219605152452765379, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
-  m_PrefabInstance: {fileID: 2685515092716222458}
-  m_PrefabAsset: {fileID: 0}

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7198633336888972517}
-  - component: {fileID: 3022561484180107833}
   - component: {fileID: 9015530367948741732}
   - component: {fileID: 4807295571949193504}
   m_Layer: 0
@@ -26,7 +25,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843720252143966082}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,51 +33,8 @@ Transform:
   - {fileID: 6325513844401667046}
   - {fileID: 3084395414597982452}
   m_Father: {fileID: 0}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3022561484180107833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843720252143966082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f677c40aab842e9a7bf29a712774af3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boilSeconds: 120
-  onTurnOn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3022561484180107833}
-        m_TargetAssemblyTypeName: Yurei_Sakana.Interior_01.Kettle, Assembly-CSharp
-        m_MethodName: turnOn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onTurnOff:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3022561484180107833}
-        m_TargetAssemblyTypeName: Yurei_Sakana.Interior_01.Kettle, Assembly-CSharp
-        m_MethodName: turnOff
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  lightBoxRenderer: {fileID: 2787930319117674624}
 --- !u!54 &9015530367948741732
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,13 +109,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8191324729969353739}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.03806198, w: 0.99927545}
   m_LocalPosition: {x: -0.5830002, y: 0.561, z: -0.069999695}
   m_LocalScale: {x: 0.12272559, y: 0.12272559, z: 0.2553183}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7198633336888972517}
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.363}
 --- !u!33 &3688717876265618764
 MeshFilter:
