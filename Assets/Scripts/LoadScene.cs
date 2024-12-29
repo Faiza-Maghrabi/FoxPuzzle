@@ -59,4 +59,9 @@ public class LoadScene : MonoBehaviour
             SceneManager.LoadScene(sceneToLoad);
         }
     }
+
+    public void CutsceneLeave() {
+        PlayerScenePos.position = scene.position;
+        SceneManager.LoadScene(sceneToLoad);
+    }
 }
