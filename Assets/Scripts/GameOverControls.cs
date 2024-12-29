@@ -17,6 +17,10 @@ public class GameOverControls : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
+        //player spawn pos hardcoded in
+        PlayerScenePos.position[0] = 4.06f;
+        PlayerScenePos.position[1] = 0.3f;
+        PlayerScenePos.position[2] = -14.96f;
         RestartProperties();
     } 
 
