@@ -26,7 +26,7 @@ public class FoodScript : MonoBehaviour
     //food attributes
     public int id;  // value set in editor
     private string jsonFilePath;
-    public FoodList foodList = new();
+    private FoodList foodList = new();
     public FoodListItem food = new();
 
     public FoodListItem Food { 
