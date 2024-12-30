@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     SkinnedMeshRenderer meshRenderer;
     Material[] origMaterials;
 
-    private static bool isDamageFlashOn = true;
+    public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
 
@@ -171,6 +171,7 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleFlash(){
         isDamageFlashOn = !isDamageFlashOn;
+        Debug.Log(isDamageFlashOn);
     }
 
     private void Update(){

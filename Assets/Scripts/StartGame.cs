@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using System;
 
 public class StartGame : MonoBehaviour
@@ -11,6 +12,8 @@ public class StartGame : MonoBehaviour
     public GameObject SettingsPanel;
     public GameObject KeyboardControlsPanel;
     public GameObject GamepadControlsPanel;
+    public Toggle damageFlashToggle; 
+    public PlayerController player;
 
     [SerializeField]
     private GameObject mainMenuFirst;
@@ -41,6 +44,7 @@ public class StartGame : MonoBehaviour
     public void OpenSettings() {
         SettingsPanel.SetActive(true);
         StartCoroutine(SelectAfterFrame(settingsMenuFirst));
+        damageFlashToggle.isOn = PlayerController.isDamageFlashOn;
     }
 
     private IEnumerator SelectAfterFrame(GameObject button) {
