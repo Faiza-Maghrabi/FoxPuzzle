@@ -46,7 +46,6 @@ public class StartGame : MonoBehaviour
     private IEnumerator SelectAfterFrame(GameObject button) {
         yield return null;  // Wait for the next frame
         EventSystem.current.SetSelectedGameObject(button);
-        Debug.Log(EventSystem.current.currentSelectedGameObject);
     }
 
     public void CloseSettings(){

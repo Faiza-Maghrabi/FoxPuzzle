@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
         }
         playerInput = GetComponent<PlayerInput>();
         crouchAction = playerInput.actions["Crouch"];
-        Debug.Log(crouchAction);
     }   
 
     void Start (){

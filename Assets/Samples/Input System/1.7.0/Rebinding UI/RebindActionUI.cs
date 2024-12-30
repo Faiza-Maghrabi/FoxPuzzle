@@ -416,7 +416,6 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 {
                     if (action.bindings[i].effectivePath == newBinding.overridePath)
                     {
-                        //Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
                         return true;
                     }
                 }
