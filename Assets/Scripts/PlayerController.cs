@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
     SkinnedMeshRenderer meshRenderer;
     Material[] origMaterials;
 
+    private static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
 
@@ -83,13 +84,13 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
         playerInput = GetComponent<PlayerInput>();
-        crouchAction = playerInput.actions["Crouch"];
+        crouchAction = playerInput.actions["Crouch"]; //gets crouch action
     }   
 
     void Start (){
         string currentScene = SceneManager.GetActiveScene().name;
         
-        if (currentScene == "EndScene"){
+        if (currentScene == "EndScene" || currentScene == "MainMenu"){
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
@@ -139,11 +140,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Enables crouch
     void OnEnable() {
         crouchAction.performed += OnCrouchPerformed;
         crouchAction.canceled += OnCrouchCanceled;
     }
 
+    //disables crouch
     void OnDisable() {
         crouchAction.performed -= OnCrouchPerformed;
         crouchAction.canceled -= OnCrouchCanceled;
@@ -164,6 +167,10 @@ public class PlayerController : MonoBehaviour
     private IEnumerator SelectAfterFrame(GameObject button) {
         yield return null;  // Wait for the next frame
         EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    public void ToggleFlash(){
+        isDamageFlashOn = !isDamageFlashOn;
     }
 
     private void Update(){
@@ -257,8 +264,10 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
-            flashTime = .01f;
-            StartCoroutine(EFlash());
+            if (isDamageFlashOn){
+                flashTime = .01f;
+                StartCoroutine(EFlash());
+            }
             triggerTime += 1;
         }
 
@@ -294,8 +303,10 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
-            flashTime = .005f;
-            StartCoroutine(EFlash());
+            if(isDamageFlashOn){
+                flashTime = .005f;
+                StartCoroutine(EFlash());
+            }
             triggerTime = Time.time;
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
@@ -304,13 +315,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
-            flashTime = .05f;
-            StartCoroutine(EFlash());
+            if(isDamageFlashOn){
+                flashTime = .05f;
+                StartCoroutine(EFlash());
+            }
             health -= 15;
         }
         else if (other.gameObject.tag == "Fire") {
-            flashTime = .025f;
-            StartCoroutine(EFlash());
+            if(isDamageFlashOn){
+                flashTime = .025f;
+                StartCoroutine(EFlash());
+            }
             triggerTime = Time.time;
             hitEnemy = true;
             enemyDamage = 5;
