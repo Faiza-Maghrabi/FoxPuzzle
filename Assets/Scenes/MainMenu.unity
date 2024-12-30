@@ -291,6 +291,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.043637898
       objectReference: {fileID: 0}
+    - target: {fileID: 1798093834222537635, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: damageFlashToggle
+      value: 
+      objectReference: {fileID: 1559504491}
     - target: {fileID: 2281759180545382996, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.054163132
@@ -6078,7 +6082,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1575053042
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,15 @@ public class StartGame : MonoBehaviour
     public void OpenSettings() {
         SettingsPanel.SetActive(true);
         StartCoroutine(SelectAfterFrame(settingsMenuFirst));
-        damageFlashToggle.isOn = PlayerController.isDamageFlashOn;
+        damageFlashToggle.onValueChanged.RemoveListener(OnToggleChanged);
+        damageFlashToggle.isOn = PlayerController.isDamageFlashOn; // Update toggle state
+        damageFlashToggle.onValueChanged.AddListener(OnToggleChanged);
+    }
+
+    private void OnToggleChanged(bool value)
+    {
+        // Update the boolean based on the toggle's state
+        PlayerController.isDamageFlashOn = value;
     }
 
     private IEnumerator SelectAfterFrame(GameObject button) {
