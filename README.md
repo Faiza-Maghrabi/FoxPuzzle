@@ -12,6 +12,7 @@ The player’s character is a fox who is exploring a neighbourhood to find food.
 
 ### Controls
 - Move: **WASD or Arrow Keys**
+- Sneak: **Move** + **Shift**
 - Jump: **Space**
 - Inventory Open/Close: **E**
 
