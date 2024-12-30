@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 // Jump functionality properties
 [Serializable]
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     //player inventory
     public Inventory inventory;
     public GameObject gameOverObj;
+    public GameObject restartButton;
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
@@ -146,6 +148,11 @@ public class PlayerController : MonoBehaviour
         isStealth = false;
     }
 
+    private IEnumerator SelectAfterFrame(GameObject button) {
+        yield return null;  // Wait for the next frame
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
     private void Update(){
         var notMoving = moveValue.x* moveValue.x + moveValue.y* moveValue.y == 0;
         anim.SetFloat(speedHash, notMoving ? 0 : speed);
@@ -230,6 +237,10 @@ public class PlayerController : MonoBehaviour
         {
             health -= enemyDamage;
             triggerTime += 1;
+        }
+
+        if(gameOverObj == isActiveAndEnabled){
+            StartCoroutine(SelectAfterFrame(restartButton));
         }
 
     }

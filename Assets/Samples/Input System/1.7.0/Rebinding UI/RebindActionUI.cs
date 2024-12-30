@@ -220,35 +220,54 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 return;
 
             ResetBinding(action, bindingIndex);
-            // if (action.bindings[bindingIndex].isComposite)
-            // {
-            //     // It's a composite. Remove overrides from part bindings.
-            //     for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
-            //         action.RemoveBindingOverride(i);
-            // }
-            // else
-            // {
-            //     action.RemoveBindingOverride(bindingIndex);
-            // }
-            // UpdateBindingDisplay();
+
+            if (action.bindings[bindingIndex].isComposite)
+            {
+                // It's a composite. Remove overrides from part bindings.
+                for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
+                    action.RemoveBindingOverride(i);
+            }
+            else
+            {
+                action.RemoveBindingOverride(bindingIndex);
+            }
+
+            UpdateBindingDisplay();
         }
 
-        public void ResetBinding(InputAction action, int bindingIndex)
+        private void ResetBinding(InputAction action, int bindingIndex)
         {
             InputBinding newBinding = action.bindings[bindingIndex];
             string oldOverridePath = newBinding.overridePath;
 
             action.RemoveBindingOverride(bindingIndex);
+            int currentIndex = -1;
 
             foreach (InputAction otherAction in action.actionMap.actions)
             {
-                if (otherAction == action){
-                    continue;
+                currentIndex++;
+                InputBinding currentBinding = action.actionMap.bindings[currentIndex];
+
+                if (otherAction == action)
+                {
+                    if (newBinding.isPartOfComposite)
+                    {
+                        if (currentBinding.overridePath == newBinding.path)
+                        {
+                            otherAction.ApplyBindingOverride(currentIndex, oldOverridePath);
+                        }
+                    }
+
+                    else
+                    {
+                        continue;
+                    }
                 }
+
                 for (int i = 0; i < otherAction.bindings.Count; i++)
                 {
                     InputBinding binding = otherAction.bindings[i];
-                    if (binding.overridePath == newBinding.overridePath)
+                    if (binding.overridePath == newBinding.path)
                     {
                         otherAction.ApplyBindingOverride(i, oldOverridePath);
                     }
@@ -360,18 +379,35 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private bool CheckDuplicateBindings(InputAction action, int bindingIndex, bool allCompositeParts = false)
         {
             InputBinding newBinding = action.bindings[bindingIndex];
+            int currentIndex = -1;
 
             foreach (InputBinding binding in action.actionMap.bindings)
             {
+                currentIndex++;
+
                 if (binding.action == newBinding.action)
                 {
-                    continue;
+                    if (binding.isPartOfComposite && currentIndex != bindingIndex)
+                    {
+                        if (binding.effectivePath == newBinding.effectivePath)
+                        {
+                            Debug.Log("Duplicate binding found in composite: " + newBinding.effectivePath);
+                            return true;
+                        }
+                    }
+
+                    else
+                    {
+                        continue;
+                    }
                 }
 
                 if (binding.effectivePath == newBinding.effectivePath)
                 {
+                    Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
                     return true;
-                }
+                }               
+
             }
 
             if (allCompositeParts)
@@ -380,10 +416,12 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 {
                     if (action.bindings[i].effectivePath == newBinding.overridePath)
                     {
+                        //Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
                         return true;
                     }
                 }
             }
+
             return false;
         }
 
