@@ -95,7 +95,9 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = false; // Player is not jumping when the game launches
         jump.buttonTime = 0.5f;
         jump.duration = 0;
-        jump.height = 15; 
+        jump.height = 15;
+        
+        PlayerScenePos.loadingScene = false;
 
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);

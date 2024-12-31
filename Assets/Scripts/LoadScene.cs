@@ -24,6 +24,7 @@ public class SceneList {
 //position refrenced by the player
 public static class PlayerScenePos {
     public static float[] position;
+    public static bool loadingScene;
 }
 
 
@@ -74,7 +75,8 @@ public class LoadScene : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision){
-        if (collision.gameObject.CompareTag("Player") && gameObject.name == objName){
+        if (collision.gameObject.CompareTag("Player") && gameObject.name == objName && !PlayerScenePos.loadingScene){
+            PlayerScenePos.loadingScene = true;
             PlayerScenePos.position = scene.position;
             //Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
             if (sceneFade == null){
