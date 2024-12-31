@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
         playerInput = GetComponent<PlayerInput>();
-        crouchAction = playerInput.actions["Crouch"]; //gets crouch action
+        crouchAction = playerInput.actions["Sneak"]; //gets crouch action
     }   
 
     void Start (){

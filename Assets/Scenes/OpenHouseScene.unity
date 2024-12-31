@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16536175, g: 0.20760857, b: 0.28558517, a: 1}
+  m_IndirectSpecularColor: {r: 0.16535795, g: 0.2076035, b: 0.2855814, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6417,6 +6417,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4796845547867402, guid: 787ea71cd18f146bcb2c32477c51f466, type: 3}
   m_PrefabInstance: {fileID: 263041366}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &263862363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9173664002785960789, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+  m_PrefabInstance: {fileID: 1922580706}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &277872424
 PrefabInstance:
@@ -23830,6 +23835,18 @@ PrefabInstance:
       propertyPath: gameOverObj
       value: 
       objectReference: {fileID: 371044756}
+    - target: {fileID: 1798093834222537635, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: restartButton
+      value: 
+      objectReference: {fileID: 263862363}
+    - target: {fileID: 1798093834222537635, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: damageFlash.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798093834222537635, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: 'damageFlash.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4874126678125670354, guid: 306843bc4279b5749aefdc82a24f0a00, type: 3}
     - target: {fileID: 2281759180545382996, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000015785236
@@ -23892,11 +23909,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12080328
+      value: 0.120803304
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.13321197
+      value: 0.13321188
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.z
@@ -44567,6 +44584,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2673764490515160480, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673764490515160480, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3092671061178434305, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4800987372426610070, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
       propertyPath: m_Name
       value: PlayerCanvas
@@ -44579,6 +44608,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6347385425785118553, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347385425785118553, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6881399108343606503, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -44586,6 +44623,10 @@ PrefabInstance:
     - target: {fileID: 6881399108343606503, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960387788091142382, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
