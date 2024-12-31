@@ -9,6 +9,7 @@ public class ItemData
 {
     public string foodName;
     public int quantity;
+    public Sprite foodIcon;
     public int healthRegen;
     public int scoreVal;
     public string foodDescription;
@@ -24,6 +25,7 @@ public class ItemData
         this.quantity += food.quantity;
         this.healthRegen = food.healthRegen;
         this.foodDescription = food.foodDescription;
+        this.foodIcon = food.foodIcon;
         isFull = true;
         // Debug.Log(quantity);
     }
@@ -122,6 +124,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < items.Length; i++){
             // checks if the item slot is full and if it isn't it updates the empty item slot
             if(items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0){
+                Debug.Log(food);
                 itemSlot[i].AddItem(food);
                 return;
             }

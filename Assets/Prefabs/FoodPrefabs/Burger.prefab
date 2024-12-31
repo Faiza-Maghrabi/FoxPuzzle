@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 26.057, y: -30.173, z: 3.398}
 --- !u!33 &5704432138487206173
 MeshFilter:
@@ -97,16 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f0a17ae3af66f459509a2ba28bba45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  foodList:
-    foods: []
+  id: 2
   food:
     foodName: 
     healthRegen: 0
+    quantity: 0
     scoreVal: 0
     foodDescription: 
   foodName: 
   healthRegen: 0
+  quantity: 0
   scoreVal: 0
   foodDescription: 
 --- !u!65 &3925886203152589673

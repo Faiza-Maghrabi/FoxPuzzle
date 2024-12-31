@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 public class FoodListItem
 {
     public string foodName;
+    public Sprite foodIcon;
     public int healthRegen;
     public int quantity;
     public int scoreVal;
@@ -39,6 +40,13 @@ public class FoodScript : MonoBehaviour
     public string FoodName {
         get {return foodName;}
         set { foodName = value; }
+    }
+
+    public Sprite foodIcon;
+
+    public Sprite FoodIcon {
+        get {return foodIcon;}
+        set { foodIcon = value; }
     }
     public int healthRegen;
     public int HealthRegen {
@@ -87,6 +95,7 @@ public class FoodScript : MonoBehaviour
             food = foodList.foods[id];
 
             foodName = food.foodName;
+            foodIcon =  food.foodIcon;
             healthRegen = food.healthRegen;
             quantity =  food.quantity;
             scoreVal = food.scoreVal;

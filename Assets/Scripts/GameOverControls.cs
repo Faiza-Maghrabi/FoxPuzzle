@@ -32,12 +32,10 @@ public class GameOverControls : MonoBehaviour
     } 
 
     public void RestartProperties(){
-        if (!PlayerController.init){
-            PlayerController.score = 0;
-            PlayerController.health = 100;
-            PlayerController.init = true;
-            FoodTracker.Init();
-        }
+        PlayerController.score = 0;
+        PlayerController.health = 100;
+        PlayerController.init = true;
+        FoodTracker.Init();
 
         for (int i = 0; i < Inventory.items.Length; i++)
         {
@@ -45,5 +43,6 @@ public class GameOverControls : MonoBehaviour
                 Inventory.items[i].ResetItem();
             }
         }
+        gameOverObj.SetActive(false);
     }
 }

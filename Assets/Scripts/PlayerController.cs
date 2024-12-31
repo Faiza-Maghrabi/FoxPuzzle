@@ -22,7 +22,7 @@ public struct JumpSettings {
     public bool isJumpCancelled;
 }
 
-// Speed settings for crouching and walking
+// Speed settings for sneaking and walking
 [Serializable]
 public struct SpeedSettings {
     public float normalSpeed;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     //stealth value
     public static bool isStealth = false;
     private PlayerInput playerInput;
-    private InputAction crouchAction;
+    private InputAction sneakAction;
     //animator variables
     int jumpHash = Animator.StringToHash("Jump");
     int speedHash = Animator.StringToHash("Speed");
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
         playerInput = GetComponent<PlayerInput>();
-        crouchAction = playerInput.actions["Sneak"]; //gets crouch action
+        sneakAction = playerInput.actions["Sneak"]; //gets sneak action
     }   
 
     void Start (){
@@ -138,25 +138,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Enables crouch
+    //Enables sneak
     void OnEnable() {
-        crouchAction.performed += OnCrouchPerformed;
-        crouchAction.canceled += OnCrouchCanceled;
+        sneakAction.performed += OnSneakPerformed;
+        sneakAction.canceled += OnSneakCanceled;
     }
 
-    //disables crouch
+    //disables sneak
     void OnDisable() {
-        crouchAction.performed -= OnCrouchPerformed;
-        crouchAction.canceled -= OnCrouchCanceled;
+        sneakAction.performed -= OnSneakPerformed;
+        sneakAction.canceled -= OnSneakCanceled;
     }
 
-    private void OnCrouchPerformed(InputAction.CallbackContext context)
+    private void OnSneakPerformed(InputAction.CallbackContext context)
     {
-        speed = speedSettings.slowSpeed;  // Reduce speed when crouching
+        speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
         isStealth = true;
     }
 
-    private void OnCrouchCanceled(InputAction.CallbackContext context)
+    private void OnSneakCanceled(InputAction.CallbackContext context)
     {
         speed = speedSettings.normalSpeed;  // Restore normal speed
         isStealth = false;
@@ -272,6 +272,7 @@ public class PlayerController : MonoBehaviour
 
         if(gameOverObj == isActiveAndEnabled){
             StartCoroutine(SelectAfterFrame(restartButton));
+            // EventSystem.current.SetSelectedGameObject(restartButton);
         }
 
     }
