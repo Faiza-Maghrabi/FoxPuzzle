@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains
@@ -36,6 +37,9 @@ public class LoadScene : MonoBehaviour
     private SceneList sceneList = new();
     private SceneListItem scene = new();
 
+    // //fade in and out code
+    public CanvasGroup sceneFade;
+
     // import JSON file with SceneList, read contents, parse JSON and index with id
     void Start() {
         jsonFilePath = Application.streamingAssetsPath + "/SceneList.json";
@@ -52,16 +56,33 @@ public class LoadScene : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeLoad()
+    {
+        var op = SceneManager.LoadSceneAsync(sceneToLoad);
+        op.allowSceneActivation = false;
+        float duration = 1.5f;
+        float startAlpha = sceneFade.alpha;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            sceneFade.alpha = Mathf.MoveTowards(startAlpha, 1.0f, elapsedTime / duration);
+            yield return null; // Wait until the next frame
+        }
+        sceneFade.alpha = 1.0f;
+        op.allowSceneActivation = true;
+    }
+
     private void OnCollisionEnter(Collision collision){
         if (collision.gameObject.CompareTag("Player") && gameObject.name == objName){
             PlayerScenePos.position = scene.position;
             //Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
-            SceneManager.LoadScene(sceneToLoad);
+            StartCoroutine(FadeLoad());
         }
     }
 
     public void CutsceneLeave() {
         PlayerScenePos.position = scene.position;
-        SceneManager.LoadScene(sceneToLoad);
+        StartCoroutine(FadeLoad());
     }
 }
