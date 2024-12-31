@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 // Jump functionality properties
 [Serializable]
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     //player inventory
     public Inventory inventory;
     public GameObject gameOverObj;
+    public GameObject restartButton;
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
@@ -49,6 +51,8 @@ public class PlayerController : MonoBehaviour
     public static bool init = false;
     //stealth value
     public static bool isStealth = false;
+    private PlayerInput playerInput;
+    private InputAction crouchAction;
     //animator variables
     int jumpHash = Animator.StringToHash("Jump");
     int speedHash = Animator.StringToHash("Speed");
@@ -58,10 +62,35 @@ public class PlayerController : MonoBehaviour
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
 
+    SkinnedMeshRenderer meshRenderer;
+    Material[] origMaterials;
+
+    public static bool isDamageFlashOn = true;
+    public Material[] damageFlash;
+    float flashTime = .025f;
+
+    void Awake(){
+        if (!init){
+            score = 0;
+            health = 100;
+            init = true;
+            FoodTracker.Init();
+            //prevent errors during dev work - remove on prod?
+            if (PlayerScenePos.position == null) {
+                PlayerScenePos.position = new float[3];
+            }
+            PlayerScenePos.position[0] = gameObject.transform.position.x;
+            PlayerScenePos.position[1] = gameObject.transform.position.y;
+            PlayerScenePos.position[2] = gameObject.transform.position.z;
+        }
+        playerInput = GetComponent<PlayerInput>();
+        crouchAction = playerInput.actions["Crouch"]; //gets crouch action
+    }   
+
     void Start (){
         string currentScene = SceneManager.GetActiveScene().name;
         
-        if (currentScene == "EndScene"){
+        if (currentScene == "EndScene" || currentScene == "MainMenu"){
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
@@ -85,11 +114,18 @@ public class PlayerController : MonoBehaviour
             health = 100;
             init = true;
         }
+        //gets the skinned mesh renderer and the materials used
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        origMaterials = meshRenderer.sharedMaterials;
+
+        //comment out if testing specific locations
+        rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
+        //use this to find coords to input in SceneList.json
+        //Debug.Log(rb.position);
     }
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
-        
     }
 
     //Opens inventory when the e key is pressed
@@ -102,6 +138,40 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded()){
             Jump();
         }
+    }
+
+    //Enables crouch
+    void OnEnable() {
+        crouchAction.performed += OnCrouchPerformed;
+        crouchAction.canceled += OnCrouchCanceled;
+    }
+
+    //disables crouch
+    void OnDisable() {
+        crouchAction.performed -= OnCrouchPerformed;
+        crouchAction.canceled -= OnCrouchCanceled;
+    }
+
+    private void OnCrouchPerformed(InputAction.CallbackContext context)
+    {
+        speed = speedSettings.slowSpeed;  // Reduce speed when crouching
+        isStealth = true;
+    }
+
+    private void OnCrouchCanceled(InputAction.CallbackContext context)
+    {
+        speed = speedSettings.normalSpeed;  // Restore normal speed
+        isStealth = false;
+    }
+
+    private IEnumerator SelectAfterFrame(GameObject button) {
+        yield return null;  // Wait for the next frame
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    public void ToggleFlash(){
+        isDamageFlashOn = !isDamageFlashOn;
+        Debug.Log(isDamageFlashOn);
     }
 
     private void Update(){
@@ -123,6 +193,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        
+
         if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
             cinemachineCollider.m_Damping = 0f;
             cinemachineCollider.m_DampingWhenOccluded = 0f;
@@ -136,6 +208,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    // changes the materials when player is attacked to reflect health decrease
+    IEnumerator EFlash(){
+        meshRenderer.sharedMaterials = damageFlash;
+        yield return new WaitForSeconds(flashTime);
+        meshRenderer.sharedMaterials = origMaterials;
+    }
+
     private bool IsGrounded() {
         // Simple check for whether the player is on the ground
         //does not hit the floor if using transform.position - hence the slight upwards movement
@@ -145,10 +225,10 @@ public class PlayerController : MonoBehaviour
         pos.y = pos.y + 1f;
         pos.z = pos.z + forward.z;
         pos.x = pos.x + forward.x;
-        var ray1 = Physics.Raycast(pos, Vector3.down * 1.05f, layerMask);
+        var ray1 = Physics.Raycast(pos, Vector3.down * 1.5f, layerMask);
         pos.z = transform.position.z - forward.z;
         pos.x = transform.position.x - forward.x;
-        var ray2 = Physics.Raycast(pos, Vector3.down * 1.05f, layerMask);
+        var ray2 = Physics.Raycast(pos, Vector3.down * 1.5f, layerMask);
         return ray1 | ray2;
     }
 
@@ -174,15 +254,6 @@ public class PlayerController : MonoBehaviour
             //axis on fox are wrong so negate directions
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
 
-            // adjust speed when shift key is held as player is crouching
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-                speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
-                PlayerController.isStealth = true;
-            } else {
-                speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
-                PlayerController.isStealth = false;
-            }
-
             rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.Impulse);
 
             if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
@@ -194,7 +265,15 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
+            if (isDamageFlashOn){
+                flashTime = .01f;
+                StartCoroutine(EFlash());
+            }
             triggerTime += 1;
+        }
+
+        if(gameOverObj == isActiveAndEnabled){
+            StartCoroutine(SelectAfterFrame(restartButton));
         }
 
     }
@@ -217,6 +296,7 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
+            FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
             PlayerController.score += food.scoreVal;
         }
     }
@@ -224,6 +304,10 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
+            if(isDamageFlashOn){
+                flashTime = .005f;
+                StartCoroutine(EFlash());
+            }
             triggerTime = Time.time;
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
@@ -232,13 +316,27 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
+            if(isDamageFlashOn){
+                flashTime = .05f;
+                StartCoroutine(EFlash());
+            }
             health -= 15;
+        }
+        else if (other.gameObject.tag == "Fire") {
+            if(isDamageFlashOn){
+                flashTime = .025f;
+                StartCoroutine(EFlash());
+            }
+            triggerTime = Time.time;
+            hitEnemy = true;
+            enemyDamage = 5;
+            health -= 5;
         }
     }
 
     void OnCollisionExit(Collision other) {
         //if collision with enemy ends then set hitEnemy false
-        if (other.gameObject.tag == "Enemy") {
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Fire") {
             hitEnemy = false;
         }
     }

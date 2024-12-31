@@ -17,12 +17,11 @@ public class EndScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(PlayerController.score);
+        //Debug.Log(PlayerController.score);
         // Player Score displayed on screen
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None; 
         Cursor.visible = true;
-        scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();
-        
+        scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();    
     }
 }
