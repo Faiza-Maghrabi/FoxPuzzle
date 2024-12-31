@@ -109,14 +109,12 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
-        if (!init){
-            score = 0;
-            health = 100;
-            init = true;
-        }
+
         //gets the skinned mesh renderer and the materials used
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         origMaterials = meshRenderer.sharedMaterials;
+
+        PlayerScenePos.loadingScene = false;
 
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
