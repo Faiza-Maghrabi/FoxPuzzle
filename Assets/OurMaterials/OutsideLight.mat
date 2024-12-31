@@ -10,7 +10,7 @@ Material:
   m_Name: OutsideLight
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 2100000, guid: 75d9e84943a094d48810c8093bac1ea6, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
   - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_InvalidKeywords: []
@@ -26,8 +26,13 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Metallic: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 0
+    - _Metallic: 0
+    - _Mode: 0
     - _SmoothnessTextureChannel: 1
+    - _SrcBlend: 1
+    - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7971698, g: 0.9541568, b: 1, a: 1}
   m_BuildTextureStacks: []

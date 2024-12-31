@@ -79,11 +79,29 @@ public class LoadScene : MonoBehaviour
             PlayerScenePos.loadingScene = true;
             PlayerScenePos.position = scene.position;
             //Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
-            if (sceneFade == null){
-                SceneManager.LoadScene(sceneToLoad);
+            //calculate the correct scene to go to
+            if (sceneToLoad == "EndScene") {
+                switch (PlayerController.score)
+                {   //placeholder score - calucate actual score after all food is in
+                    case >= 1000:
+                        sceneToLoad = "EndDenHigh";
+                        break;
+                    case >= 600:
+                        sceneToLoad = "EndDenMid";
+                        break;
+                    case >= 400:
+                        sceneToLoad = "EndDenLow";
+                        break;
+                    default:
+                        sceneToLoad = "EndDenNone";
+                        break;
+                }
+            }
+            if (sceneFade != null){
+                StartCoroutine(FadeLoad());
             }
             else {
-                StartCoroutine(FadeLoad());
+                SceneManager.LoadScene(sceneToLoad);
             }
         }
     }
