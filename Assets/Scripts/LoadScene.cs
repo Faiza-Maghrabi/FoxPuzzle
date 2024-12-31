@@ -77,7 +77,12 @@ public class LoadScene : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && gameObject.name == objName){
             PlayerScenePos.position = scene.position;
             //Debug.Log($"Loading scene: {sceneToLoad} from object: {objName}");
-            StartCoroutine(FadeLoad());
+            if (sceneFade == null){
+                SceneManager.LoadScene(sceneToLoad);
+            }
+            else {
+                StartCoroutine(FadeLoad());
+            }
         }
     }
 
