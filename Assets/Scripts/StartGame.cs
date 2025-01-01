@@ -39,6 +39,28 @@ public class StartGame : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
+
+        //reset anything that may have changed in tutorial
+        PlayerController.health = 100;
+        PlayerController.score = 0;
+        FoodTracker.Init();
+        for (int i = 0; i < Inventory.items.Length; i++)
+        {
+            if (Inventory.items[i].isFull){
+                Inventory.items[i].ResetItem();
+            }
+        }
+        PlayerController.init = false;
+    }
+
+    public void LoadTutorial() {
+        PlayerScenePos.position[0] = 49.7f;
+        PlayerScenePos.position[1] = 0.0f;
+        PlayerScenePos.position[2] = 6.66f;
+        SceneManager.LoadScene("Tutorial");
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
     }
 
     public void OpenSettings() {
