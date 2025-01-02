@@ -5,8 +5,9 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
+using System;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour, ISelectHandler
 {
     //========ITEM DATA=======//
     // public string foodName;
@@ -22,87 +23,92 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private TMP_Text itemName;
 
     [SerializeField]
-    private Image itemImage;
+    public TMP_Text itemQuantity;
 
-    //reset colour so we can use it when player eats the food
-    private Color resetColour1;
-    private Color resetColour2;
+    [SerializeField]
+    private Image itemImage;
     //=======ITEM DESCRIPTION=====//
     public TMP_Text ItemDescriptionName;
     public Image ItemDescriptionImage;
     public TMP_Text ItemDescriptionText;
+    public TMP_Text ItemAttributesText;
+    public TMP_Text EatInstructionText;
+    public Image usedImage;
 
-    public GameObject selectedShader;
-    public bool thisItemSelected;
+    public bool thisItemSelectedOnce;
+    public bool thisItemSelectedTwice;
     
     private Inventory inventoryManager;
 
     void Start(){
         inventoryManager = GameObject.Find("Inventory").GetComponent<Inventory>(); //Inventory
-        //Debug.Log(assignedItem.isFull);
-        UnityEngine.ColorUtility.TryParseHtmlString("#eeeeee", out resetColour1); //asigns a hexcode to a colour field
-        UnityEngine.ColorUtility.TryParseHtmlString("#ffffff", out resetColour2); //asigns a hexcode to a colour field
         if (Inventory.items[id].isFull){
             itemName.text = Inventory.items[id].foodName;
+            itemImage.sprite = FoodScript.GetSprite(Inventory.items[id].foodIcon);
             itemName.gameObject.SetActive(true);
-
-            itemImage.color = Color.white;
+            itemQuantity.text = Inventory.items[id].quantity.ToString();
+            itemQuantity.gameObject.SetActive(true);
+            EatInstructionText.gameObject.SetActive(false);
         }
+        EatInstructionText.gameObject.SetActive(false);
     }
 
     //Updates the empty slot to change it to the given item data
-    public void AddItem(FoodListItem food){
+    public void AddItem(FoodListItem food, Sprite foodSprite){
         //Sets the text itemName to the food name and sets it to active to appear on the inventory menu
         Inventory.items[id].AddItem(food);
         itemName.text = food.foodName;
         itemName.gameObject.SetActive(true);
+        itemQuantity.text = Inventory.items[id].quantity.ToString();
+        itemQuantity.gameObject.SetActive(true);
 
-        itemImage.color = Color.white;
+        itemImage.sprite = foodSprite;
+        usedImage.gameObject.SetActive(false);
 
-    }
-
-    //Looks out for mouse clicks and if theres a left click it calls the OnLeftClick() function
-    public void OnPointerClick(PointerEventData eventData){
-        if(eventData.button == PointerEventData.InputButton.Left){
-            OnLeftClick();
-        }
     }
 
     // This function is called when an item slot is clicked
     public void OnLeftClick(){
         //If the item is selected and used we empty the item slot
-        if(thisItemSelected){
-            bool usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
+        if (thisItemSelectedTwice){
+            bool usable = false;
+            if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity > 0){
+                usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
+            }
+            if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity == 0){
+                inventoryManager.OpenOutOfStockNotif();
+            }
             if(usable){
-                Inventory.items[id].ResetItem();
-                EmptySlot();
+                int quantity = Inventory.items[id].UseItem();
+                itemQuantity.text = Inventory.items[id].quantity.ToString();
+                if(quantity <= 0){
+                    usedImage.gameObject.SetActive(true);
+                    itemQuantity.text = "0";
+                }
             }
         }
-        //otherwise we select another slot and set the selected panel around the item image to active and call the UpdateDescription function
         else{
-            inventoryManager.DeselectAllSlots();
-            selectedShader.SetActive(true);
-            thisItemSelected = true;
-            UpdateDescription();
+            thisItemSelectedTwice = true;
         }
     }
 
     //Updates the description to reflect the data of the selected item
     public void UpdateDescription() {
         ItemDescriptionName.text = Inventory.items[id].foodName;
+        Debug.Log(Inventory.items[id].foodName);
         ItemDescriptionText.text = Inventory.items[id].foodDescription;
-        ItemDescriptionImage.color = Color.white;
+        ItemAttributesText.text = Inventory.items[id].foodAttributes;
+        ItemDescriptionImage.sprite = FoodScript.GetSprite(Inventory.items[id].foodIcon);
+        if(Inventory.items[id].foodName != ""){
+            EatInstructionText.gameObject.SetActive(true);
+        }
     }
 
-    //deletes all item slot data and item data
-    public void EmptySlot(){
-        itemName.text = "";
-        itemName.gameObject.SetActive(false);
-        itemImage.color = resetColour1;
-
-        // Clear the description UI
-        ItemDescriptionName.text = "";
-        ItemDescriptionText.text = "";
-        ItemDescriptionImage.color = resetColour2;  // Reset item image.
+    public void OnSelect(BaseEventData eventData) // Called by the EventSystem when this slot is selected
+    {
+        inventoryManager.DeselectAllSlots();
+        EatInstructionText.gameObject.SetActive(false);
+        thisItemSelectedOnce = true;
+        UpdateDescription();
     }
 }

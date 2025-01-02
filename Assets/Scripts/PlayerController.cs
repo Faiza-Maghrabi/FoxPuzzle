@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 // Jump functionality properties
 [Serializable]
@@ -21,7 +22,7 @@ public struct JumpSettings {
     public bool isJumpCancelled;
 }
 
-// Speed settings for crouching and walking
+// Speed settings for sneaking and walking
 [Serializable]
 public struct SpeedSettings {
     public float normalSpeed;
@@ -38,7 +39,9 @@ public class PlayerController : MonoBehaviour
     public static int health;
     //player inventory
     public Inventory inventory;
+    public GameObject selectedItemIcon;
     public GameObject gameOverObj;
+    public GameObject restartButton;
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
@@ -49,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public static bool init = false;
     //stealth value
     public static bool isStealth = false;
+    private PlayerInput playerInput;
+    private InputAction sneakAction;
     //animator variables
     int jumpHash = Animator.StringToHash("Jump");
     int speedHash = Animator.StringToHash("Speed");
@@ -61,6 +66,7 @@ public class PlayerController : MonoBehaviour
     SkinnedMeshRenderer meshRenderer;
     Material[] origMaterials;
 
+    public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
 
@@ -78,12 +84,14 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[1] = gameObject.transform.position.y;
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
+        playerInput = GetComponent<PlayerInput>();
+        sneakAction = playerInput.actions["Sneak"]; //gets sneak action
     }   
 
     void Start (){
         string currentScene = SceneManager.GetActiveScene().name;
         
-        if (currentScene == "EndScene"){
+        if (currentScene == "EndScene" || currentScene == "MainMenu"){
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
@@ -102,14 +110,12 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
-        if (!init){
-            score = 0;
-            health = 100;
-            init = true;
-        }
+
         //gets the skinned mesh renderer and the materials used
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         origMaterials = meshRenderer.sharedMaterials;
+
+        PlayerScenePos.loadingScene = false;
 
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
@@ -119,12 +125,12 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
-        
     }
 
     //Opens inventory when the e key is pressed
     void OnInventory(InputValue value){
         inventory.OnInventory(value);
+        StartCoroutine(SelectAfterFrame(selectedItemIcon));
     }
 
     void OnJump(InputValue input){
@@ -132,6 +138,40 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded()){
             Jump();
         }
+    }
+
+    //Enables sneak
+    void OnEnable() {
+        sneakAction.performed += OnSneakPerformed;
+        sneakAction.canceled += OnSneakCanceled;
+    }
+
+    //disables sneak
+    void OnDisable() {
+        sneakAction.performed -= OnSneakPerformed;
+        sneakAction.canceled -= OnSneakCanceled;
+    }
+
+    private void OnSneakPerformed(InputAction.CallbackContext context)
+    {
+        speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
+        isStealth = true;
+    }
+
+    private void OnSneakCanceled(InputAction.CallbackContext context)
+    {
+        speed = speedSettings.normalSpeed;  // Restore normal speed
+        isStealth = false;
+    }
+
+    private IEnumerator SelectAfterFrame(GameObject button) {
+        yield return null;  // Wait for the next frame
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
+    public void ToggleFlash(){
+        isDamageFlashOn = !isDamageFlashOn;
+        Debug.Log(isDamageFlashOn);
     }
 
     private void Update(){
@@ -153,6 +193,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        
+
         if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
             cinemachineCollider.m_Damping = 0f;
             cinemachineCollider.m_DampingWhenOccluded = 0f;
@@ -164,6 +206,7 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
+        // Debug.Log(EventSystem.current.alreadySelecting);
     }
 
 
@@ -212,15 +255,6 @@ public class PlayerController : MonoBehaviour
             //axis on fox are wrong so negate directions
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-desiredMoveDirection), 0.15F);
 
-            // adjust speed when shift key is held as player is crouching
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-                speed = speedSettings.slowSpeed;  // Reduce speed when shift is held
-                PlayerController.isStealth = true;
-            } else {
-                speed = speedSettings.normalSpeed;  // Restore normal speed when shift is not held
-                PlayerController.isStealth = false;
-            }
-
             rb.AddForce(desiredMoveDirection * speed * Time.deltaTime, ForceMode.Impulse);
 
             if(jump.isJumpCancelled && jump.isJumping && rb.velocity.y > 0){
@@ -232,9 +266,15 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
-            flashTime = .01f;
-            StartCoroutine(EFlash());
+            if (isDamageFlashOn){
+                flashTime = .01f;
+                StartCoroutine(EFlash());
+            }
             triggerTime += 1;
+        }
+
+        if(gameOverObj == isActiveAndEnabled){
+            StartCoroutine(SelectAfterFrame(restartButton));
         }
 
     }
@@ -265,8 +305,10 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {
-            flashTime = .005f;
-            StartCoroutine(EFlash());
+            if(isDamageFlashOn){
+                flashTime = .005f;
+                StartCoroutine(EFlash());
+            }
             triggerTime = Time.time;
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
@@ -275,13 +317,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
-            flashTime = .05f;
-            StartCoroutine(EFlash());
+            if(isDamageFlashOn){
+                flashTime = .05f;
+                StartCoroutine(EFlash());
+            }
             health -= 15;
         }
         else if (other.gameObject.tag == "Fire") {
-            flashTime = .025f;
-            StartCoroutine(EFlash());
+            if(isDamageFlashOn){
+                flashTime = .025f;
+                StartCoroutine(EFlash());
+            }
             triggerTime = Time.time;
             hitEnemy = true;
             enemyDamage = 5;
