@@ -66,9 +66,7 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     // This function is called when an item slot is clicked
     public void OnLeftClick(){
         //If the item is selected and used we empty the item slot
-        if (thisItemSelectedOnce && !thisItemSelectedTwice){
-            // The player has selected the item once, now this is the second click
-            thisItemSelectedTwice = true;
+        if (thisItemSelectedTwice){
             bool usable = false;
             if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity > 0){
                 usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
@@ -84,6 +82,9 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
                     itemQuantity.text = "0";
                 }
             }
+        }
+        else{
+            thisItemSelectedTwice = true;
         }
     }
 
