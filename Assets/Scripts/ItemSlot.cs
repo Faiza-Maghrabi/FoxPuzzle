@@ -31,6 +31,8 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     public TMP_Text ItemDescriptionName;
     public Image ItemDescriptionImage;
     public TMP_Text ItemDescriptionText;
+    public TMP_Text ItemAttributesText;
+    public TMP_Text EatInstructionText;
     public Image usedImage;
 
     public bool thisItemSelectedOnce;
@@ -46,7 +48,9 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
             itemName.gameObject.SetActive(true);
             itemQuantity.text = Inventory.items[id].quantity.ToString();
             itemQuantity.gameObject.SetActive(true);
+            EatInstructionText.gameObject.SetActive(false);
         }
+        EatInstructionText.gameObject.SetActive(false);
     }
 
     //Updates the empty slot to change it to the given item data
@@ -93,12 +97,17 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
         ItemDescriptionName.text = Inventory.items[id].foodName;
         Debug.Log(Inventory.items[id].foodName);
         ItemDescriptionText.text = Inventory.items[id].foodDescription;
+        ItemAttributesText.text = Inventory.items[id].foodAttributes;
         ItemDescriptionImage.sprite = FoodScript.GetSprite(Inventory.items[id].foodIcon);
+        if(Inventory.items[id].foodName != ""){
+            EatInstructionText.gameObject.SetActive(true);
+        }
     }
 
     public void OnSelect(BaseEventData eventData) // Called by the EventSystem when this slot is selected
     {
         inventoryManager.DeselectAllSlots();
+        EatInstructionText.gameObject.SetActive(false);
         thisItemSelectedOnce = true;
         UpdateDescription();
     }

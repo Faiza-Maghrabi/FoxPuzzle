@@ -15,6 +15,7 @@ public class FoodListItem
     public int quantity;
     public int scoreVal;
     public string foodDescription;
+    public string foodAttributes;
 }
 
 [System.Serializable]
@@ -69,6 +70,12 @@ public class FoodScript : MonoBehaviour
         set {foodDescription = value; }
     }
 
+    public string foodAttributes;
+    public string Attributes {
+        get {return foodAttributes;}
+        set {foodAttributes = value; }
+    }
+
     // import JSON file with FoodList, read contents, parse JSON and index with id
     async void Start() {
 
@@ -99,6 +106,7 @@ public class FoodScript : MonoBehaviour
             quantity =  food.quantity;
             scoreVal = food.scoreVal;
             foodDescription = food.foodDescription;
+            foodAttributes = food.foodAttributes;
 
             if (!string.IsNullOrEmpty(food.foodIcon))
             {

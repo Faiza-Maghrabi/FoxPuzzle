@@ -15,6 +15,7 @@ public class ItemData
     public int healthRegen;
     public int scoreVal;
     public string foodDescription;
+    public string foodAttributes;
     public bool isFull;
 
     public ItemData(){
@@ -28,6 +29,7 @@ public class ItemData
         this.quantity += food.quantity;
         this.healthRegen = food.healthRegen;
         this.foodDescription = food.foodDescription;
+        this.foodAttributes = food.foodAttributes;
         isFull = true;
     }
 
@@ -43,6 +45,7 @@ public class ItemData
         scoreVal = 0;
         healthRegen = 0;
         foodDescription = "";
+        foodAttributes = "";
         isFull = false;
     }
 }
