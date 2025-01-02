@@ -8,8 +8,8 @@ using UnityEngine.InputSystem;
 public class ItemData
 {
     public string foodName;
+    public string foodIcon;
     public int quantity;
-    public Sprite foodIcon;
     public int healthRegen;
     public int scoreVal;
     public string foodDescription;
@@ -21,13 +21,12 @@ public class ItemData
 
     public void AddItem(FoodListItem food){
         this.foodName = food.foodName;
+        this.foodIcon = food.foodIcon;
         this.scoreVal = food.scoreVal;
         this.quantity += food.quantity;
         this.healthRegen = food.healthRegen;
         this.foodDescription = food.foodDescription;
-        this.foodIcon = food.foodIcon;
         isFull = true;
-        // Debug.Log(quantity);
     }
 
     public int UseItem(){
@@ -37,6 +36,7 @@ public class ItemData
 
     public void ResetItem(){
         foodName = "";
+        foodIcon = null;
         quantity = 0;
         scoreVal = 0;
         healthRegen = 0;
@@ -51,6 +51,7 @@ public class Inventory : MonoBehaviour
     //Player Inventory
     public GameObject inventoryObj;
     public GameObject healthNotifObj;
+    public GameObject outOfStockNotif;
     private bool menuActivated;
     public PlayerController player;
     public ItemSlot[] itemSlot;
@@ -101,6 +102,14 @@ public class Inventory : MonoBehaviour
         healthNotifObj.SetActive(false);
     }
 
+    public void OpenOutOfStockNotif(){
+        outOfStockNotif.SetActive(true);
+    }
+
+    public void CloseOutOfStockNotif(){
+        outOfStockNotif.SetActive(false);
+    }
+
     //Allows the player to eat food
     public bool EatFood(string foodName, int scoreVal, int healthRegen){
         for (int i = 0; i < itemSlot.Length; i++)
@@ -121,20 +130,22 @@ public class Inventory : MonoBehaviour
 
     //Adds an item to the itemslot when player picks it up. 
     public void AddItemToInventory(FoodListItem food){
-        for (int i = 0; i < items.Length; i++){
-            // checks if the item slot is full and if it isn't it updates the empty item slot
-            if(items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0){
-                Debug.Log(food);
-                itemSlot[i].AddItem(food);
+        Sprite resolvedSprite = FoodScript.GetSprite(food.foodIcon);
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0)
+            {
+                itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
                 return;
             }
         }
     }
 
+
     //Deselects all slots by setting the selected item panel to false so only one slot is selected at a time
     public void DeselectAllSlots(){
         for (int i = 0; i < itemSlot.Length; i++){
-            itemSlot[i].selectedShader.SetActive(false);
             itemSlot[i].thisItemSelected = false;
         }
     }

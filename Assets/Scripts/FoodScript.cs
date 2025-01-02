@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class FoodListItem
 {
     public string foodName;
-    public Sprite foodIcon;
+    public string foodIcon;
     public int healthRegen;
     public int quantity;
     public int scoreVal;
@@ -95,15 +95,31 @@ public class FoodScript : MonoBehaviour
             food = foodList.foods[id];
 
             foodName = food.foodName;
-            foodIcon =  food.foodIcon;
             healthRegen = food.healthRegen;
             quantity =  food.quantity;
             scoreVal = food.scoreVal;
             foodDescription = food.foodDescription;
+
+            if (!string.IsNullOrEmpty(food.foodIcon))
+            {
+                foodIcon = GetSprite(food.foodIcon);
+            }
         }
         else
         {
             Debug.LogError("Cannot load file at " + jsonFilePath);
         }
+    }
+
+    public static Sprite GetSprite(string foodIconString){
+        Sprite[] atlasSprites = Resources.LoadAll<Sprite>("FoodIcons_Atlas");
+
+        // Find the sprite by name
+        Sprite resolvedSprite = System.Array.Find(atlasSprites, sprite => sprite.name == foodIconString);
+        if (resolvedSprite == null)
+        {
+            Debug.LogWarning($"Sprite {foodIconString} not found in FoodIcons_Atlas!");
+        }
+        return resolvedSprite;
     }
 }

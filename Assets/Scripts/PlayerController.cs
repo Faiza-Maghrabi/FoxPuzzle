@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     public static int health;
     //player inventory
     public Inventory inventory;
+    public GameObject selectedItemIcon;
     public GameObject gameOverObj;
     public GameObject restartButton;
     private Rigidbody rb;
@@ -129,6 +130,7 @@ public class PlayerController : MonoBehaviour
     //Opens inventory when the e key is pressed
     void OnInventory(InputValue value){
         inventory.OnInventory(value);
+        StartCoroutine(SelectAfterFrame(selectedItemIcon));
     }
 
     void OnJump(InputValue input){
@@ -204,6 +206,7 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
+        // Debug.Log(EventSystem.current.alreadySelecting);
     }
 
 
@@ -272,7 +275,6 @@ public class PlayerController : MonoBehaviour
 
         if(gameOverObj == isActiveAndEnabled){
             StartCoroutine(SelectAfterFrame(restartButton));
-            // EventSystem.current.SetSelectedGameObject(restartButton);
         }
 
     }
