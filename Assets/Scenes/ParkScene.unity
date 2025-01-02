@@ -1685,6 +1685,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165760242}
   m_Mesh: {fileID: -2432090755550338912, guid: 5e8a4e4243d4d0d40924a8953efc392a, type: 3}
+--- !u!1 &168111177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4603682247438384985, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+  m_PrefabInstance: {fileID: 1936649855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &177830478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4261624345619718, guid: 335654d21784b4997986a40fdc8fa524, type: 3}
@@ -6959,6 +6964,11 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!1 &798996474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4335441190510798715, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+  m_PrefabInstance: {fileID: 1936649855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &813182454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4813402982723592, guid: 721583ad42b0f46bca576a1013ce0f24, type: 3}
@@ -8863,6 +8873,26 @@ PrefabInstance:
       propertyPath: inventoryObj
       value: 
       objectReference: {fileID: 1114617691}
+    - target: {fileID: 4461468432457491902, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: selectedItem
+      value: 
+      objectReference: {fileID: 1936649856}
+    - target: {fileID: 4461468432457491902, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: healthNotifObj
+      value: 
+      objectReference: {fileID: 1258230359}
+    - target: {fileID: 4461468432457491902, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: outOfStockNotif
+      value: 
+      objectReference: {fileID: 1934030082}
+    - target: {fileID: 4461468432457491902, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: closeHealthNotifButton
+      value: 
+      objectReference: {fileID: 168111177}
+    - target: {fileID: 4461468432457491902, guid: e5a25116f6d504242901c5c986329115, type: 3}
+      propertyPath: closeOutOfStockNotifButton
+      value: 
+      objectReference: {fileID: 798996474}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11199,6 +11229,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6128215071791612512, guid: 8ef1ab1eb437ec7448ad6b5edf3c5b49, type: 3}
   m_PrefabInstance: {fileID: 1448374550}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1258230359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3538990857120942135, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+  m_PrefabInstance: {fileID: 1936649855}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1279523669
 PrefabInstance:
@@ -16719,6 +16754,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3914f508665fb406ca4aabc4bd5cbbea, type: 3}
+--- !u!1 &1934030082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1268943479991532188, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+  m_PrefabInstance: {fileID: 1936649855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1936649855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16731,6 +16771,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1493838690}
+    - target: {fileID: 1565771871829535895, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
+      propertyPath: selectedItem
+      value: 
+      objectReference: {fileID: 1936649856}
     - target: {fileID: 2517838941473510725, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
       propertyPath: m_Pivot.x
       value: 0

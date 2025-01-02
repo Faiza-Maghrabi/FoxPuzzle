@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains
@@ -79,6 +80,8 @@ public class Inventory : MonoBehaviour
             menuActivated =  true; 
             Cursor.lockState = CursorLockMode.None; //Unlocks cursor so player can freely select items
             Cursor.visible = true;
+            healthNotifObj.gameObject.SetActive(false);
+            outOfStockNotif.gameObject.SetActive(false);
         }
         else if(menuActivated){
             Time.timeScale = 1; //Unpauses the game
@@ -106,11 +109,12 @@ public class Inventory : MonoBehaviour
 
     public void CloseHealthNotif(){
         healthNotifObj.SetActive(false);
+        Debug.Log(selectedItem);
         EventSystem.current.SetSelectedGameObject(selectedItem);
     }
 
     public void OpenOutOfStockNotif(){
-        selectedItem =  EventSystem.current.currentSelectedGameObject;
+        selectedItem = EventSystem.current.currentSelectedGameObject;
         outOfStockNotif.SetActive(true);
         EventSystem.current.SetSelectedGameObject(closeOutOfStockNotifButton);
     }
@@ -144,7 +148,7 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < items.Length; i++)
         {
-            if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0)
+            if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0 && items[i].isFull == false)
             {
                 itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
                 return;
@@ -156,7 +160,8 @@ public class Inventory : MonoBehaviour
     //Deselects all slots by setting the selected item panel to false so only one slot is selected at a time
     public void DeselectAllSlots(){
         for (int i = 0; i < itemSlot.Length; i++){
-            itemSlot[i].thisItemSelected = false;
+            itemSlot[i].thisItemSelectedOnce = false;
+            itemSlot[i].thisItemSelectedTwice = false;
         }
     }
 }

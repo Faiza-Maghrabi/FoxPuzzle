@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using System;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
+public class ItemSlot : MonoBehaviour, ISelectHandler
 {
     //========ITEM DATA=======//
     // public string foodName;
@@ -33,7 +33,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
     public TMP_Text ItemDescriptionText;
     public Image usedImage;
 
-    public bool thisItemSelected;
+    public bool thisItemSelectedOnce;
+    public bool thisItemSelectedTwice;
     
     private Inventory inventoryManager;
 
@@ -58,20 +59,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
         itemQuantity.gameObject.SetActive(true);
 
         itemImage.sprite = foodSprite;
+        usedImage.gameObject.SetActive(false);
 
-    }
-
-    //Looks out for mouse clicks and if theres a left click it calls the OnLeftClick() function
-    public void OnPointerClick(PointerEventData eventData){
-        if(eventData.button == PointerEventData.InputButton.Left){
-            OnLeftClick();
-        }
     }
 
     // This function is called when an item slot is clicked
     public void OnLeftClick(){
         //If the item is selected and used we empty the item slot
-        if(thisItemSelected){
+        if (thisItemSelectedOnce && !thisItemSelectedTwice){
+            // The player has selected the item once, now this is the second click
+            thisItemSelectedTwice = true;
             bool usable = false;
             if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity > 0){
                 usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
@@ -88,12 +85,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
                 }
             }
         }
-        //otherwise we select another slot and set the selected panel around the item image to active and call the UpdateDescription function
-        else{
-            inventoryManager.DeselectAllSlots();
-            thisItemSelected = true;
-            UpdateDescription();
-        }
     }
 
     //Updates the description to reflect the data of the selected item
@@ -107,7 +98,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
     public void OnSelect(BaseEventData eventData) // Called by the EventSystem when this slot is selected
     {
         inventoryManager.DeselectAllSlots();
-        thisItemSelected = true;
+        thisItemSelectedOnce = true;
         UpdateDescription();
     }
 }
