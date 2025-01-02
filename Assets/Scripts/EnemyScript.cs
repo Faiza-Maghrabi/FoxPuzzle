@@ -96,7 +96,7 @@ public class EnemyScript : MonoBehaviour
         //use a sphere layers on the 'PlayerLayer' to see if player is nearby enemy
         //is player is stealthing, detection radisus and FOV is reduced slightly
         int layerMask = LayerMask.GetMask("PlayerLayer");
-        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 5 : 0 ), layerMask);
+        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
         if (FOVTargets.Count() > 0) {   //if nearby then count > 0
             //[0] should be FoxEnemyCollider - was not able to hit the mesh collider in Fox_Model
             directionToPlayer = FOVTargets[0].transform.position - (transform.position + UnityEngine.Vector3.up * eyeLevel);
@@ -146,13 +146,13 @@ public class EnemyScript : MonoBehaviour
             Cosine = Mathf.Cos(Currentangle);
             UnityEngine.Vector3 RaycastDirection = (transform.forward * Cosine) + (transform.right * Sine);
             UnityEngine.Vector3 VertForward = (UnityEngine.Vector3.forward * Cosine) + (UnityEngine.Vector3.right * Sine);
-            if (Physics.Raycast(transform.position, RaycastDirection, out RaycastHit hit, detectionRadius - (PlayerController.isStealth ? 5 : 0 ), LayerMask.GetMask("Default")))
+            if (Physics.Raycast(transform.position, RaycastDirection, out RaycastHit hit, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), LayerMask.GetMask("Default")))
             {
                 Vertices[i + 1] = VertForward * hit.distance;
             }
             else
             {
-                Vertices[i + 1] = VertForward * ((detectionRadius - (PlayerController.isStealth ? 5 : 0 )) * 44);
+                Vertices[i + 1] = VertForward * ((detectionRadius - (PlayerController.isStealth ? 2 : 0 )) * 44);
             }
 
 
