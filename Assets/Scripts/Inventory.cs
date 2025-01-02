@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains
@@ -51,7 +52,10 @@ public class Inventory : MonoBehaviour
     //Player Inventory
     public GameObject inventoryObj;
     public GameObject healthNotifObj;
+    public GameObject closeHealthNotifButton;
+    public GameObject closeOutOfStockNotifButton;
     public GameObject outOfStockNotif;
+    private GameObject selectedItem;
     private bool menuActivated;
     public PlayerController player;
     public ItemSlot[] itemSlot;
@@ -95,19 +99,25 @@ public class Inventory : MonoBehaviour
     }
 
     public void OpenHealthNotif(){
+        selectedItem =  EventSystem.current.currentSelectedGameObject;
         healthNotifObj.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(closeHealthNotifButton);
     }
 
     public void CloseHealthNotif(){
         healthNotifObj.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(selectedItem);
     }
 
     public void OpenOutOfStockNotif(){
+        selectedItem =  EventSystem.current.currentSelectedGameObject;
         outOfStockNotif.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(closeOutOfStockNotifButton);
     }
 
     public void CloseOutOfStockNotif(){
         outOfStockNotif.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(selectedItem);
     }
 
     //Allows the player to eat food

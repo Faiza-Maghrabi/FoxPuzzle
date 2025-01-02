@@ -36,7 +36,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
     public bool thisItemSelected;
     
     private Inventory inventoryManager;
-    public GameObject outOfStockNotif;
 
     void Start(){
         inventoryManager = GameObject.Find("Inventory").GetComponent<Inventory>(); //Inventory

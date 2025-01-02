@@ -129,10 +129,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InventoryDisplay, Assembly-CSharp
-        m_MethodName: OnItemClicked
-        m_Mode: 3
+      - m_Target: {fileID: 7416149204458044772}
+        m_TargetAssemblyTypeName: ItemSlot, Assembly-CSharp
+        m_MethodName: OnLeftClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -162,7 +162,6 @@ MonoBehaviour:
   ItemDescriptionText: {fileID: 0}
   usedImage: {fileID: 8317568114981390014}
   thisItemSelected: 0
-  outOfStockNotif: {fileID: 7437622319725965663, guid: 1a78f7f7faafa5a4ea4f6fa9478ccdc1, type: 3}
 --- !u!223 &297826932436389596
 Canvas:
   m_ObjectHideFlags: 0
