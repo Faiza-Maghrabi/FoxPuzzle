@@ -10,7 +10,7 @@ public class EnemyScript : MonoBehaviour
     public float fovAngle;
     public float detectionRadius;
     //refrence to player object
-    public Transform player;
+    private Transform player;
     //speed of enemy
     public float speed = 1.0f;
     //boolean to control behaviour

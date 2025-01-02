@@ -1,7 +1,13 @@
 {
   "foods": [
     {
-      "foodName": "Chicken",
+      "foodName": "Raw Chicken",
+      "healthRegen": 5,
+      "scoreVal": 123,
+      "foodDescription": ""
+    },
+    {
+      "foodName": "Cooked Chicken",
       "healthRegen": 5,
       "scoreVal": 123,
       "foodDescription": ""
@@ -9,11 +15,11 @@
     {
       "foodName": "Pizza",
       "healthRegen": 8,
-      "scoreVal": 600,
+      "scoreVal": 780,
       "foodDescription": ""
     },
     {
-      "foodName": "Burger",
+      "foodName": "Fish",
       "healthRegen": 10,
       "scoreVal": 780,
       "foodDescription": ""
@@ -25,27 +31,15 @@
       "foodDescription": ""
     },
     {
-      "foodName": "Cooked Steak",
-      "healthRegen": 7,
-      "scoreVal": 500,
+      "foodName": "Bone",
+      "healthRegen": 2,
+      "scoreVal": 50,
       "foodDescription": ""
     },
     {
-      "foodName": "Croissant",
+      "foodName": "Potato",
       "healthRegen": 5,
-      "scoreVal": 150,
-      "foodDescription": ""
-    },
-    {
-      "foodName": "Toast",
-      "healthRegen": 3,
-      "scoreVal": 90,
-      "foodDescription": ""
-    },
-    {
-      "foodName": "Cheese",
-      "healthRegen": 8,
-      "scoreVal": 600,
+      "scoreVal": 300,
       "foodDescription": ""
     },
     {
@@ -55,21 +49,27 @@
       "foodDescription": ""
     },
     {
-      "foodName": "Watermelon",
-      "healthRegen": 7,
+      "foodName": "Strawberry",
+      "healthRegen": 6,
       "scoreVal": 500,
       "foodDescription": ""
     },
     {
-      "foodName": "Maki",
+      "foodName": "Caviar",
       "healthRegen": 10,
       "scoreVal": 1200,
       "foodDescription": ""
     },
     {
-      "foodName": "Tempura",
+      "foodName": "Cheese",
       "healthRegen": 8,
-      "scoreVal": 500,
+      "scoreVal": 600,
+      "foodDescription": ""
+    },
+    {
+      "foodName": "Peanuts",
+      "healthRegen": 2,
+      "scoreVal": 100,
       "foodDescription": ""
     }
   ]
