@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
@@ -25,8 +26,18 @@ public class EnemyScript : MonoBehaviour
     int hitHash = Animator.StringToHash("HitPlayer");
     int moveHash = Animator.StringToHash("Moving");
     public Animator anim;
-
     private UnityEngine.Vector3 directionToPlayer;
+    //vision cone variables
+    public GameObject visionCone;
+    public Material lowDangerMaterial;
+    public Material mediumDangerMaterial;
+    public Material highDangerMaterial;
+    private MeshRenderer coneRenderer;
+    private Dictionary<int, Material> dangerToMat;
+    public int visionConeResolution = 120;
+    private Mesh visionConeMesh;
+    private MeshFilter meshFilter;
+    private float coneAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -36,17 +47,32 @@ public class EnemyScript : MonoBehaviour
         player = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody>();
         eyeLevel = eyeLevel == 0 ? 1 : eyeLevel;
+
+        dangerToMat = new Dictionary<int, Material> {
+            {1, lowDangerMaterial},
+            {2, mediumDangerMaterial},
+            {3, highDangerMaterial},
+        };
+
+        visionCone.transform.AddComponent<MeshRenderer>().material = lowDangerMaterial;
+        coneRenderer = visionCone.transform.GetComponent<MeshRenderer>();
+        meshFilter = visionCone.transform.AddComponent<MeshFilter>();
+        visionConeMesh = new Mesh();
+        coneAngle = fovAngle * Mathf.Deg2Rad;
     }
 
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
+        DrawVisionCone();
         //Look for player
         playerInView = FoundPlayer();
         anim.SetBool(moveHash, playerInView && !hitPlayer);
         anim.SetBool(hitHash, hitPlayer);
         // if seen, look towards player and travel towards them
-        if (playerInView && !hitPlayer) {
+        if (playerInView) {
+            coneRenderer.material = dangerToMat[3];
+            if (!hitPlayer) {
             //move enemy to face player on x and z
             UnityEngine.Vector3 targetPosition = player.position;
             targetPosition.y = transform.position.y;
@@ -57,6 +83,7 @@ public class EnemyScript : MonoBehaviour
             UnityEngine.Vector3 newPosition = UnityEngine.Vector3.MoveTowards(rb.position, player.position, step);
             // Debug.Log(step);
             rb.MovePosition(newPosition);
+            }
         }
 
     }
@@ -104,11 +131,52 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    void DrawVisionCone() {
+        int[] triangles = new int[(visionConeResolution - 1) * 3];
+    	UnityEngine.Vector3[] Vertices = new UnityEngine.Vector3[visionConeResolution + 1];
+        Vertices[0] = UnityEngine.Vector3.zero;
+        float Currentangle = -coneAngle / (PlayerController.isStealth ? 2.5f: 2.0f);
+        float angleIcrement = coneAngle * (PlayerController.isStealth ? 0.9f: 1f) / (visionConeResolution - 1);
+        float Sine;
+        float Cosine;
+
+        for (int i = 0; i < visionConeResolution; i++)
+        {
+            Sine = Mathf.Sin(Currentangle);
+            Cosine = Mathf.Cos(Currentangle);
+            UnityEngine.Vector3 RaycastDirection = (transform.forward * Cosine) + (transform.right * Sine);
+            UnityEngine.Vector3 VertForward = (UnityEngine.Vector3.forward * Cosine) + (UnityEngine.Vector3.right * Sine);
+            if (Physics.Raycast(transform.position, RaycastDirection, out RaycastHit hit, detectionRadius - (PlayerController.isStealth ? 5 : 0 ), LayerMask.GetMask("Default")))
+            {
+                Vertices[i + 1] = VertForward * hit.distance;
+            }
+            else
+            {
+                Vertices[i + 1] = VertForward * ((detectionRadius - (PlayerController.isStealth ? 5 : 0 )) * 44);
+            }
+
+
+            Currentangle += angleIcrement;
+        }
+        for (int i = 0, j = 0; i < triangles.Length; i += 3, j++)
+        {
+            triangles[i] = 0;
+            triangles[i + 1] = j + 1;
+            triangles[i + 2] = j + 2;
+        }
+        visionConeMesh.Clear();
+        visionConeMesh.vertices = Vertices;
+        visionConeMesh.triangles = triangles;
+        meshFilter.mesh = visionConeMesh;
+    }
+
     //gizmo for testing
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position + UnityEngine.Vector3.up * eyeLevel, directionToPlayer * detectionRadius);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 5 : 0 ));
     }
     
 }
