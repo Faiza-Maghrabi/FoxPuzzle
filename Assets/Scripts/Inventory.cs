@@ -66,11 +66,23 @@ public class Inventory : MonoBehaviour
     public static ItemData[] items;
 
     void Awake(){
+        InitOrResetInventory();
+    }
+
+    public static void InitOrResetInventory() {
         if(Inventory.items == null){
             Inventory.items = new ItemData[12];
             for (int i = 0; i < items.Length; i++)
             {
                 items[i] = new ItemData();
+            }
+        }
+        else {
+             for (int i = 0; i < items.Length; i++)
+            {
+                if (items[i].isFull){
+                    items[i].ResetItem();
+                }
             }
         }
     }

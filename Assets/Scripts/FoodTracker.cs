@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
@@ -36,5 +37,13 @@ public class FoodTracker : MonoBehaviour
     public static void markCollected(string sceneName, string foodName) {
         // Debug.Log("Collected " + foodName + " from " + sceneName);
         sceneFoodList.scene[sceneName][foodName] = true;
+    }
+
+    public static int numFoodInScene(string sceneName) {
+        return sceneFoodList.scene[sceneName].Count;
+    }
+
+    public static int numFoodCollectedInScene(string sceneName) {
+        return sceneFoodList.scene[sceneName].Values.Count(value => value);
     }
 }
