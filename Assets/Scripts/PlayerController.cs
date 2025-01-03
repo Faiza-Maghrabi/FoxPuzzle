@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
     int speedHash = Animator.StringToHash("Speed");
     int groundHash = Animator.StringToHash("isGrounded");
     public Animator anim;
+    //number of enemies attacking the player at a time
+    public static int huntedVal;
 
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
     public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
+
 
     void Awake(){
         if (!init){
@@ -110,6 +113,8 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
+        //no enemy is hunting the player on start
+        huntedVal = 0;
 
         //gets the skinned mesh renderer and the materials used
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -298,6 +303,7 @@ public class PlayerController : MonoBehaviour
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
             FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
+            SceneCompletion.increaseFoodCount();
             PlayerController.score += food.scoreVal;
         }
     }
