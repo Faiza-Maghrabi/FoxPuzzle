@@ -21851,72 +21851,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7102350196987980496, guid: 1d80f7e64b473a6448ed86940e3ef748, type: 3}
---- !u!1001 &886410231
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1811989329}
-    m_Modifications:
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 60.556
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.503
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 43.910004
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.21619833
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.026325295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.86524165
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.45157737
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 50.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -141.413
-      objectReference: {fileID: 0}
-    - target: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 22.177
-      objectReference: {fileID: 0}
-    - target: {fileID: 6530611266541044914, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-      propertyPath: m_Name
-      value: Pizza
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
---- !u!4 &886410232 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3503140771153955968, guid: f2ffe3226b3c28a4a94d7977e8504ffa, type: 3}
-  m_PrefabInstance: {fileID: 886410231}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &887492553
 GameObject:
   m_ObjectHideFlags: 0
@@ -34831,11 +34765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.13325591
+      value: 0.13325593
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.048126925
+      value: -0.04812693
       objectReference: {fileID: 0}
     - target: {fileID: 3168128316214316701, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: field of view
@@ -43104,7 +43038,6 @@ Transform:
   - {fileID: 283497572}
   - {fileID: 1848330031}
   - {fileID: 1244171346}
-  - {fileID: 886410232}
   - {fileID: 567868511}
   - {fileID: 1288506704}
   m_Father: {fileID: 983640918}
