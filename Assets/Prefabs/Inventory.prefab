@@ -229,7 +229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9211272304142112697
 RectTransform:
   m_ObjectHideFlags: 0
@@ -302,7 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7504c207ac2aa144992b5ccb16538595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryMenu: {fileID: 3975366000740011907}
+  inventoryObj: {fileID: 0}
+  player: {fileID: 0}
   itemSlot:
   - {fileID: 5948310168846657718}
   - {fileID: 1627037479864204365}

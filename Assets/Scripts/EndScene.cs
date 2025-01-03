@@ -22,7 +22,6 @@ public class EndScene : MonoBehaviour
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None; 
         Cursor.visible = true;
-        scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();
-        
+        scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();    
     }
 }
