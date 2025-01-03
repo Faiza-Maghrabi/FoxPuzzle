@@ -44,12 +44,7 @@ public class StartGame : MonoBehaviour
         PlayerController.health = 100;
         PlayerController.score = 0;
         FoodTracker.Init();
-        for (int i = 0; i < Inventory.items.Length; i++)
-        {
-            if (Inventory.items[i].isFull){
-                Inventory.items[i].ResetItem();
-            }
-        }
+        Inventory.InitOrResetInventory();
         PlayerController.init = false;
     }
 
@@ -58,6 +53,7 @@ public class StartGame : MonoBehaviour
         PlayerScenePos.position[1] = 0.0f;
         PlayerScenePos.position[2] = 6.66f;
         SceneManager.LoadScene("Tutorial");
+        Inventory.InitOrResetInventory();
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
