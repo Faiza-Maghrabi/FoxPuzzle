@@ -298,6 +298,7 @@ public class PlayerController : MonoBehaviour
             FoodScript food = other.GetComponent<FoodScript>();
             inventory.AddItemToInventory(food.food);
             FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
+            SceneCompletion.increaseFoodCount();
             PlayerController.score += food.scoreVal;
         }
     }

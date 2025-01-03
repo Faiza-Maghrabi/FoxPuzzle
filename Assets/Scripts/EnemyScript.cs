@@ -32,7 +32,9 @@ public class EnemyScript : MonoBehaviour
     public Material lowDangerMaterial;
     public Material mediumDangerMaterial;
     public Material highDangerMaterial;
+    public Material maxDangerMaterial;
     private MeshRenderer coneRenderer;
+    private int dangerVal;
     private Dictionary<int, Material> dangerToMat;
     public int visionConeResolution = 120;
     private Mesh visionConeMesh;
@@ -49,12 +51,14 @@ public class EnemyScript : MonoBehaviour
         eyeLevel = eyeLevel == 0 ? 1 : eyeLevel;
 
         dangerToMat = new Dictionary<int, Material> {
-            {1, lowDangerMaterial},
-            {2, mediumDangerMaterial},
-            {3, highDangerMaterial},
+            {0, lowDangerMaterial},
+            {1, mediumDangerMaterial},
+            {2, highDangerMaterial},
+            {3, maxDangerMaterial},
         };
 
-        visionCone.transform.AddComponent<MeshRenderer>().material = lowDangerMaterial;
+        dangerVal = SceneCompletion.getDangerLevel();
+        visionCone.transform.AddComponent<MeshRenderer>().material = dangerToMat[dangerVal];
         coneRenderer = visionCone.transform.GetComponent<MeshRenderer>();
         meshFilter = visionCone.transform.AddComponent<MeshFilter>();
         visionConeMesh = new Mesh();
@@ -65,14 +69,17 @@ public class EnemyScript : MonoBehaviour
     public virtual void FixedUpdate()
     {
         DrawVisionCone();
+        int tempOldVal = dangerVal;
+        dangerVal = SceneCompletion.getDangerLevel();
+        if (tempOldVal != dangerVal){
+            adjustValsForDanger();
+        }
         //Look for player
         playerInView = FoundPlayer();
         anim.SetBool(moveHash, playerInView && !hitPlayer);
         anim.SetBool(hitHash, hitPlayer);
         // if seen, look towards player and travel towards them
-        if (playerInView) {
-            coneRenderer.material = dangerToMat[3];
-            if (!hitPlayer) {
+        if (playerInView && !hitPlayer) {
             //move enemy to face player on x and z
             UnityEngine.Vector3 targetPosition = player.position;
             targetPosition.y = transform.position.y;
@@ -83,9 +90,12 @@ public class EnemyScript : MonoBehaviour
             UnityEngine.Vector3 newPosition = UnityEngine.Vector3.MoveTowards(rb.position, player.position, step);
             // Debug.Log(step);
             rb.MovePosition(newPosition);
-            }
         }
 
+    }
+
+    public void adjustValsForDanger() {
+        coneRenderer.material = dangerToMat[dangerVal];
     }
 
     public int getAttackVal() {
