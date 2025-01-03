@@ -22,7 +22,7 @@ public class SceneCompletion : MonoBehaviour
         easeCompletionSlider.maxValue = maxFood; 
         easeCompletionSlider.minValue = 0;
         foodCollected = FoodTracker.numFoodCollectedInScene(gameObject.scene.name);
-        completionPercent = 0;
+        completionPercent =  Math.Truncate(foodCollected/maxFood * 100);;
         completionText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         completionText.text = completionPercent.ToString() + "%";
     }

@@ -36,6 +36,8 @@ public class EnemyScript : MonoBehaviour
     public float maxSpeed = 1.0f;
     //boolean to control behaviour
     public bool playerInView;
+    //whether the hunted var in Player has been updated or not
+    public bool addedToHunted = false;
     //damage enemy does to player
     public int attackVal;
     private Rigidbody rb;
@@ -97,6 +99,10 @@ public class EnemyScript : MonoBehaviour
         anim.SetBool(hitHash, hitPlayer);
         // if seen, look towards player and travel towards them
         if (playerInView && !hitPlayer) {
+            if (!addedToHunted) {
+                PlayerController.huntedVal +=1;
+                addedToHunted = true;
+            }
             //move enemy to face player on x and z
             UnityEngine.Vector3 targetPosition = player.position;
             targetPosition.y = transform.position.y;
@@ -107,6 +113,10 @@ public class EnemyScript : MonoBehaviour
             UnityEngine.Vector3 newPosition = UnityEngine.Vector3.MoveTowards(rb.position, player.position, step);
             // Debug.Log(step);
             rb.MovePosition(newPosition);
+        }
+        else if (!playerInView && addedToHunted) {
+            PlayerController.huntedVal -=1;
+            addedToHunted = false;
         }
 
     }
