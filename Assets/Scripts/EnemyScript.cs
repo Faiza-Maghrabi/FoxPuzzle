@@ -36,8 +36,6 @@ public class EnemyScript : MonoBehaviour
     public float maxSpeed = 1.0f;
     //boolean to control behaviour
     public bool playerInView;
-    //variable height to eye-level for enemies
-    public float eyeLevel;
     //damage enemy does to player
     public int attackVal;
     private Rigidbody rb;
@@ -68,12 +66,11 @@ public class EnemyScript : MonoBehaviour
         playerInView = false;
         player = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody>();
-        eyeLevel = eyeLevel == 0 ? 1 : eyeLevel;
 
         dangerToData = new Dictionary<int, DangerData> {
-            {0, new DangerData(lowDangerMaterial, 0.5f, 0.3f, 0.5f)},
-            {1, new DangerData(mediumDangerMaterial, 0.7f, 0.6f, 0.7f)},
-            {2, new DangerData(highDangerMaterial, 0.8f, 0.8f, 0.8f)},
+            {0, new DangerData(lowDangerMaterial, 0.7f, 0.3f, 0.6f)},
+            {1, new DangerData(mediumDangerMaterial, 0.8f, 0.6f, 0.7f)},
+            {2, new DangerData(highDangerMaterial, 0.9f, 0.8f, 0.8f)},
             {3, new DangerData(maxDangerMaterial, 1.0f, 1.0f, 1.0f)},
         };
 
@@ -131,15 +128,15 @@ public class EnemyScript : MonoBehaviour
         //use a sphere layers on the 'PlayerLayer' to see if player is nearby enemy
         //is player is stealthing, detection radisus and FOV is reduced slightly
         int layerMask = LayerMask.GetMask("PlayerLayer");
-        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
+        Collider[] FOVTargets = Physics.OverlapSphere(transform.position, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
         if (FOVTargets.Count() > 0) {   //if nearby then count > 0
             //[0] should be FoxEnemyCollider - was not able to hit the mesh collider in Fox_Model
-            directionToPlayer = FOVTargets[0].transform.position - (transform.position + UnityEngine.Vector3.up * eyeLevel);
-            float angle = UnityEngine.Vector3.Angle(transform.forward, directionToPlayer);  //Find angle between enemy and player
-            RaycastHit hit;
-            if (angle < fovAngle / (PlayerController.isStealth ? 2.5: 2)) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
 
-                if (Physics.Raycast(transform.position + UnityEngine.Vector3.up * eyeLevel, directionToPlayer, out hit, detectionRadius, layerMask)) {
+            directionToPlayer = (FOVTargets[0].transform.position - (transform.position)).normalized;
+            float angle = UnityEngine.Vector3.Angle(transform.forward, directionToPlayer);  //Find angle between enemy and player
+            if (angle < fovAngle / (PlayerController.isStealth ? 2.5: 2)) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, directionToPlayer, out hit, detectionRadius, layerMask)) {
                     //Debug.Log(hit.transform);
                     if (hit.transform == player) {  //return true if player is hit
                         return true;
@@ -187,7 +184,7 @@ public class EnemyScript : MonoBehaviour
             }
             else
             {
-                Vertices[i + 1] = VertForward * ((detectionRadius - (PlayerController.isStealth ? 2 : 0 )) * 44);
+                Vertices[i + 1] = VertForward * ((detectionRadius - (PlayerController.isStealth ? 2 : 0 )) * 46);
             }
 
 
@@ -209,9 +206,9 @@ public class EnemyScript : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + UnityEngine.Vector3.up * eyeLevel, directionToPlayer * detectionRadius);
+        Gizmos.DrawRay(transform.position, directionToPlayer * detectionRadius);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 5 : 0 ));
+        Gizmos.DrawWireSphere(transform.position, detectionRadius - (PlayerController.isStealth ? 5 : 0 ));
     }
     
 }
