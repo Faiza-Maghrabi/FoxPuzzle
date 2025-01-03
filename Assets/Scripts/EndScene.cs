@@ -31,19 +31,19 @@ public class EndScene : MonoBehaviour
         }
         else if (PlayerController.score >= 2500)
         {
-            messageText.text = "Amazing high score! Well Done :)";
+            messageText.text = "You’ve outsmarted the pack. What a clever fox!";
         }
         else if (PlayerController.score >= 1500)
         {
-            messageText.text = "Solid score. Good job and keep it up!";
+            messageText.text = "A solid score! But even foxes dream of higher peaks.";
         }
         else if (PlayerController.score >= 500)
         {
-            messageText.text = "You gave it your all, and that’s what counts!";
+            messageText.text = "A fox in training! Time to pounce on that score.";
         }
         else
         {
-            messageText.text = "Was that a warm-up? Let’s see your real skills next time!";
+            messageText.text = "Don’t worry, every fox stumbles before it learns to hunt!";
         }
 
     }
