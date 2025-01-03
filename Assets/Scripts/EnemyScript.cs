@@ -5,15 +5,35 @@ using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[System.Serializable]
+public class DangerData {
+    public Material material;
+    public float range;
+    public float angle;
+    public float speed;
+    
+
+    public DangerData(Material material, float range, float angle, float speed)
+    {
+        this.material = material;
+        this.range = range;
+        this.angle = angle;
+        this.speed = speed;
+    }
+}
+
 public class EnemyScript : MonoBehaviour
 {
     //angle of FOV and how far enemy can see
-    public float fovAngle;
-    public float detectionRadius;
+    private float fovAngle;
+    public float maxFovAngle;
+    private float detectionRadius;
+    public float maxDetectionRadius;
     //refrence to player object
     public Transform player;
     //speed of enemy
-    public float speed = 1.0f;
+    private float speed;
+    public float maxSpeed = 1.0f;
     //boolean to control behaviour
     public bool playerInView;
     //variable height to eye-level for enemies
@@ -35,7 +55,7 @@ public class EnemyScript : MonoBehaviour
     public Material maxDangerMaterial;
     private MeshRenderer coneRenderer;
     private int dangerVal;
-    private Dictionary<int, Material> dangerToMat;
+    private Dictionary<int, DangerData> dangerToData;
     public int visionConeResolution = 120;
     private Mesh visionConeMesh;
     private MeshFilter meshFilter;
@@ -50,19 +70,19 @@ public class EnemyScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         eyeLevel = eyeLevel == 0 ? 1 : eyeLevel;
 
-        dangerToMat = new Dictionary<int, Material> {
-            {0, lowDangerMaterial},
-            {1, mediumDangerMaterial},
-            {2, highDangerMaterial},
-            {3, maxDangerMaterial},
+        dangerToData = new Dictionary<int, DangerData> {
+            {0, new DangerData(lowDangerMaterial, 0.5f, 0.3f, 0.5f)},
+            {1, new DangerData(mediumDangerMaterial, 0.7f, 0.6f, 0.7f)},
+            {2, new DangerData(highDangerMaterial, 0.8f, 0.8f, 0.8f)},
+            {3, new DangerData(maxDangerMaterial, 1.0f, 1.0f, 1.0f)},
         };
 
         dangerVal = SceneCompletion.getDangerLevel();
-        visionCone.transform.AddComponent<MeshRenderer>().material = dangerToMat[dangerVal];
+        visionCone.transform.AddComponent<MeshRenderer>().material = dangerToData[dangerVal].material;
         coneRenderer = visionCone.transform.GetComponent<MeshRenderer>();
+        adjustValsForDanger();
         meshFilter = visionCone.transform.AddComponent<MeshFilter>();
         visionConeMesh = new Mesh();
-        coneAngle = fovAngle * Mathf.Deg2Rad;
     }
 
     // Update is called once per frame
@@ -94,8 +114,13 @@ public class EnemyScript : MonoBehaviour
 
     }
 
+    //adjust enemy speed, detection range, fovAngle, coneAngle, and coneMaterial according to difficulty
     public void adjustValsForDanger() {
-        coneRenderer.material = dangerToMat[dangerVal];
+        coneRenderer.material = dangerToData[dangerVal].material;
+        speed = dangerToData[dangerVal].speed * maxSpeed;
+        fovAngle = dangerToData[dangerVal].angle * maxFovAngle;
+        detectionRadius = dangerToData[dangerVal].range * maxDetectionRadius;
+        coneAngle = fovAngle * Mathf.Deg2Rad;
     }
 
     public int getAttackVal() {
