@@ -21,6 +21,20 @@ public class AudioManager : MonoBehaviour
     public AudioClip foxEat;
     public AudioClip pickUpFood;
 
+    public static AudioManager instance;
+
+    private void Awake(){
+        if (instance == null)
+        {
+            instance =  this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start() {
         musicSource.clip = background1;
         musicSource.Play();

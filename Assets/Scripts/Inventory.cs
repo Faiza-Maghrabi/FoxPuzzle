@@ -65,11 +65,8 @@ public class Inventory : MonoBehaviour
     public PlayerController player;
     public ItemSlot[] itemSlot;
     public static ItemData[] items;
-    AudioManager audioManager;
 
     void Awake(){
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-        Debug.Log(audioManager);
         InitOrResetInventory();
     }
 
@@ -153,8 +150,6 @@ public class Inventory : MonoBehaviour
                     OpenHealthNotif();
                     return false;
                 }
-                // audioManager.StopSFX();
-                audioManager.PlaySFX(audioManager.foxEat);
                 PlayerController.health += healthRegen; //health increase
                 PlayerController.score -= scoreVal; //score is decreased
                 return true;
@@ -164,19 +159,18 @@ public class Inventory : MonoBehaviour
     }
 
     //Adds an item to the itemslot when player picks it up. 
-    public void AddItemToInventory(FoodListItem food){
+    public bool AddItemToInventory(FoodListItem food){
         Sprite resolvedSprite = FoodScript.GetSprite(food.foodIcon);
 
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0 && items[i].isFull == false)
             {
-                // audioManager.StopSFX();
-                audioManager.PlaySFX(audioManager.pickUpFood);
                 itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
-                return;
+                return true;
             }
         }
+        return false;
     }
 
 
