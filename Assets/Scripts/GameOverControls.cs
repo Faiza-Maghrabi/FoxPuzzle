@@ -37,12 +37,7 @@ public class GameOverControls : MonoBehaviour
         PlayerController.init = true;
         FoodTracker.Init();
 
-        for (int i = 0; i < Inventory.items.Length; i++)
-        {
-            if (Inventory.items[i].isFull){
-                Inventory.items[i].ResetItem();
-            }
-        }
+        Inventory.InitOrResetInventory();
         gameOverObj.SetActive(false);
     }
 }

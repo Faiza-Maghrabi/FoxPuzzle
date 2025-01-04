@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3615360018552798953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3091609789112301062}
+  m_Layer: 0
+  m_Name: VisionCone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3091609789112301062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3615360018552798953}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6014251386513510827}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6123858344885401152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,19 +73,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.71
+      value: -21.42
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -62,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.12309
+      value: 39.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -477,6 +508,10 @@ PrefabInstance:
       value: casual_Male_K Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -750,7 +785,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: b007a16f9eab38444aa2e29784ae9bf9, type: 2}
     - target: {fileID: 5866666021909216657, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6367066126322661260, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -894,7 +929,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3091609789112301062}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
       insertIndex: -1
@@ -938,6 +976,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6663818757187089724, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
+--- !u!4 &6014251386513510827 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
+  m_PrefabInstance: {fileID: 6123858344885401152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6358301376106826513 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b7c035cdee4609f4689888a8474b63b7, type: 3}
@@ -982,11 +1025,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328fec2a43c0b4e46ba46272bda79fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fovAngle: 270
-  detectionRadius: 10
-  speed: 7
+  maxFovAngle: 220
+  maxDetectionRadius: 9
+  player: {fileID: 0}
+  maxSpeed: 8
   playerInView: 0
-  eyeLevel: 3.9
   attackVal: 8
   hitPlayer: 0
   anim: {fileID: 402725897501936593}
+  visionCone: {fileID: 3615360018552798953}
+  lowDangerMaterial: {fileID: 2100000, guid: 9df2a2be15098c6449e0d65756f1d2e4, type: 2}
+  mediumDangerMaterial: {fileID: 2100000, guid: bb549048583c1704db4b8f8a83f8f149, type: 2}
+  highDangerMaterial: {fileID: 2100000, guid: fa2d0e0c90c5c5c489666590ed330c81, type: 2}
+  maxDangerMaterial: {fileID: 2100000, guid: e08e304f67bbacd49b0608c63854c37c, type: 2}
+  visionConeResolution: 120
