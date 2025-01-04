@@ -132,7 +132,10 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
-        audioManager.PlaySFX(audioManager.foxRun, audioManager.foxSFXSource);
+        if(IsGrounded())
+        {
+            audioManager.PlaySFX(audioManager.foxRun, audioManager.foxSFXSource);
+        }
     }
 
     //Opens inventory when the e key is pressed
@@ -216,6 +219,7 @@ public class PlayerController : MonoBehaviour
         if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
             cinemachineCollider.m_Damping = 0f;
             cinemachineCollider.m_DampingWhenOccluded = 0f;
+            audioManager.PlaySFX(audioManager.foxLand, audioManager.foxSFXSource);
 
         }   
 
@@ -329,7 +333,7 @@ public class PlayerController : MonoBehaviour
                 FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
                 SceneCompletion.increaseFoodCount();
                 PlayerController.score += food.scoreVal;
-                audioManager.PlaySFX(audioManager.pickUpFood, audioManager.inventorySFXSource);
+                // audioManager.PlaySFX(audioManager.pickUpFood, audioManager.inventorySFXSource);
             }
         }
     }

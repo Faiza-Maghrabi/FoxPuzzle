@@ -102,7 +102,6 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     //Updates the description to reflect the data of the selected item
     public void UpdateDescription() {
         ItemDescriptionName.text = Inventory.items[id].foodName;
-        Debug.Log(Inventory.items[id].foodName);
         ItemDescriptionText.text = Inventory.items[id].foodDescription;
         ItemAttributesText.text = Inventory.items[id].foodAttributes;
         ItemDescriptionImage.sprite = FoodScript.GetSprite(Inventory.items[id].foodIcon);

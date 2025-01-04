@@ -43,6 +43,7 @@ public class EnemyScript : MonoBehaviour
     //speed of enemy
     private float speed;
     public float maxSpeed = 1.0f;
+    private bool wasPlayerInView = false; // Track the previous state.
     //boolean to control behaviour
     public bool playerInView;
     //whether the hunted var in Player has been updated or not
@@ -136,28 +137,20 @@ public class EnemyScript : MonoBehaviour
         playerInView = FoundPlayer();
         anim.SetBool(moveHash, playerInView && !hitPlayer);
         anim.SetBool(hitHash, hitPlayer);
-        if(playerInView){
-            switch(enemyType)
-            {
-                case EnemyType.EnemyDog:
-                    audioManager.PlaySFX(audioManager.dogGrowl, audioManager.dogSFXSource);
-                    break;
-                case EnemyType.EnemyBear:
-                    audioManager.PlaySFX(audioManager.bearGrowl, audioManager.bearSFXSource);
-                    break;
-                case EnemyType.little_boy:
-                    audioManager.PlaySFX(audioManager.boyShout, audioManager.boySFXSource);
-                    break;
-                case EnemyType.casual_Female:
-                    audioManager.PlaySFX(audioManager.womanShout, audioManager.femaleSFXSource);
-                    break;
-                case EnemyType.casual_Male:
-                    audioManager.PlaySFX(audioManager.manShout, audioManager.maleSFXSource);
-                    break;
-                default:
-                    break;
-            }
+
+        playerInView = FoundPlayer();
+
+        if (playerInView && !wasPlayerInView) // Transition to seeing the player
+        {
+            PlayEnemySFX();
         }
+        else if (!playerInView && wasPlayerInView) // Transition to losing the player
+        {
+            StopEnemySFX();
+        }
+
+        wasPlayerInView = playerInView;
+
         // if seen, look towards player and travel towards them
         if (playerInView && !hitPlayer) {
             if (!addedToHunted) {
@@ -178,28 +171,54 @@ public class EnemyScript : MonoBehaviour
         else if (!playerInView && addedToHunted) {
             PlayerController.huntedVal -=1;
             addedToHunted = false;
-            switch(enemyType)
-            {
-                case EnemyType.EnemyDog:
-                    audioManager.Stop(audioManager.dogSFXSource);
-                    break;
-                case EnemyType.EnemyBear:
-                    audioManager.Stop(audioManager.bearSFXSource);
-                    break;
-                case EnemyType.little_boy:
-                    audioManager.Stop(audioManager.boySFXSource);
-                    break;
-                case EnemyType.casual_Female:
-                    audioManager.Stop(audioManager.femaleSFXSource);
-                    break;
-                case EnemyType.casual_Male:
-                    audioManager.Stop(audioManager.maleSFXSource);
-                    break;
-                default:
-                    break;
-            }
         }
 
+    }
+
+    private void PlayEnemySFX(){
+        switch(enemyType)
+        {
+            case EnemyType.EnemyDog:
+                audioManager.PlaySFX(audioManager.dogGrowl, audioManager.dogSFXSource);
+                break;
+            case EnemyType.EnemyBear:
+                audioManager.PlaySFX(audioManager.bearGrowl, audioManager.bearSFXSource);
+                break;
+            case EnemyType.little_boy:
+                audioManager.PlaySFX(audioManager.boyShout, audioManager.boySFXSource);
+                break;
+            case EnemyType.casual_Female:
+                audioManager.PlaySFX(audioManager.womanShout, audioManager.femaleSFXSource);
+                break;
+            case EnemyType.casual_Male:
+                audioManager.PlaySFX(audioManager.manShout, audioManager.maleSFXSource);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void StopEnemySFX(){
+        switch(enemyType)
+        {
+            case EnemyType.EnemyDog:
+                audioManager.Stop(audioManager.dogSFXSource);
+                break;
+            case EnemyType.EnemyBear:
+                audioManager.Stop(audioManager.bearSFXSource);
+                break;
+            case EnemyType.little_boy:
+                audioManager.Stop(audioManager.boySFXSource);
+                break;
+            case EnemyType.casual_Female:
+                audioManager.Stop(audioManager.femaleSFXSource);
+                break;
+            case EnemyType.casual_Male:
+                audioManager.Stop(audioManager.maleSFXSource);
+                break;
+            default:
+                break;
+        }
     }
 
     //adjust enemy speed, detection range, fovAngle, coneAngle, and coneMaterial according to difficulty

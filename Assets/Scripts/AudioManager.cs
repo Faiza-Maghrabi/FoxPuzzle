@@ -21,12 +21,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip background2;
     public AudioClip foxWalk;
     public AudioClip foxRun;
-    // public AudioClip dogWalk;
+    public AudioClip foxLand;
     public AudioClip boyShout;
+    public AudioClip snowballHit;
     public AudioClip womanShout;
     public AudioClip manShout;
     public AudioClip dogGrowl;
-    // public AudioClip bearWalk;
     public AudioClip bearGrowl;
     public AudioClip foxDeath;
     public AudioClip foxEat;
