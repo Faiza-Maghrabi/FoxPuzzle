@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using System;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains
@@ -64,8 +65,11 @@ public class Inventory : MonoBehaviour
     public PlayerController player;
     public ItemSlot[] itemSlot;
     public static ItemData[] items;
+    AudioManager audioManager;
 
     void Awake(){
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        Debug.Log(audioManager);
         InitOrResetInventory();
     }
 
@@ -149,6 +153,8 @@ public class Inventory : MonoBehaviour
                     OpenHealthNotif();
                     return false;
                 }
+                // audioManager.StopSFX();
+                // audioManager.PlaySFX(audioManager.foxEat);
                 PlayerController.health += healthRegen; //health increase
                 PlayerController.score -= scoreVal; //score is decreased
                 return true;
@@ -165,6 +171,8 @@ public class Inventory : MonoBehaviour
         {
             if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0 && items[i].isFull == false)
             {
+                // audioManager.StopSFX();
+                // audioManager.PlaySFX(audioManager.pickUpFood);
                 itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
                 return;
             }

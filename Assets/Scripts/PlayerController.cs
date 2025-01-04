@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
+    AudioManager audioManager;
 
 
     void Awake(){
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[1] = gameObject.transform.position.y;
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         playerInput = GetComponent<PlayerInput>();
         sneakAction = playerInput.actions["Sneak"]; //gets sneak action
     }   
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
+        audioManager.PlaySFX(audioManager.foxRun);
     }
 
     //Opens inventory when the e key is pressed
@@ -142,6 +145,8 @@ public class PlayerController : MonoBehaviour
         // Player jumps when the space key is pressed and not in mid air
         if (IsGrounded()){
             Jump();
+            audioManager.StopSFX();
+
         }
     }
 
@@ -161,12 +166,14 @@ public class PlayerController : MonoBehaviour
     {
         speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
         isStealth = true;
+        audioManager.PlaySFX(audioManager.foxWalk);
     }
 
     private void OnSneakCanceled(InputAction.CallbackContext context)
     {
         speed = speedSettings.normalSpeed;  // Restore normal speed
         isStealth = false;
+        audioManager.PlaySFX(audioManager.foxRun);
     }
 
     private IEnumerator SelectAfterFrame(GameObject button) {
@@ -184,6 +191,10 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat(speedHash, notMoving ? 0 : speed);
         anim.SetBool(jumpHash, jump.isJumping);
         anim.SetBool(groundHash, IsGrounded());
+
+        if(notMoving){
+            audioManager.StopSFX();
+        }
         
 
         if (jump.isJumping){
@@ -203,10 +214,12 @@ public class PlayerController : MonoBehaviour
         if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
             cinemachineCollider.m_Damping = 0f;
             cinemachineCollider.m_DampingWhenOccluded = 0f;
+
         }   
 
         if(health <= 0){
             gameOverObj.SetActive(true);
+            audioManager.PlaySFX(audioManager.foxDeath);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
