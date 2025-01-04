@@ -21,9 +21,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip background2;
     public AudioClip foxWalk;
     public AudioClip foxRun;
-    public AudioClip dogWalk;
+    // public AudioClip dogWalk;
+    public AudioClip boyShout;
+    public AudioClip womanShout;
+    public AudioClip manShout;
     public AudioClip dogGrowl;
-    public AudioClip bearWalk;
+    // public AudioClip bearWalk;
     public AudioClip bearGrowl;
     public AudioClip foxDeath;
     public AudioClip foxEat;
@@ -62,7 +65,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip, AudioSource source)
     {
-        source.PlayOneShot(clip);
+        if (source.clip != clip || !source.isPlaying)
+        {
+            source.PlayOneShot(clip);
+        }
     }
 
     public void Stop(AudioSource source)

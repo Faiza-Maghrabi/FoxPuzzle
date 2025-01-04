@@ -6491,12 +6491,13 @@ MonoBehaviour:
   background2: {fileID: 8300000, guid: 370513e2f8171c746bfe99e7602384ce, type: 3}
   foxWalk: {fileID: 8300000, guid: 2bb1ca1311db63545b9e09a646bf7fc4, type: 3}
   foxRun: {fileID: 8300000, guid: 5d61f91a0eacf454d82ec5aa09a49e0a, type: 3}
-  dogWalk: {fileID: 8300000, guid: a3ecffc16adbb3c4193a5398c22572ed, type: 3}
+  boyShout: {fileID: 8300000, guid: 626c241ef788f774298466ed687912d6, type: 3}
+  womanShout: {fileID: 8300000, guid: 033784265ac7e1e48be276d45216d832, type: 3}
+  manShout: {fileID: 8300000, guid: 33a85190a30f6f442867de6b1f6729e4, type: 3}
   dogGrowl: {fileID: 8300000, guid: 2d8a4052776875f4897425cc25bbdd07, type: 3}
-  bearWalk: {fileID: 8300000, guid: 1073214a9f7434741b2c5f25ede1ac2c, type: 3}
   bearGrowl: {fileID: 8300000, guid: b33fd032ef1f1a04d863796bd6761f20, type: 3}
   foxDeath: {fileID: 8300000, guid: 94168b27454415345bcbfe11b7a3a971, type: 3}
-  foxEat: {fileID: 8300000, guid: f9abeab97046e4341bad48a878d8a272, type: 3}
+  foxEat: {fileID: 8300000, guid: 4e2828d7ea2a14a4d868e0ce73f7e560, type: 3}
   pickUpFood: {fileID: 8300000, guid: ede116748cf9a5e44a7c0c27a537812b, type: 3}
 --- !u!4 &733881373
 Transform:
@@ -7189,7 +7190,7 @@ AudioSource:
   m_GameObject: {fileID: 798272293}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7731383443832220197, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -8313,7 +8314,7 @@ AudioSource:
   m_GameObject: {fileID: 931686944}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3712956574036024101, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -9278,7 +9279,7 @@ AudioSource:
   m_GameObject: {fileID: 1035563910}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 791832926348096406, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -10673,6 +10674,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8798093075679551464, guid: c8fbf693c9365f640bd0aeda5a21922a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1493838691}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12937,7 +12942,7 @@ AudioSource:
   m_GameObject: {fileID: 1351588331}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6094396262283106900, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -13954,6 +13959,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22426e6357a4342a165399e20b2526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1493838691 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6462802557214472140, guid: e5a25116f6d504242901c5c986329115, type: 3}
+  m_PrefabInstance: {fileID: 1035889615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1498388697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4261624345619718, guid: 335654d21784b4997986a40fdc8fa524, type: 3}
@@ -16305,7 +16315,7 @@ AudioSource:
   m_GameObject: {fileID: 1786525742}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1507265406269049145, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -16809,7 +16819,7 @@ AudioSource:
   m_GameObject: {fileID: 1828411386}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3569980586632836909, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

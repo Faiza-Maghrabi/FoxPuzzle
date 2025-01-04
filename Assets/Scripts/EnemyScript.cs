@@ -136,6 +136,28 @@ public class EnemyScript : MonoBehaviour
         playerInView = FoundPlayer();
         anim.SetBool(moveHash, playerInView && !hitPlayer);
         anim.SetBool(hitHash, hitPlayer);
+        if(playerInView){
+            switch(enemyType)
+            {
+                case EnemyType.EnemyDog:
+                    audioManager.PlaySFX(audioManager.dogGrowl, audioManager.dogSFXSource);
+                    break;
+                case EnemyType.EnemyBear:
+                    audioManager.PlaySFX(audioManager.bearGrowl, audioManager.bearSFXSource);
+                    break;
+                case EnemyType.little_boy:
+                    audioManager.PlaySFX(audioManager.boyShout, audioManager.boySFXSource);
+                    break;
+                case EnemyType.casual_Female:
+                    audioManager.PlaySFX(audioManager.womanShout, audioManager.femaleSFXSource);
+                    break;
+                case EnemyType.casual_Male:
+                    audioManager.PlaySFX(audioManager.manShout, audioManager.maleSFXSource);
+                    break;
+                default:
+                    break;
+            }
+        }
         // if seen, look towards player and travel towards them
         if (playerInView && !hitPlayer) {
             if (!addedToHunted) {
@@ -152,22 +174,30 @@ public class EnemyScript : MonoBehaviour
             UnityEngine.Vector3 newPosition = UnityEngine.Vector3.MoveTowards(rb.position, player.position, step);
             // Debug.Log(step);
             rb.MovePosition(newPosition);
-            switch(enemyType)
-            {
-                case EnemyType.EnemyDog:
-                    audioManager.PlaySFX(audioManager.dogWalk, audioManager.dogSFXSource);
-                    break;
-                case EnemyType.EnemyBear:
-                    audioManager.PlaySFX(audioManager.bearWalk, audioManager.bearSFXSource);
-                    break;
-                default:
-                    break;
-            }
-            // audioManager.PlaySFX(audioManager.dogWalk);
         }
         else if (!playerInView && addedToHunted) {
             PlayerController.huntedVal -=1;
             addedToHunted = false;
+            switch(enemyType)
+            {
+                case EnemyType.EnemyDog:
+                    audioManager.Stop(audioManager.dogSFXSource);
+                    break;
+                case EnemyType.EnemyBear:
+                    audioManager.Stop(audioManager.bearSFXSource);
+                    break;
+                case EnemyType.little_boy:
+                    audioManager.Stop(audioManager.boySFXSource);
+                    break;
+                case EnemyType.casual_Female:
+                    audioManager.Stop(audioManager.femaleSFXSource);
+                    break;
+                case EnemyType.casual_Male:
+                    audioManager.Stop(audioManager.maleSFXSource);
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
