@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
-    AudioManager audioManager;
+    private AudioManager audioManager;
 
 
     void Awake(){
@@ -132,12 +132,11 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
-        audioManager.PlaySFX(audioManager.foxRun);
+        audioManager.PlaySFX(audioManager.foxRun, audioManager.foxSFXSource);
     }
 
     //Opens inventory when the e key is pressed
     void OnInventory(InputValue value){
-        audioManager.StopSFX();
         inventory.OnInventory(value);
         StartCoroutine(SelectAfterFrame(selectedItemIcon));
     }
@@ -146,7 +145,7 @@ public class PlayerController : MonoBehaviour
         // Player jumps when the space key is pressed and not in mid air
         if (IsGrounded()){
             Jump();
-            audioManager.StopSFX();
+            audioManager.Stop(audioManager.foxSFXSource);
 
         }
     }
@@ -167,14 +166,16 @@ public class PlayerController : MonoBehaviour
     {
         speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
         isStealth = true;
-        audioManager.PlaySFX(audioManager.foxWalk);
+        audioManager.Stop(audioManager.foxSFXSource);
+        audioManager.PlaySFX(audioManager.foxWalk, audioManager.foxSFXSource);
     }
 
     private void OnSneakCanceled(InputAction.CallbackContext context)
     {
         speed = speedSettings.normalSpeed;  // Restore normal speed
         isStealth = false;
-        audioManager.PlaySFX(audioManager.foxRun);
+        audioManager.Stop(audioManager.foxSFXSource);
+        audioManager.PlaySFX(audioManager.foxRun, audioManager.foxSFXSource);
     }
 
     private IEnumerator SelectAfterFrame(GameObject button) {
@@ -194,7 +195,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(groundHash, IsGrounded());
 
         if(notMoving){
-            audioManager.StopSFX();
+            audioManager.Stop(audioManager.foxSFXSource);
         }
         
 
@@ -220,12 +221,20 @@ public class PlayerController : MonoBehaviour
 
         if(health <= 0){
             gameOverObj.SetActive(true);
-            audioManager.PlaySFX(audioManager.foxDeath);
+            audioManager.PlaySFX(audioManager.foxDeath, audioManager.foxSFXSource);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
-        // Debug.Log(EventSystem.current.alreadySelecting);
+        
+        if(huntedVal > 0)
+        {
+            audioManager.PlayMusic(audioManager.background2, audioManager.musicSource);
+        }
+        else
+        {
+            audioManager.PlayMusic(audioManager.background1, audioManager.musicSource);
+        }
     }
 
 
@@ -292,10 +301,10 @@ public class PlayerController : MonoBehaviour
             triggerTime += 1;
         }
 
-        if(gameOverObj == isActiveAndEnabled){
+        if(gameOverObj == isActiveAndEnabled)
+        {
             StartCoroutine(SelectAfterFrame(restartButton));
         }
-
     }
 
     // handles jump logic
@@ -313,12 +322,15 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         // if collided with a FoodItem, hide the item and calls the function to add the item to the players inventory and add score to counter
         if (other.gameObject.CompareTag("FoodItem")) {
-            other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
-            inventory.AddItemToInventory(food.food);
-            FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
-            SceneCompletion.increaseFoodCount();
-            PlayerController.score += food.scoreVal;
+            bool added = inventory.AddItemToInventory(food.food);
+            if (added){
+                other.gameObject.SetActive(false);
+                FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
+                SceneCompletion.increaseFoodCount();
+                PlayerController.score += food.scoreVal;
+                audioManager.PlaySFX(audioManager.pickUpFood, audioManager.inventorySFXSource);
+            }
         }
     }
 

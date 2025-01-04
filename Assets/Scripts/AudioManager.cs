@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AudioManager : MonoBehaviour
 {
     [Header("--------- Audio Source --------")]
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource SFXSource;
+    [SerializeField] public AudioSource musicSource;
+    [SerializeField] public AudioSource foxSFXSource;
+    [SerializeField] public AudioSource inventorySFXSource;
 
     [Header("--------- Clip --------")]
     public AudioClip background1;
@@ -23,7 +26,9 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
-    private void Awake(){
+
+    private void Awake()
+    {
         if (instance == null)
         {
             instance =  this;
@@ -35,17 +40,29 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start() {
+    private void Start() 
+    {
         musicSource.clip = background1;
         musicSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip){
-        SFXSource.PlayOneShot(clip);
+    public void PlayMusic(AudioClip clip, AudioSource source)
+    {
+        if (source.clip != clip || !source.isPlaying)
+        {
+            source.clip = clip;
+            source.Play();
+        }
     }
 
-    public void StopSFX(){
-        SFXSource.Stop();
+    public void PlaySFX(AudioClip clip, AudioSource source)
+    {
+        source.PlayOneShot(clip);
+    }
+
+    public void Stop(AudioSource source)
+    {
+        source.Stop();
     }
 
 }
