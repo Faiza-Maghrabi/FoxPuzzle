@@ -10,6 +10,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioSource musicSource;
     [SerializeField] public AudioSource foxSFXSource;
     [SerializeField] public AudioSource inventorySFXSource;
+    [SerializeField] public AudioSource dogSFXSource;
+    [SerializeField] public AudioSource bearSFXSource;
+    [SerializeField] public AudioSource maleSFXSource;
+    [SerializeField] public AudioSource femaleSFXSource;
+    [SerializeField] public AudioSource boySFXSource;
 
     [Header("--------- Clip --------")]
     public AudioClip background1;

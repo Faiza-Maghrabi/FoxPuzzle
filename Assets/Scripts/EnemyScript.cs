@@ -22,6 +22,15 @@ public class DangerData {
     }
 }
 
+public enum EnemyType
+{
+    EnemyDog,
+    EnemyBear,
+    casual_Male,
+    casual_Female,
+    little_boy
+}
+
 public class EnemyScript : MonoBehaviour
 {
     //angle of FOV and how far enemy can see
@@ -60,6 +69,12 @@ public class EnemyScript : MonoBehaviour
     private Mesh visionConeMesh;
     private MeshFilter meshFilter;
     private float coneAngle;
+    AudioManager audioManager;
+    public EnemyType enemyType;
+
+    void Awake(){
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +97,30 @@ public class EnemyScript : MonoBehaviour
         adjustValsForDanger();
         meshFilter = visionCone.transform.AddComponent<MeshFilter>();
         visionConeMesh = new Mesh();
+
+        string enemyName = gameObject.name;
+
+        // Check and assign the corresponding EnemyType based on the GameObject's name
+        if (enemyName.Contains("EnemyDog"))
+        {
+            enemyType = EnemyType.EnemyDog;
+        }
+        else if (enemyName.Contains("EnemyBear"))
+        {
+            enemyType = EnemyType.EnemyBear;
+        }
+        else if (enemyName.Contains("casual_Male"))
+        {
+            enemyType = EnemyType.casual_Male;
+        }
+        else if (enemyName.Contains("casual_Female"))
+        {
+            enemyType = EnemyType.casual_Female;
+        }
+        else if (enemyName.Contains("little_boy_B"))
+        {
+            enemyType = EnemyType.little_boy;
+        }
     }
 
     // Update is called once per frame
@@ -113,6 +152,18 @@ public class EnemyScript : MonoBehaviour
             UnityEngine.Vector3 newPosition = UnityEngine.Vector3.MoveTowards(rb.position, player.position, step);
             // Debug.Log(step);
             rb.MovePosition(newPosition);
+            switch(enemyType)
+            {
+                case EnemyType.EnemyDog:
+                    audioManager.PlaySFX(audioManager.dogWalk, audioManager.dogSFXSource);
+                    break;
+                case EnemyType.EnemyBear:
+                    audioManager.PlaySFX(audioManager.bearWalk, audioManager.bearSFXSource);
+                    break;
+                default:
+                    break;
+            }
+            // audioManager.PlaySFX(audioManager.dogWalk);
         }
         else if (!playerInView && addedToHunted) {
             PlayerController.huntedVal -=1;
