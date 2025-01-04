@@ -154,7 +154,7 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
                 // audioManager.StopSFX();
-                // audioManager.PlaySFX(audioManager.foxEat);
+                audioManager.PlaySFX(audioManager.foxEat);
                 PlayerController.health += healthRegen; //health increase
                 PlayerController.score -= scoreVal; //score is decreased
                 return true;
@@ -172,7 +172,7 @@ public class Inventory : MonoBehaviour
             if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0 && items[i].isFull == false)
             {
                 // audioManager.StopSFX();
-                // audioManager.PlaySFX(audioManager.pickUpFood);
+                audioManager.PlaySFX(audioManager.pickUpFood);
                 itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
                 return;
             }

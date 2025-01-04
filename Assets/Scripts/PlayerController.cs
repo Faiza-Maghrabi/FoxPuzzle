@@ -137,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
     //Opens inventory when the e key is pressed
     void OnInventory(InputValue value){
+        audioManager.StopSFX();
         inventory.OnInventory(value);
         StartCoroutine(SelectAfterFrame(selectedItemIcon));
     }
