@@ -43,7 +43,6 @@ public class EnemyScript : MonoBehaviour
     //speed of enemy
     private float speed;
     public float maxSpeed = 1.0f;
-    private bool wasPlayerInView = false; // Track the previous state.
     //boolean to control behaviour
     public bool playerInView;
     //whether the hunted var in Player has been updated or not
@@ -140,20 +139,10 @@ public class EnemyScript : MonoBehaviour
 
         playerInView = FoundPlayer();
 
-        if (playerInView && !wasPlayerInView) // Transition to seeing the player
-        {
-            PlayEnemySFX();
-        }
-        else if (!playerInView && wasPlayerInView) // Transition to losing the player
-        {
-            StopEnemySFX();
-        }
-
-        wasPlayerInView = playerInView;
-
         // if seen, look towards player and travel towards them
         if (playerInView && !hitPlayer) {
             if (!addedToHunted) {
+                PlayEnemySFX();
                 PlayerController.huntedVal +=1;
                 addedToHunted = true;
             }
@@ -169,6 +158,7 @@ public class EnemyScript : MonoBehaviour
             rb.MovePosition(newPosition);
         }
         else if (!playerInView && addedToHunted) {
+            StopEnemySFX();
             PlayerController.huntedVal -=1;
             addedToHunted = false;
         }
