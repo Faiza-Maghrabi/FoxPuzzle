@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
 
         if(health <= 0){
             gameOverObj.SetActive(true);
-            audioManager.PlaySFX(audioManager.foxDeath, audioManager.foxSFXSource);
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
@@ -298,6 +298,7 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
             if (isDamageFlashOn){
                 flashTime = .01f;
                 StartCoroutine(EFlash());
@@ -333,7 +334,7 @@ public class PlayerController : MonoBehaviour
                 FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
                 SceneCompletion.increaseFoodCount();
                 PlayerController.score += food.scoreVal;
-                // audioManager.PlaySFX(audioManager.pickUpFood, audioManager.inventorySFXSource);
+                audioManager.PlaySFX(audioManager.pickUpFood, audioManager.inventorySFXSource);
             }
         }
     }
@@ -349,7 +350,9 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             enemyDamage = enemy.getAttackVal();
+            
             health -= enemyDamage/5;
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
@@ -358,6 +361,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(EFlash());
             }
             health -= 15;
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
         }
         else if (other.gameObject.tag == "Fire") {
             if(isDamageFlashOn){
@@ -368,6 +372,7 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             enemyDamage = 5;
             health -= 5;
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
         }
     }
 

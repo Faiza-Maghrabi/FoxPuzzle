@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip manShout;
     public AudioClip dogGrowl;
     public AudioClip bearGrowl;
-    public AudioClip foxDeath;
+    public AudioClip foxHurt;
     public AudioClip foxEat;
     public AudioClip pickUpFood;
 
