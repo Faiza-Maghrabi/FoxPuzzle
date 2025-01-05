@@ -87,7 +87,7 @@ public class MazeGeneratorScaled : MonoBehaviour
         // Calculate the position for the entrance prefab
         Vector3 entrancePosition = entranceCell.transform.position;
         // Instantiate the entrance prefab and scale it
-        GameObject entranceInstance = Instantiate(exitPrefab, entrancePosition, Quaternion.identity);
+        GameObject entranceInstance = Instantiate(entrancePrefab, entrancePosition, Quaternion.identity);
         entranceInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
 
         // Get the top-right corner cell
