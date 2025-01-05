@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 261707072}
   - component: {fileID: 261707076}
   m_Layer: 0
-  m_Name: MazeBackWall
+  m_Name: MazeOpenSceneWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 13
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  sceneFade: {fileID: 823353247}
 --- !u!1001 &291584524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2164,6 +2164,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4488818886751972, guid: 9423742832090404eb59a341f56e0219, type: 3}
   m_PrefabInstance: {fileID: 774003848}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &823353247 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  m_PrefabInstance: {fileID: 855635811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &855635811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2520,7 +2525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 12
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  sceneFade: {fileID: 823353247}
 --- !u!1001 &873522202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4504,7 +4509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 14
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  sceneFade: {fileID: 823353247}
 --- !u!65 &1640191726
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4584,7 +4589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640191724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 95.9, y: 5, z: 90.2}
+  m_LocalPosition: {x: 94.27, y: 5, z: 90.45}
   m_LocalScale: {x: 0.5, y: 10, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
