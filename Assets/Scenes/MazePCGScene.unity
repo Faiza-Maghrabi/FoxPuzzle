@@ -1414,11 +1414,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.13325593
+      value: 0.13325587
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.048126895
+      value: -0.04812691
       objectReference: {fileID: 0}
     - target: {fileID: 3168128316214316701, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: field of view
@@ -2289,7 +2289,6 @@ GameObject:
   - component: {fileID: 870577902}
   - component: {fileID: 870577901}
   - component: {fileID: 870577900}
-  - component: {fileID: 870577899}
   - component: {fileID: 870577904}
   m_Layer: 0
   m_Name: MazeExitSquare
@@ -2298,20 +2297,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &870577899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 870577898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eff6d903a0d9ee4a8b45eb20335ef64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 12
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
 --- !u!65 &870577900
 BoxCollider:
   m_ObjectHideFlags: 0
