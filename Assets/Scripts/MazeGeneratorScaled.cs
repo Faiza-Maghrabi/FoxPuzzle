@@ -19,6 +19,12 @@ public class MazeGeneratorScaled : MonoBehaviour
     [SerializeField]
     private float cellScale = 5f; // Scale factor for the maze cells
 
+    [SerializeField]
+    private GameObject exitPrefab; // Assign the exit prefab in the Inspector
+
+    //[SerializeField]
+    //private GameObject playerPrefab; // Assign the player prefab in the Inspector
+
     private MazeCell[,] _mazeGrid;
 
     void Start()
@@ -45,7 +51,7 @@ public class MazeGeneratorScaled : MonoBehaviour
         }
 
         GenerateMaze(null, _mazeGrid[0, 0]);
-        CreateEntranceAndExit();
+        CreateExit();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
@@ -72,10 +78,28 @@ public class MazeGeneratorScaled : MonoBehaviour
         }
     }
 
-    private void CreateEntranceAndExit()
+    private void CreateExit()
     {
-        // Create entrance and exit as before
-        Debug.Log("Creating entrance and exit...");
+        Debug.Log("Placing exit...");
+
+        // Place player at the bottom-left corner (0, 0)
+        //MazeCell entranceCell = _mazeGrid[0, 0];
+        //Vector3 playerPosition = entranceCell.transform.position + new Vector3(0, 1, 0); // Adjust height if needed
+        //Instantiate(playerPrefab, playerPosition, Quaternion.identity);
+
+        // Get the top-right corner cell
+        MazeCell exitCell = _mazeGrid[_mazeWidth - 1, _mazeDepth - 1];
+
+        // Calculate the position for the exit prefab
+        Vector3 exitPosition = exitCell.transform.position;
+
+        // Instantiate the exit prefab and scale it
+        GameObject exitInstance = Instantiate(exitPrefab, exitPosition, Quaternion.identity);
+        exitInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
+
+        Debug.Log("Exit placed at: " + exitPosition);
+
+        Debug.Log("Exit created.");
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
