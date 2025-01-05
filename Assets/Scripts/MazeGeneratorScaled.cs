@@ -101,8 +101,9 @@ public class MazeGeneratorScaled : MonoBehaviour
         exitInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
 
         Debug.Log("Exit placed at: " + exitPosition);
+        Debug.Log("Entrance placed at: " + entrancePosition);
 
-        Debug.Log("Exit created.");
+        Debug.Log("Entrance and Exit created.");
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
