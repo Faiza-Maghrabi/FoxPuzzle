@@ -19,11 +19,11 @@ public class MazeGeneratorScaled : MonoBehaviour
     [SerializeField]
     private float cellScale = 5f; // Scale factor for the maze cells
 
-    [SerializeField]
-    private GameObject entrancePrefab; // Assign the entrance prefab in the Inspector
+    //[SerializeField]
+    //private GameObject entrancePrefab; // Assign the entrance prefab in the Inspector
 
-    [SerializeField]
-    private GameObject exitPrefab; // Assign the exit prefab in the Inspector
+    //[SerializeField]
+    //private GameObject exitPrefab; // Assign the exit prefab in the Inspector
 
     [SerializeField]
     private List<GameObject> rewardPrefabs; // Assign reward prefabs in the Inspector
