@@ -71,13 +71,16 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     public void OnLeftClick(){
         //If the item is selected and used we empty the item slot
         if (thisItemSelectedTwice){
+            Debug.Log(Inventory.items[id].foodName);
+            Debug.Log(Inventory.items[id].quantity);
             bool usable = false;
             if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity > 0){
                 usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
             }
-            if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity == 0){
+            else if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity == 0){
                 inventoryManager.OpenOutOfStockNotif();
             }
+            Debug.Log(usable);
             if(usable){
                 int quantity = Inventory.items[id].UseItem();
                 itemQuantity.text = Inventory.items[id].quantity.ToString();

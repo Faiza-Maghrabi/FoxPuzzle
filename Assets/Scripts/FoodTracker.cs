@@ -3,6 +3,8 @@ using System.Linq;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 //will load up a json of food in each secene and assign to a static list
 //this list is referred to by players on contact and keeps track of food that has been collected
@@ -17,16 +19,27 @@ public class FoodTracker : MonoBehaviour
 {
     private static SceneFoodList sceneFoodList;
     private static string jsonFilePath;
+    public static bool isInit = false;
 
-    public static void Init() {
+    async public static void Init() {
         //load json and save in static variable
         jsonFilePath = Application.streamingAssetsPath + "/SceneFood.json";
-        if (File.Exists(jsonFilePath)){
-            string jsonContent = File.ReadAllText(jsonFilePath);
+
+        UnityWebRequest request = UnityWebRequest.Get(jsonFilePath);
+        UnityWebRequestAsyncOperation operation = request.SendWebRequest();
+
+        while (!operation.isDone)
+        {
+            await Task.Yield();
+        }
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string jsonContent = request.downloadHandler.text;
             sceneFoodList = JsonConvert.DeserializeObject<SceneFoodList>(jsonContent);
+            isInit = true;
         }
         else {
-            Debug.LogError("No file at " + jsonFilePath);
+            Debug.LogError("Cannot load file at " + jsonFilePath);
         }
     }
 

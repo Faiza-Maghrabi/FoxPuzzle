@@ -150,6 +150,7 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
                 PlayerController.health += healthRegen; //health increase
+                PlayerController.health = PlayerController.health > 100 ? 100 : PlayerController.health;
                 PlayerController.score -= scoreVal; //score is decreased
                 return true;
             }
