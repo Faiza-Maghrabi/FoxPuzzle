@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 13
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  sceneFade: {fileID: 823353247}
 --- !u!1001 &291584524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1526,19 +1526,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9826237
+      value: 0.9826236
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1199062
+      value: 0.11990621
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.13325587
+      value: 0.13325591
       objectReference: {fileID: 0}
     - target: {fileID: 2968683443389841569, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.04812691
+      value: -0.048126925
       objectReference: {fileID: 0}
     - target: {fileID: 3168128316214316701, guid: e5a25116f6d504242901c5c986329115, type: 3}
       propertyPath: field of view
@@ -2164,6 +2164,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4488818886751972, guid: 9423742832090404eb59a341f56e0219, type: 3}
   m_PrefabInstance: {fileID: 774003848}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &823353247 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  m_PrefabInstance: {fileID: 855635811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &855635811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2520,7 +2525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 12
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  sceneFade: {fileID: 823353247}
 --- !u!1001 &873522202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4504,7 +4509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 14
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+  sceneFade: {fileID: 823353247}
 --- !u!65 &1640191726
 BoxCollider:
   m_ObjectHideFlags: 0
