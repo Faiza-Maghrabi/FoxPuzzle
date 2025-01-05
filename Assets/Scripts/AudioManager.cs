@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -34,6 +34,9 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    // Checks if music is paused
+    private bool isPaused =  false;
+
 
     private void Awake()
     {
@@ -53,6 +56,24 @@ public class AudioManager : MonoBehaviour
         musicSource.clip = background1;
         musicSource.Play();
     }
+
+    void Update(){
+        Scene scene = SceneManager.GetActiveScene();
+
+        string sceneName = scene.name;
+        if(!sceneName.Contains("Den"))
+        {
+            if(isPaused){
+                musicSource.UnPause();
+                isPaused = false;
+            }
+        } 
+        else 
+        {
+            musicSource.Pause();
+            isPaused = true;
+        }
+    }   
 
     public void PlayMusic(AudioClip clip, AudioSource source)
     {
