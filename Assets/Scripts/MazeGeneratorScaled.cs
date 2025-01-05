@@ -17,13 +17,7 @@ public class MazeGeneratorScaled : MonoBehaviour
     private Transform floorPrefab;
 
     [SerializeField]
-    private float cellScale = 5f; // Scale factor for the maze cells
-
-    //[SerializeField]
-    //private GameObject entrancePrefab; // Assign the entrance prefab in the Inspector
-
-    //[SerializeField]
-    //private GameObject exitPrefab; // Assign the exit prefab in the Inspector
+    private float cellScale = 5f; // Scale factor for the maze cells and floor
 
     [SerializeField]
     private List<GameObject> rewardPrefabs; // Assign reward prefabs in the Inspector
@@ -57,7 +51,7 @@ public class MazeGeneratorScaled : MonoBehaviour
         }
 
         GenerateMaze(null, _mazeGrid[0, 0]);
-        CreateEntranceandExit();
+        CreateExit();
         PlaceRewards();
     }
 
@@ -85,33 +79,12 @@ public class MazeGeneratorScaled : MonoBehaviour
         }
     }
 
-    private void CreateEntranceandExit()
+    private void CreateExit()
     {
-        Debug.Log("Placing entrance and exit...");
-
-        // Get the bottom-left corner cell (0, 0)
-        MazeCell entranceCell = _mazeGrid[0, 0];
-        // Calculate the position for the entrance prefab
-        Vector3 entrancePosition = entranceCell.transform.position;
-        // Instantiate the entrance prefab and scale it
-        // GameObject entranceInstance = Instantiate(entrancePrefab, entrancePosition, Quaternion.identity);
-        // entranceInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
-
-        // Get the top-right corner cell
+        // Get the top-right corner cell the location of the exit
         MazeCell exitCell = _mazeGrid[_mazeWidth - 1, _mazeDepth - 1];
-        // Calculate the position for the exit prefab
-        Vector3 exitPosition = exitCell.transform.position;
-        // Instantiate the exit prefab and scale it
-        // GameObject exitInstance = Instantiate(exitPrefab, exitPosition, Quaternion.identity);
-        // exitInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
-
         // Clear a wall of the exit cell (left wall for the top-right corner)
         exitCell.ClearRightWall();
-
-        Debug.Log("Exit placed at: " + exitPosition);
-        Debug.Log("Entrance placed at: " + entrancePosition);
-
-        Debug.Log("Entrance and Exit created.");
     }
 
     private void PlaceRewards()
