@@ -80,7 +80,6 @@ GameObject:
   - component: {fileID: 1855419426780525476}
   - component: {fileID: 3874727022824135664}
   - component: {fileID: 340056513062827365}
-  - component: {fileID: 3677973876490360867}
   m_Layer: 0
   m_Name: MazeExitSquareObject
   m_TagString: Untagged
@@ -153,17 +152,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3677973876490360867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7670068912234410854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eff6d903a0d9ee4a8b45eb20335ef64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 12
-  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
