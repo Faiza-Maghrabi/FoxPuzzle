@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
-using System;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains

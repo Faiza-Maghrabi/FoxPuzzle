@@ -86,12 +86,12 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
             if(usable){
                 int quantity = Inventory.items[id].UseItem();
                 itemQuantity.text = Inventory.items[id].quantity.ToString();
+                audioManager.PlaySFX(audioManager.foxEat, audioManager.inventorySFXSource);
                 if(quantity <= 0){
                     usedImage.gameObject.SetActive(true);
                     itemQuantity.text = "0";
                     return;
                 }
-                audioManager.PlaySFX(audioManager.foxEat, audioManager.inventorySFXSource);
             }
         }
         else{
