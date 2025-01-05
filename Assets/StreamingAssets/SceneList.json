@@ -7,8 +7,8 @@
     },
     {
       "objName": "Door2",
-      "sceneToLoad": "MazeHouse",
-      "position": [ 46.42, 0.00, -14.09 ]
+      "sceneToLoad": "MazePCGScene",
+      "position": [ 0.00, 0.00, 0.00 ]
     },
     {
       "objName": "Door3",
@@ -59,6 +59,21 @@
       "objName": "EntranceCylinder",
       "sceneToLoad": "OpenScene",
       "position": [ 4.06, 0.3, -14.96 ]
+    },
+    {
+      "objName": "MazeExitSquare",
+      "sceneToLoad": "MazeHouse",
+      "position": [ 80, 0, 70 ]
+    },
+    {
+      "objName": "MazeBackWall",
+      "sceneToLoad": "OpenScene",
+      "position": [ 4.06, 0.3, -14.96 ]
+    },
+    {
+      "objName": "MazeExitWall",
+      "sceneToLoad": "MazeHouse",
+      "position": [ 80, 0, 70 ]
     }
   ]
 }
