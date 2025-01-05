@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +15,11 @@ public class SceneCompletion : MonoBehaviour
     private readonly float lerpSpeed = 0.05f;
 
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
+        while (!FoodTracker.isInit){    //DEV ONLY await FoodTracker Completion
+            await Task.Yield();
+        }
         maxFood = FoodTracker.numFoodInScene(gameObject.scene.name);
         completionSlider.maxValue = maxFood; 
         completionSlider.minValue = 0; 

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
-using UnityEngine.UIElements;
+using UnityEngine.Networking;
+using System.Threading.Tasks;
 
 [System.Serializable]
 //Class to hold data each JSON object obtains
@@ -42,10 +43,20 @@ public class LoadScene : MonoBehaviour
     public CanvasGroup sceneFade;
 
     // import JSON file with SceneList, read contents, parse JSON and index with id
-    void Start() {
+    async void Awake() {
         jsonFilePath = Application.streamingAssetsPath + "/SceneList.json";
-        if (File.Exists(jsonFilePath)){
-            string jsonContent = File.ReadAllText(jsonFilePath);
+
+        UnityWebRequest request = UnityWebRequest.Get(jsonFilePath);
+        UnityWebRequestAsyncOperation operation = request.SendWebRequest();
+
+        while (!operation.isDone)
+        {
+            await Task.Yield();
+        }
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string jsonContent = request.downloadHandler.text;
             sceneList = JsonUtility.FromJson<SceneList>(jsonContent);
             scene = sceneList.scenes[id];
 
@@ -53,7 +64,7 @@ public class LoadScene : MonoBehaviour
             sceneToLoad = scene.sceneToLoad;
         }
         else {
-            Debug.LogError("No file at " + jsonFilePath);
+            Debug.LogError("Cannot load file at " + jsonFilePath);
         }
     }
 
