@@ -25,19 +25,19 @@ public class EndScene : MonoBehaviour
         Cursor.visible = true;
         scoreText.text = "You have accumilated a score of : " + PlayerController.score.ToString();
         
-        if (PlayerController.score >= 3500)
+        if (PlayerController.score >= 60000)
         {
             messageText.text = "Absolute top tier player. Your reward is a round of applause from the developers of the game.";
         }
-        else if (PlayerController.score >= 2500)
+        else if (PlayerController.score >= 45000)
         {
             messageText.text = "You’ve outsmarted the pack. What a clever fox!";
         }
-        else if (PlayerController.score >= 1500)
+        else if (PlayerController.score >= 30000)
         {
             messageText.text = "A solid score! But even foxes dream of higher peaks.";
         }
-        else if (PlayerController.score >= 500)
+        else if (PlayerController.score >= 10000)
         {
             messageText.text = "A fox in training! Time to pounce on that score.";
         }
