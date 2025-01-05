@@ -65,9 +65,6 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] itemSlot;
     public static ItemData[] items;
 
-    void Awake(){
-        InitOrResetInventory();
-    }
 
     public static void InitOrResetInventory() {
         if(Inventory.items == null){
@@ -124,7 +121,6 @@ public class Inventory : MonoBehaviour
 
     public void CloseHealthNotif(){
         healthNotifObj.SetActive(false);
-        Debug.Log(selectedItem);
         EventSystem.current.SetSelectedGameObject(selectedItem);
     }
 
@@ -150,6 +146,7 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
                 PlayerController.health += healthRegen; //health increase
+                PlayerController.health = PlayerController.health > 100 ? 100 : PlayerController.health;
                 PlayerController.score -= scoreVal; //score is decreased
                 return true;
             }

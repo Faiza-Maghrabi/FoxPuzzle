@@ -80,7 +80,7 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
             if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity > 0){
                 usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
             }
-            if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity == 0){
+            else if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity == 0){
                 inventoryManager.OpenOutOfStockNotif();
             }
             if(usable){
