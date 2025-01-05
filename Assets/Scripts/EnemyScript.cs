@@ -31,6 +31,8 @@ public class EnemyScript : MonoBehaviour
     public float maxDetectionRadius;
     //refrence to player object
     public Transform player;
+    //variable height to eye-level for enemies
+    public float eyeLevel = 1;
     //speed of enemy
     private float speed;
     public float maxSpeed = 1.0f;
@@ -138,15 +140,14 @@ public class EnemyScript : MonoBehaviour
         //use a sphere layers on the 'PlayerLayer' to see if player is nearby enemy
         //is player is stealthing, detection radisus and FOV is reduced slightly
         int layerMask = LayerMask.GetMask("PlayerLayer");
-        Collider[] FOVTargets = Physics.OverlapSphere(transform.position, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
+        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
         if (FOVTargets.Count() > 0) {   //if nearby then count > 0
             //[0] should be FoxEnemyCollider - was not able to hit the mesh collider in Fox_Model
-
-            directionToPlayer = (FOVTargets[0].transform.position - (transform.position)).normalized;
+            directionToPlayer = FOVTargets[0].transform.position - (transform.position + UnityEngine.Vector3.up * eyeLevel);
             float angle = UnityEngine.Vector3.Angle(transform.forward, directionToPlayer);  //Find angle between enemy and player
             if (angle < fovAngle / (PlayerController.isStealth ? 2.5: 2)) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, directionToPlayer, out hit, detectionRadius, layerMask)) {
+                if (Physics.Raycast(transform.position + UnityEngine.Vector3.up * eyeLevel, directionToPlayer, out hit, detectionRadius, layerMask)) {
                     //Debug.Log(hit.transform);
                     if (hit.transform == player) {  //return true if player is hit
                         return true;
