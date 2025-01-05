@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
             health = 100;
             init = true;
             FoodTracker.Init();
+            Inventory.InitOrResetInventory();
             //prevent errors during dev work - remove on prod?
             if (PlayerScenePos.position == null) {
                 PlayerScenePos.position = new float[3];

@@ -65,9 +65,6 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] itemSlot;
     public static ItemData[] items;
 
-    void Awake(){
-        InitOrResetInventory();
-    }
 
     public static void InitOrResetInventory() {
         if(Inventory.items == null){
