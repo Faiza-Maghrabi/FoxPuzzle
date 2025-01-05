@@ -25,6 +25,12 @@ public class MazeGeneratorScaled : MonoBehaviour
     [SerializeField]
     private GameObject exitPrefab; // Assign the exit prefab in the Inspector
 
+    [SerializeField]
+    private List<GameObject> rewardPrefabs; // Assign reward prefabs in the Inspector
+
+    [SerializeField]
+    private int maxRewards = 10; // Limit the number of rewards in the maze
+
     private MazeCell[,] _mazeGrid;
 
     void Start()
@@ -52,6 +58,7 @@ public class MazeGeneratorScaled : MonoBehaviour
 
         GenerateMaze(null, _mazeGrid[0, 0]);
         CreateEntranceandExit();
+        PlaceRewards();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
@@ -105,6 +112,59 @@ public class MazeGeneratorScaled : MonoBehaviour
         Debug.Log("Entrance placed at: " + entrancePosition);
 
         Debug.Log("Entrance and Exit created.");
+    }
+
+    private void PlaceRewards()
+    {
+        Debug.Log("Placing rewards...");
+
+        int rewardCount = 0;
+        List<Vector2Int> potentialLocations = new List<Vector2Int>();
+
+        // Collect all potential locations (excluding the entrance and exit)
+        for (int x = 0; x < _mazeWidth; x++)
+        {
+            for (int z = 0; z < _mazeDepth; z++)
+            {
+                // Exclude entrance and exit
+                if ((x == 0 && z == 0) || (x == _mazeWidth - 1 && z == _mazeDepth - 1))
+                    continue;
+
+                potentialLocations.Add(new Vector2Int(x, z));
+            }
+        }
+
+        // Shuffle locations to randomize placement
+        ShuffleList(potentialLocations);
+
+        // Place rewards at random locations
+        foreach (var location in potentialLocations)
+        {
+            if (rewardCount >= maxRewards) break;
+
+            int x = location.x;
+            int z = location.y;
+
+            MazeCell cell = _mazeGrid[x, z];
+            Vector3 spawnPosition = cell.transform.position + new Vector3(0, 0.5f, 0); // Adjust height if needed
+
+            GameObject rewardPrefab = rewardPrefabs[Random.Range(0, rewardPrefabs.Count)];
+            Instantiate(rewardPrefab, spawnPosition, Quaternion.identity);
+
+            rewardCount++;
+        }
+
+        Debug.Log($"Placed {rewardCount} rewards.");
+    }
+
+    // Helper method to shuffle a list
+    private void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = Random.Range(0, list.Count);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
