@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
     public Material[] damageFlash;
     float flashTime = .025f;
     private AudioManager audioManager;
+    private bool playedHurtSound = false;
 
 
     void Awake(){
@@ -225,7 +226,7 @@ public class PlayerController : MonoBehaviour
 
         if(health <= 0){
             gameOverObj.SetActive(true);
-            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            PlayFoxHurtSound();
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
@@ -298,7 +299,7 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
-            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            PlayFoxHurtSound();
             if (isDamageFlashOn){
                 flashTime = .01f;
                 StartCoroutine(EFlash());
@@ -322,6 +323,28 @@ public class PlayerController : MonoBehaviour
         jump.isJumping = true;
         jump.isJumpCancelled = false;
         jump.duration = 0;
+    }
+
+    // plays fox hurt sound if it was not already played
+    private void PlayFoxHurtSound()
+    {
+        if (!playedHurtSound)
+        {
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            playedHurtSound = true;
+            StartCoroutine(ResetHurtSoundCooldown());
+        }
+        else 
+        {
+            playedHurtSound = false;
+        }
+    }
+
+    // Reset the hurt sound cooldown
+    private IEnumerator ResetHurtSoundCooldown()
+    {
+        yield return new WaitForSeconds(0.5f); // Cooldown duration
+        playedHurtSound = false; // Allow the sound to play again
     }
 
     void OnTriggerEnter(Collider other) {
@@ -352,7 +375,9 @@ public class PlayerController : MonoBehaviour
             enemyDamage = enemy.getAttackVal();
             
             health -= enemyDamage/5;
-            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            if(!playedHurtSound) {
+                PlayFoxHurtSound();
+            }
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
@@ -361,7 +386,9 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(EFlash());
             }
             health -= 15;
-            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            if(!playedHurtSound) {
+                PlayFoxHurtSound();
+            }
         }
         else if (other.gameObject.tag == "Fire") {
             if(isDamageFlashOn){
@@ -372,7 +399,9 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             enemyDamage = 5;
             health -= 5;
-            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            if(!playedHurtSound) {
+                PlayFoxHurtSound();
+            }
         }
     }
 
