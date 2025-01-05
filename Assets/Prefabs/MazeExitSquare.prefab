@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6005847391580684654}
   - component: {fileID: 2092187063455563061}
+  - component: {fileID: 7097543626784806401}
   m_Layer: 0
   m_Name: MazeExitSquare
   m_TagString: Untagged
@@ -54,6 +55,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.025, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7097543626784806401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331811671428246265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eff6d903a0d9ee4a8b45eb20335ef64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 12
+  sceneFade: {fileID: 1276622263850784584, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
 --- !u!1 &7670068912234410854
 GameObject:
   m_ObjectHideFlags: 0
