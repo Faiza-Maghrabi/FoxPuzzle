@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEditor.Timeline.Actions;
 
 // Jump functionality properties
 [Serializable]
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
     int speedHash = Animator.StringToHash("Speed");
     int groundHash = Animator.StringToHash("isGrounded");
     public Animator anim;
+    //number of enemies attacking the player at a time
+    public static int huntedVal;
 
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
@@ -69,6 +72,12 @@ public class PlayerController : MonoBehaviour
     public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
+    private AudioManager audioManager;
+    private bool playedHurtSound = false;
+
+    private AudioClip walk;
+    private AudioClip run;
+
 
     void Awake(){
         if (!init){
@@ -76,6 +85,7 @@ public class PlayerController : MonoBehaviour
             health = 100;
             init = true;
             FoodTracker.Init();
+            Inventory.InitOrResetInventory();
             //prevent errors during dev work - remove on prod?
             if (PlayerScenePos.position == null) {
                 PlayerScenePos.position = new float[3];
@@ -84,6 +94,7 @@ public class PlayerController : MonoBehaviour
             PlayerScenePos.position[1] = gameObject.transform.position.y;
             PlayerScenePos.position[2] = gameObject.transform.position.z;
         }
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         playerInput = GetComponent<PlayerInput>();
         sneakAction = playerInput.actions["Sneak"]; //gets sneak action
     }   
@@ -99,6 +110,15 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        if(currentScene == "IndoorHouse"){
+            walk = audioManager.foxWalk2;
+            run = audioManager.foxRun2;
+        } 
+        else{
+            walk = audioManager.foxWalk1;
+            run = audioManager.foxRun1;
+        }
+        Debug.Log(walk);
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
@@ -110,6 +130,8 @@ public class PlayerController : MonoBehaviour
         jump.buttonTime = 0.5f;
         jump.duration = 0;
         jump.height = 15; 
+        //no enemy is hunting the player on start
+        huntedVal = 0;
 
         //gets the skinned mesh renderer and the materials used
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -125,6 +147,10 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
+        if(IsGrounded())
+        {
+            audioManager.PlaySFX(run, audioManager.foxSFXSource);
+        }
     }
 
     //Opens inventory when the e key is pressed
@@ -137,6 +163,8 @@ public class PlayerController : MonoBehaviour
         // Player jumps when the space key is pressed and not in mid air
         if (IsGrounded()){
             Jump();
+            audioManager.Stop(audioManager.foxSFXSource);
+
         }
     }
 
@@ -156,12 +184,16 @@ public class PlayerController : MonoBehaviour
     {
         speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
         isStealth = true;
+        audioManager.Stop(audioManager.foxSFXSource);
+        audioManager.PlaySFX(walk, audioManager.foxSFXSource);
     }
 
     private void OnSneakCanceled(InputAction.CallbackContext context)
     {
         speed = speedSettings.normalSpeed;  // Restore normal speed
         isStealth = false;
+        audioManager.Stop(audioManager.foxSFXSource);
+        audioManager.PlaySFX(run, audioManager.foxSFXSource);
     }
 
     private IEnumerator SelectAfterFrame(GameObject button) {
@@ -171,7 +203,6 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleFlash(){
         isDamageFlashOn = !isDamageFlashOn;
-        Debug.Log(isDamageFlashOn);
     }
 
     private void Update(){
@@ -179,6 +210,10 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat(speedHash, notMoving ? 0 : speed);
         anim.SetBool(jumpHash, jump.isJumping);
         anim.SetBool(groundHash, IsGrounded());
+
+        if(notMoving){
+            audioManager.Stop(audioManager.foxSFXSource);
+        }
         
 
         if (jump.isJumping){
@@ -198,15 +233,26 @@ public class PlayerController : MonoBehaviour
         if(!jump.isJumping && cinemachineCollider.m_Damping != 0f && IsGrounded() && cinemachineCollider.m_DampingWhenOccluded != 0f) {
             cinemachineCollider.m_Damping = 0f;
             cinemachineCollider.m_DampingWhenOccluded = 0f;
+            audioManager.PlaySFX(audioManager.foxLand, audioManager.foxSFXSource);
+
         }   
 
         if(health <= 0){
             gameOverObj.SetActive(true);
+            PlayFoxHurtSound();
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
         }
-        // Debug.Log(EventSystem.current.alreadySelecting);
+        
+        if(huntedVal > 0)
+        {
+            audioManager.PlayMusic(audioManager.background2, audioManager.musicSource);
+        }
+        else
+        {
+            audioManager.PlayMusic(audioManager.background1, audioManager.musicSource);
+        }
     }
 
 
@@ -266,6 +312,7 @@ public class PlayerController : MonoBehaviour
         if (hitEnemy && (Time.time - triggerTime > 1))
         {
             health -= enemyDamage;
+            PlayFoxHurtSound();
             if (isDamageFlashOn){
                 flashTime = .01f;
                 StartCoroutine(EFlash());
@@ -273,10 +320,10 @@ public class PlayerController : MonoBehaviour
             triggerTime += 1;
         }
 
-        if(gameOverObj == isActiveAndEnabled){
+        if(gameOverObj == isActiveAndEnabled)
+        {
             StartCoroutine(SelectAfterFrame(restartButton));
         }
-
     }
 
     // handles jump logic
@@ -291,14 +338,40 @@ public class PlayerController : MonoBehaviour
         jump.duration = 0;
     }
 
+    // plays fox hurt sound if it was not already played
+    private void PlayFoxHurtSound()
+    {
+        if (!playedHurtSound)
+        {
+            audioManager.PlaySFX(audioManager.foxHurt, audioManager.foxSFXSource);
+            playedHurtSound = true;
+            StartCoroutine(ResetHurtSoundCooldown());
+        }
+        else 
+        {
+            playedHurtSound = false;
+        }
+    }
+
+    // Reset the hurt sound cooldown
+    private IEnumerator ResetHurtSoundCooldown()
+    {
+        yield return new WaitForSeconds(0.5f); // Cooldown duration
+        playedHurtSound = false; // Allow the sound to play again
+    }
+
     void OnTriggerEnter(Collider other) {
         // if collided with a FoodItem, hide the item and calls the function to add the item to the players inventory and add score to counter
         if (other.gameObject.CompareTag("FoodItem")) {
-            other.gameObject.SetActive(false);
             FoodScript food = other.GetComponent<FoodScript>();
-            inventory.AddItemToInventory(food.food);
-            FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
-            PlayerController.score += food.scoreVal;
+            bool added = inventory.AddItemToInventory(food.food);
+            if (added){
+                other.gameObject.SetActive(false);
+                FoodTracker.markCollected(gameObject.scene.name, other.gameObject.name);
+                SceneCompletion.increaseFoodCount();
+                PlayerController.score += food.scoreVal;
+                audioManager.PlaySFX(audioManager.pickUpFood, audioManager.inventorySFXSource);
+            }
         }
     }
 
@@ -313,7 +386,11 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             EnemyScript enemy = other.gameObject.GetComponent<EnemyScript>();
             enemyDamage = enemy.getAttackVal();
+            
             health -= enemyDamage/5;
+            if(!playedHurtSound) {
+                PlayFoxHurtSound();
+            }
         }
         else if (other.gameObject.tag == "Projectile") {
             //set damage dealt as 15
@@ -322,6 +399,9 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(EFlash());
             }
             health -= 15;
+            if(!playedHurtSound) {
+                PlayFoxHurtSound();
+            }
         }
         else if (other.gameObject.tag == "Fire") {
             if(isDamageFlashOn){
@@ -332,6 +412,9 @@ public class PlayerController : MonoBehaviour
             hitEnemy = true;
             enemyDamage = 5;
             health -= 5;
+            if(!playedHurtSound) {
+                PlayFoxHurtSound();
+            }
         }
     }
 

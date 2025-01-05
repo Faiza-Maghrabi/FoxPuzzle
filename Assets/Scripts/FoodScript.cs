@@ -78,7 +78,9 @@ public class FoodScript : MonoBehaviour
 
     // import JSON file with FoodList, read contents, parse JSON and index with id
     async void Start() {
-
+        while (!FoodTracker.isInit){    //DEV ONLY await FoodTracker Completion
+            await Task.Yield();
+        }
         if (FoodTracker.isCollected(gameObject.scene.name, gameObject.name)) {
             Destroy(gameObject);
             return;
@@ -124,10 +126,6 @@ public class FoodScript : MonoBehaviour
 
         // Find the sprite by name
         Sprite resolvedSprite = System.Array.Find(atlasSprites, sprite => sprite.name == foodIconString);
-        if (resolvedSprite == null)
-        {
-            Debug.LogWarning($"Sprite {foodIconString} not found in FoodIcons_Atlas!");
-        }
         return resolvedSprite;
     }
 }

@@ -65,12 +65,21 @@ public class Inventory : MonoBehaviour
     public ItemSlot[] itemSlot;
     public static ItemData[] items;
 
-    void Awake(){
+
+    public static void InitOrResetInventory() {
         if(Inventory.items == null){
             Inventory.items = new ItemData[12];
             for (int i = 0; i < items.Length; i++)
             {
                 items[i] = new ItemData();
+            }
+        }
+        else {
+             for (int i = 0; i < items.Length; i++)
+            {
+                if (items[i].isFull){
+                    items[i].ResetItem();
+                }
             }
         }
     }
@@ -112,7 +121,6 @@ public class Inventory : MonoBehaviour
 
     public void CloseHealthNotif(){
         healthNotifObj.SetActive(false);
-        Debug.Log(selectedItem);
         EventSystem.current.SetSelectedGameObject(selectedItem);
     }
 
@@ -138,6 +146,7 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
                 PlayerController.health += healthRegen; //health increase
+                PlayerController.health = PlayerController.health > 100 ? 100 : PlayerController.health;
                 PlayerController.score -= scoreVal; //score is decreased
                 return true;
             }
@@ -146,7 +155,7 @@ public class Inventory : MonoBehaviour
     }
 
     //Adds an item to the itemslot when player picks it up. 
-    public void AddItemToInventory(FoodListItem food){
+    public bool AddItemToInventory(FoodListItem food){
         Sprite resolvedSprite = FoodScript.GetSprite(food.foodIcon);
 
         for (int i = 0; i < items.Length; i++)
@@ -154,9 +163,10 @@ public class Inventory : MonoBehaviour
             if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0 && items[i].isFull == false)
             {
                 itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
-                return;
+                return true;
             }
         }
+        return false;
     }
 
 
