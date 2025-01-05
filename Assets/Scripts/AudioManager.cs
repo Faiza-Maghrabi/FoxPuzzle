@@ -19,8 +19,10 @@ public class AudioManager : MonoBehaviour
     [Header("--------- Clip --------")]
     public AudioClip background1;
     public AudioClip background2;
-    public AudioClip foxWalk;
-    public AudioClip foxRun;
+    public AudioClip foxWalk1;
+    public AudioClip foxWalk2;
+    public AudioClip foxRun1;
+    public AudioClip foxRun2;
     public AudioClip foxLand;
     public AudioClip boyShout;
     public AudioClip snowballHit;

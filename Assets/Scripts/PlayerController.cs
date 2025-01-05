@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEditor.Timeline.Actions;
 
 // Jump functionality properties
 [Serializable]
@@ -74,6 +75,9 @@ public class PlayerController : MonoBehaviour
     private AudioManager audioManager;
     private bool playedHurtSound = false;
 
+    private AudioClip walk;
+    private AudioClip run;
+
 
     void Awake(){
         if (!init){
@@ -106,6 +110,15 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        if(currentScene == "IndoorHouse"){
+            walk = audioManager.foxWalk2;
+            run = audioManager.foxRun2;
+        } 
+        else{
+            walk = audioManager.foxWalk1;
+            run = audioManager.foxRun1;
+        }
+        Debug.Log(walk);
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed
@@ -136,7 +149,7 @@ public class PlayerController : MonoBehaviour
         moveValue = value.Get<Vector2>();
         if(IsGrounded())
         {
-            audioManager.PlaySFX(audioManager.foxRun, audioManager.foxSFXSource);
+            audioManager.PlaySFX(run, audioManager.foxSFXSource);
         }
     }
 
@@ -172,7 +185,7 @@ public class PlayerController : MonoBehaviour
         speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
         isStealth = true;
         audioManager.Stop(audioManager.foxSFXSource);
-        audioManager.PlaySFX(audioManager.foxWalk, audioManager.foxSFXSource);
+        audioManager.PlaySFX(walk, audioManager.foxSFXSource);
     }
 
     private void OnSneakCanceled(InputAction.CallbackContext context)
@@ -180,7 +193,7 @@ public class PlayerController : MonoBehaviour
         speed = speedSettings.normalSpeed;  // Restore normal speed
         isStealth = false;
         audioManager.Stop(audioManager.foxSFXSource);
-        audioManager.PlaySFX(audioManager.foxRun, audioManager.foxSFXSource);
+        audioManager.PlaySFX(run, audioManager.foxSFXSource);
     }
 
     private IEnumerator SelectAfterFrame(GameObject button) {
