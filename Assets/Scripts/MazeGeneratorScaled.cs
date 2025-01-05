@@ -94,16 +94,16 @@ public class MazeGeneratorScaled : MonoBehaviour
         // Calculate the position for the entrance prefab
         Vector3 entrancePosition = entranceCell.transform.position;
         // Instantiate the entrance prefab and scale it
-        GameObject entranceInstance = Instantiate(entrancePrefab, entrancePosition, Quaternion.identity);
-        entranceInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
+        // GameObject entranceInstance = Instantiate(entrancePrefab, entrancePosition, Quaternion.identity);
+        // entranceInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
 
         // Get the top-right corner cell
         MazeCell exitCell = _mazeGrid[_mazeWidth - 1, _mazeDepth - 1];
         // Calculate the position for the exit prefab
         Vector3 exitPosition = exitCell.transform.position;
         // Instantiate the exit prefab and scale it
-        GameObject exitInstance = Instantiate(exitPrefab, exitPosition, Quaternion.identity);
-        exitInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
+        // GameObject exitInstance = Instantiate(exitPrefab, exitPosition, Quaternion.identity);
+        // exitInstance.transform.localScale = new Vector3(cellScale, cellScale, cellScale); // Match the cell scale
 
         // Clear a wall of the exit cell (left wall for the top-right corner)
         exitCell.ClearRightWall();
