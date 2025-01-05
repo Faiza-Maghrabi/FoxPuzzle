@@ -126,10 +126,6 @@ public class FoodScript : MonoBehaviour
 
         // Find the sprite by name
         Sprite resolvedSprite = System.Array.Find(atlasSprites, sprite => sprite.name == foodIconString);
-        if (resolvedSprite == null)
-        {
-            Debug.LogWarning($"Sprite {foodIconString} not found in FoodIcons_Atlas!");
-        }
         return resolvedSprite;
     }
 }

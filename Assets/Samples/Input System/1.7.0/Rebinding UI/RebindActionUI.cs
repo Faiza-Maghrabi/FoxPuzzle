@@ -311,8 +311,15 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-                .WithControlsExcluding("<Mouse>")
-                .WithCancelingThrough("<Keyboard>/escape")
+                .WithControlsExcluding("<Mouse>").WithCancelingThrough("/<Mouse>/leftButton/")
+                .OnPotentialMatch(operation =>
+                {
+                    if (operation.selectedControl.path == "/Keyboard/escape")
+                    {
+                        operation.Cancel();
+                        return;
+                    }
+                })
                 .OnCancel(
                     operation =>
                     {

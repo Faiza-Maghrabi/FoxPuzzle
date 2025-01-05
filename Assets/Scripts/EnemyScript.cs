@@ -22,6 +22,15 @@ public class DangerData {
     }
 }
 
+public enum EnemyType
+{
+    EnemyDog,
+    EnemyBear,
+    casual_Male,
+    casual_Female,
+    little_boy
+}
+
 public class EnemyScript : MonoBehaviour
 {
     //angle of FOV and how far enemy can see
@@ -31,6 +40,8 @@ public class EnemyScript : MonoBehaviour
     public float maxDetectionRadius;
     //refrence to player object
     public Transform player;
+    //variable height to eye-level for enemies
+    public float eyeLevel = 1;
     //speed of enemy
     private float speed;
     public float maxSpeed = 1.0f;
@@ -60,6 +71,12 @@ public class EnemyScript : MonoBehaviour
     private Mesh visionConeMesh;
     private MeshFilter meshFilter;
     private float coneAngle;
+    AudioManager audioManager;
+    public EnemyType enemyType;
+
+    void Awake(){
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +99,30 @@ public class EnemyScript : MonoBehaviour
         adjustValsForDanger();
         meshFilter = visionCone.transform.AddComponent<MeshFilter>();
         visionConeMesh = new Mesh();
+
+        string enemyName = gameObject.name;
+
+        // Check and assign the corresponding EnemyType based on the GameObject's name
+        if (enemyName.Contains("EnemyDog"))
+        {
+            enemyType = EnemyType.EnemyDog;
+        }
+        else if (enemyName.Contains("EnemyBear"))
+        {
+            enemyType = EnemyType.EnemyBear;
+        }
+        else if (enemyName.Contains("casual_Male"))
+        {
+            enemyType = EnemyType.casual_Male;
+        }
+        else if (enemyName.Contains("casual_Female"))
+        {
+            enemyType = EnemyType.casual_Female;
+        }
+        else if (enemyName.Contains("little_boy_B"))
+        {
+            enemyType = EnemyType.little_boy;
+        }
     }
 
     // Update is called once per frame
@@ -97,9 +138,13 @@ public class EnemyScript : MonoBehaviour
         playerInView = FoundPlayer();
         anim.SetBool(moveHash, playerInView && !hitPlayer);
         anim.SetBool(hitHash, hitPlayer);
+
+        playerInView = FoundPlayer();
+
         // if seen, look towards player and travel towards them
         if (playerInView && !hitPlayer) {
             if (!addedToHunted) {
+                PlayEnemySFX();
                 PlayerController.huntedVal +=1;
                 addedToHunted = true;
             }
@@ -115,10 +160,57 @@ public class EnemyScript : MonoBehaviour
             rb.MovePosition(newPosition);
         }
         else if (!playerInView && addedToHunted) {
+            StopEnemySFX();
             PlayerController.huntedVal -=1;
             addedToHunted = false;
         }
 
+    }
+
+    private void PlayEnemySFX(){
+        switch(enemyType)
+        {
+            case EnemyType.EnemyDog:
+                audioManager.PlaySFX(audioManager.dogGrowl, audioManager.dogSFXSource);
+                break;
+            case EnemyType.EnemyBear:
+                audioManager.PlaySFX(audioManager.bearGrowl, audioManager.bearSFXSource);
+                break;
+            case EnemyType.little_boy:
+                audioManager.PlaySFX(audioManager.boyShout, audioManager.boySFXSource);
+                break;
+            case EnemyType.casual_Female:
+                audioManager.PlaySFX(audioManager.womanShout, audioManager.femaleSFXSource);
+                break;
+            case EnemyType.casual_Male:
+                audioManager.PlaySFX(audioManager.manShout, audioManager.maleSFXSource);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void StopEnemySFX(){
+        switch(enemyType)
+        {
+            case EnemyType.EnemyDog:
+                audioManager.Stop(audioManager.dogSFXSource);
+                break;
+            case EnemyType.EnemyBear:
+                audioManager.Stop(audioManager.bearSFXSource);
+                break;
+            case EnemyType.little_boy:
+                audioManager.Stop(audioManager.boySFXSource);
+                break;
+            case EnemyType.casual_Female:
+                audioManager.Stop(audioManager.femaleSFXSource);
+                break;
+            case EnemyType.casual_Male:
+                audioManager.Stop(audioManager.maleSFXSource);
+                break;
+            default:
+                break;
+        }
     }
 
     //adjust enemy speed, detection range, fovAngle, coneAngle, and coneMaterial according to difficulty
@@ -138,15 +230,14 @@ public class EnemyScript : MonoBehaviour
         //use a sphere layers on the 'PlayerLayer' to see if player is nearby enemy
         //is player is stealthing, detection radisus and FOV is reduced slightly
         int layerMask = LayerMask.GetMask("PlayerLayer");
-        Collider[] FOVTargets = Physics.OverlapSphere(transform.position, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
+        Collider[] FOVTargets = Physics.OverlapSphere(transform.position + UnityEngine.Vector3.up * eyeLevel, detectionRadius - (PlayerController.isStealth ? 2 : 0 ), layerMask);
         if (FOVTargets.Count() > 0) {   //if nearby then count > 0
             //[0] should be FoxEnemyCollider - was not able to hit the mesh collider in Fox_Model
-
-            directionToPlayer = (FOVTargets[0].transform.position - (transform.position)).normalized;
+            directionToPlayer = FOVTargets[0].transform.position - (transform.position + UnityEngine.Vector3.up * eyeLevel);
             float angle = UnityEngine.Vector3.Angle(transform.forward, directionToPlayer);  //Find angle between enemy and player
             if (angle < fovAngle / (PlayerController.isStealth ? 2.5: 2)) { //if angle less than FOV/2 use a raycast to see if enemy can see Player
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, directionToPlayer, out hit, detectionRadius, layerMask)) {
+                if (Physics.Raycast(transform.position + UnityEngine.Vector3.up * eyeLevel, directionToPlayer, out hit, detectionRadius, layerMask)) {
                     //Debug.Log(hit.transform);
                     if (hit.transform == player) {  //return true if player is hit
                         return true;

@@ -155,7 +155,7 @@ public class Inventory : MonoBehaviour
     }
 
     //Adds an item to the itemslot when player picks it up. 
-    public void AddItemToInventory(FoodListItem food){
+    public bool AddItemToInventory(FoodListItem food){
         Sprite resolvedSprite = FoodScript.GetSprite(food.foodIcon);
 
         for (int i = 0; i < items.Length; i++)
@@ -163,9 +163,10 @@ public class Inventory : MonoBehaviour
             if (items[i].isFull == true && items[i].foodName == food.foodName || items[i].quantity == 0 && items[i].isFull == false)
             {
                 itemSlot[i].AddItem(food, resolvedSprite);  // Pass sprite to UI
-                return;
+                return true;
             }
         }
+        return false;
     }
 
 

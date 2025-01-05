@@ -39,6 +39,11 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     public bool thisItemSelectedTwice;
     
     private Inventory inventoryManager;
+    private AudioManager audioManager;
+
+    void Awake(){
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start(){
         inventoryManager = GameObject.Find("Inventory").GetComponent<Inventory>(); //Inventory
@@ -81,9 +86,11 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
             if(usable){
                 int quantity = Inventory.items[id].UseItem();
                 itemQuantity.text = Inventory.items[id].quantity.ToString();
+                audioManager.PlaySFX(audioManager.foxEat, audioManager.inventorySFXSource);
                 if(quantity <= 0){
                     usedImage.gameObject.SetActive(true);
                     itemQuantity.text = "0";
+                    return;
                 }
             }
         }
