@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18081671, g: 0.22191116, b: 0.2815023, a: 1}
+  m_IndirectSpecularColor: {r: 0.180817, g: 0.22191153, b: 0.28150284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -146,7 +146,7 @@ AudioSource:
   m_GameObject: {fileID: 117548744}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1460686969661636329, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5d61f91a0eacf454d82ec5aa09a49e0a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -274,7 +274,7 @@ AudioSource:
   m_GameObject: {fileID: 217834483}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5672401489695463606, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5d61f91a0eacf454d82ec5aa09a49e0a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -2806,7 +2806,7 @@ AudioSource:
   m_GameObject: {fileID: 1472968319}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3933615626932976081, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2934,7 +2934,7 @@ AudioSource:
   m_GameObject: {fileID: 1842862541}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4821725049385832025, guid: c29fb9d01de3ba048b5869f435300167, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2bb1ca1311db63545b9e09a646bf7fc4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -3127,6 +3127,10 @@ PrefabInstance:
     - target: {fileID: 497878720200804949, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604279406755474607, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.7033386
       objectReference: {fileID: 0}
     - target: {fileID: 1970428187383996943, guid: 140ca413df28d7c44b56ae5c8e5a623b, type: 3}
       propertyPath: m_Name
