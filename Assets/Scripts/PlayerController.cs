@@ -177,7 +177,6 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleFlash(){
         isDamageFlashOn = !isDamageFlashOn;
-        Debug.Log(isDamageFlashOn);
     }
 
     private void Update(){

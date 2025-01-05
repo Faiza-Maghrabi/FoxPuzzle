@@ -121,7 +121,6 @@ public class Inventory : MonoBehaviour
 
     public void CloseHealthNotif(){
         healthNotifObj.SetActive(false);
-        Debug.Log(selectedItem);
         EventSystem.current.SetSelectedGameObject(selectedItem);
     }
 

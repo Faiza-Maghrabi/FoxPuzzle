@@ -71,8 +71,6 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     public void OnLeftClick(){
         //If the item is selected and used we empty the item slot
         if (thisItemSelectedTwice){
-            Debug.Log(Inventory.items[id].foodName);
-            Debug.Log(Inventory.items[id].quantity);
             bool usable = false;
             if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity > 0){
                 usable = inventoryManager.EatFood(Inventory.items[id].foodName, Inventory.items[id].scoreVal, Inventory.items[id].healthRegen);
@@ -80,7 +78,6 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
             else if(Inventory.items[id].foodName != "" && Inventory.items[id].quantity == 0){
                 inventoryManager.OpenOutOfStockNotif();
             }
-            Debug.Log(usable);
             if(usable){
                 int quantity = Inventory.items[id].UseItem();
                 itemQuantity.text = Inventory.items[id].quantity.ToString();
@@ -98,7 +95,6 @@ public class ItemSlot : MonoBehaviour, ISelectHandler
     //Updates the description to reflect the data of the selected item
     public void UpdateDescription() {
         ItemDescriptionName.text = Inventory.items[id].foodName;
-        Debug.Log(Inventory.items[id].foodName);
         ItemDescriptionText.text = Inventory.items[id].foodDescription;
         ItemAttributesText.text = Inventory.items[id].foodAttributes;
         ItemDescriptionImage.sprite = FoodScript.GetSprite(Inventory.items[id].foodIcon);
