@@ -22,12 +22,10 @@ public class GameOverControls : MonoBehaviour
         PlayerScenePos.position[1] = 0.3f;
         PlayerScenePos.position[2] = -14.96f;
         RestartProperties();
-        Debug.Log("hello");
     } 
 
     public void OpenMainMenu(string sceneName){
         SceneManager.LoadScene(sceneName);
-        Debug.Log("main");
         RestartProperties();
     } 
 
