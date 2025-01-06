@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26789248, g: 0.46371636, b: 0.61400473, a: 1}
+  m_IndirectSpecularColor: {r: 0.2664522, g: 0.46249148, b: 0.61336404, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4012,11 +4012,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 103e41c328040496d875f7fea90cfc22, type: 3}
---- !u!4 &379402700 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
-  m_PrefabInstance: {fileID: 1148536590}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &389664642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6129603529548326705, guid: f0a0ad539da2500469aed7e4e3310749, type: 3}
@@ -11231,7 +11226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_LocalScale.x
@@ -16410,9 +16405,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 379402700}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1415271688}
     - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
@@ -19091,7 +19083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff6d903a0d9ee4a8b45eb20335ef64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 5
+  id: 12
   sceneFade: {fileID: 198146612}
 --- !u!65 &1977091082
 BoxCollider:
