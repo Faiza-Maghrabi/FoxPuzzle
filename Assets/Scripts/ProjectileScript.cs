@@ -11,6 +11,7 @@ public class ProjectileScript : MonoBehaviour
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
+    //assigned to child enemy projectile - is destroyed on collision with anything
     void OnCollisionEnter(Collision other) {
         //if collided with anything then disappear
         Destroy(gameObject);

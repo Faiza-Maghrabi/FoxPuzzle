@@ -94,13 +94,13 @@ public class LoadScene : MonoBehaviour
             if (sceneToLoad == "EndScene") {
                 switch (PlayerController.score)
                 {   //placeholder score - calucate actual score after all food is in
-                    case >= 1000:
+                    case >= 50000:
                         sceneToLoad = "EndDenHigh";
                         break;
-                    case >= 600:
+                    case >= 35000:
                         sceneToLoad = "EndDenMid";
                         break;
-                    case >= 400:
+                    case >= 20000:
                         sceneToLoad = "EndDenLow";
                         break;
                     default:
