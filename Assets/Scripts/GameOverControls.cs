@@ -9,9 +9,11 @@ public class GameOverControls : MonoBehaviour
     public Inventory inventory;
     public GameObject gameOverObj;
 
+    //options for the user when given a game over
     public void Start(){
         player = GameObject.Find("Player").GetComponent<PlayerController>(); //Player
     }
+    //re-inits static values for a new game.
     public void Restart(string sceneName){
         SceneManager.LoadScene(sceneName);
         Time.timeScale = 1;
