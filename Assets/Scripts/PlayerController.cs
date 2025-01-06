@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
             walk = audioManager.foxWalk1;
             run = audioManager.foxRun1;
         }
-        Debug.Log(walk);
 
         speedSettings.normalSpeed = speed;  // Store the normal speed
         speedSettings.slowSpeed = speed / 2;  // Define the reduced speed

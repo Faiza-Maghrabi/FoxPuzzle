@@ -65,6 +65,8 @@ public class EnemyScript : MonoBehaviour
     public Material highDangerMaterial;
     public Material maxDangerMaterial;
     private MeshRenderer coneRenderer;
+    //enemy difficulty level
+    private int difficultyAdd = 0;
     private int dangerVal;
     private Dictionary<int, DangerData> dangerToData;
     public int visionConeResolution = 120;
@@ -93,7 +95,14 @@ public class EnemyScript : MonoBehaviour
             {3, new DangerData(maxDangerMaterial, 1.0f, 1.0f, 1.0f)},
         };
 
-        dangerVal = SceneCompletion.getDangerLevel();
+        
+        if(PlayerPrefs.HasKey("difficulty"))
+        {
+            difficultyAdd = PlayerPrefs.GetInt("difficulty");
+        }
+
+        dangerVal = SceneCompletion.getDangerLevel() + difficultyAdd;
+        dangerVal = dangerVal > 3 ? 3 : dangerVal;
         visionCone.transform.AddComponent<MeshRenderer>().material = dangerToData[dangerVal].material;
         coneRenderer = visionCone.transform.GetComponent<MeshRenderer>();
         adjustValsForDanger();
@@ -130,7 +139,8 @@ public class EnemyScript : MonoBehaviour
     {
         DrawVisionCone();
         int tempOldVal = dangerVal;
-        dangerVal = SceneCompletion.getDangerLevel();
+        dangerVal = SceneCompletion.getDangerLevel() + difficultyAdd;
+        dangerVal = dangerVal > 3 ? 3 : dangerVal;
         if (tempOldVal != dangerVal){
             adjustValsForDanger();
         }

@@ -27,6 +27,14 @@ public class StartGame : MonoBehaviour
     public void Awake(){
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
     }
+
+    public void Start(){
+        if(!PlayerPrefs.HasKey("difficulty"))
+        {
+            setDifficulty(0);
+        }
+        Debug.Log(PlayerPrefs.GetInt("difficulty"));
+    }
     
 
     public void LoadScene(string sceneName)
@@ -103,6 +111,11 @@ public class StartGame : MonoBehaviour
     public void CloseGamepadControlsSettings(){
         GamepadControlsPanel.SetActive(false);
         OpenSettings();
+    }
+
+    // set user prefrence for difficulty
+    public void setDifficulty(int diffVal){
+        PlayerPrefs.SetInt("difficulty", diffVal);
     }
 
 }
