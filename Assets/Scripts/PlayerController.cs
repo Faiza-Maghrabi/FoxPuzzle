@@ -204,6 +204,7 @@ public class PlayerController : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
+    //Changes the flash boolean if toggled on/off
     public void ToggleFlash(){
         isDamageFlashOn = !isDamageFlashOn;
     }
