@@ -9,6 +9,7 @@ public class FloatingText : MonoBehaviour
     Transform unit;
     Transform worldSpaceCanvas;
     public Vector3 offset;
+    //floating text used in the tutorial scene
     void Start()
     {
         mainCam = Camera.main.transform;

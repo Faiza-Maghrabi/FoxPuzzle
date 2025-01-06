@@ -97,9 +97,7 @@ public class FoodScript : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            //string jsonContent = File.ReadAllText(jsonFilePath);
             string jsonContent = request.downloadHandler.text;
-            //Debug.Log(jsonContent);
             foodList = JsonUtility.FromJson<FoodList>(jsonContent);
             food = foodList.foods[id];
 
@@ -121,6 +119,7 @@ public class FoodScript : MonoBehaviour
         }
     }
 
+    //get sprite for inventory
     public static Sprite GetSprite(string foodIconString){
         Sprite[] atlasSprites = Resources.LoadAll<Sprite>("FoodIcons_Atlas");
 

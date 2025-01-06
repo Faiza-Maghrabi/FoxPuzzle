@@ -10,10 +10,17 @@ public class StartGame : MonoBehaviour
 {
     [SerializeField]
     private GameObject mainMenuFirst;
-    [SerializeField]
 
     public void Awake(){
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
+    }
+
+    //sets difficulty as normal on start
+    public void Start(){
+        if(!PlayerPrefs.HasKey("difficulty"))
+        {
+            setDifficulty(0);
+        }
     }
     
 
@@ -36,6 +43,7 @@ public class StartGame : MonoBehaviour
         PlayerController.init = false;
     }
 
+    //loads tutorial scene
     public void LoadTutorial() {
         PlayerScenePos.position[0] = 49.7f;
         PlayerScenePos.position[1] = 0.0f;
@@ -46,4 +54,10 @@ public class StartGame : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
     }
+
+    // set user prefrence for difficulty
+    public void setDifficulty(int diffVal){
+        PlayerPrefs.SetInt("difficulty", diffVal);
+    }
+
 }

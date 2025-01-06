@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     public GameObject selectedItemIcon;
     public GameObject gameOverObj;
     public GameObject restartButton;
+    //player physics
     private Rigidbody rb;
     private JumpSettings jump;
     private float triggerTime;
@@ -66,13 +67,14 @@ public class PlayerController : MonoBehaviour
 
     //cinemachine collider to add damping when jumping
     public CinemachineCollider cinemachineCollider;
-
+    //flash damage vars
     SkinnedMeshRenderer meshRenderer;
     Material[] origMaterials;
 
     public static bool isDamageFlashOn = true;
     public Material[] damageFlash;
     float flashTime = .025f;
+    //audio vars
     private AudioManager audioManager;
     private bool playedHurtSound = false;
 
@@ -80,14 +82,14 @@ public class PlayerController : MonoBehaviour
     private AudioClip run;
 
 
-    void Awake(){
+    void Awake(){   //init variables on awake
         if (!init){
             score = 0;
             health = 100;
             init = true;
             FoodTracker.Init();
             Inventory.InitOrResetInventory();
-            //prevent errors during dev work - remove on prod?
+            //prevent errors during dev work
             if (PlayerScenePos.position == null) {
                 PlayerScenePos.position = new float[3];
             }
@@ -102,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     void Start (){
         string currentScene = SceneManager.GetActiveScene().name;
-        
+        //allow cursor in certain scenes
         if (currentScene == "EndScene" || currentScene == "MainMenu"){
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
@@ -111,6 +113,7 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        //set audio based on scene - indoor has different audio
         if(currentScene == "IndoorHouse"){
             walk = audioManager.foxWalk2;
             run = audioManager.foxRun2;
@@ -145,6 +148,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(rb.position);
     }
 
+    //play audio on move and get move val
     void OnMove(InputValue value){
         moveValue = value.Get<Vector2>();
         if(IsGrounded())
@@ -159,6 +163,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(SelectAfterFrame(selectedItemIcon));
     }
 
+    //open pause menu
     void OnPauseGame(InputValue value){
         settings.OnPauseGame(value);
     }
@@ -184,6 +189,7 @@ public class PlayerController : MonoBehaviour
         sneakAction.canceled -= OnSneakCanceled;
     }
 
+    //update appropriate values when sneaking
     private void OnSneakPerformed(InputAction.CallbackContext context)
     {
         speed = speedSettings.slowSpeed;  // Reduce speed when sneaking
@@ -192,6 +198,7 @@ public class PlayerController : MonoBehaviour
         audioManager.PlaySFX(walk, audioManager.foxSFXSource);
     }
 
+    //retrun to normal vals after sneak ends
     private void OnSneakCanceled(InputAction.CallbackContext context)
     {
         speed = speedSettings.normalSpeed;  // Restore normal speed
@@ -205,10 +212,12 @@ public class PlayerController : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
+    //toggles damage flash
     public void ToggleFlash(){
         isDamageFlashOn = !isDamageFlashOn;
     }
 
+    //moves the player, deals with jumping
     private void Update(){
         var notMoving = moveValue.x* moveValue.x + moveValue.y* moveValue.y == 0;
         anim.SetFloat(speedHash, notMoving ? 0 : speed);
@@ -379,6 +388,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //enemy collision and update to player values
     void OnCollisionEnter(Collision other) {
         //if collided with Enemy then take damage
         if (other.gameObject.tag == "Enemy") {

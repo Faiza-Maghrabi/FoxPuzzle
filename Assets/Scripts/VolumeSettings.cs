@@ -9,6 +9,8 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
+    //adjusts use user's audio volume for music and sfx.
+    //set in playerPrefs to remember between gameplays
     public void Start()
     {
         if(PlayerPrefs.HasKey("musicVolume"))

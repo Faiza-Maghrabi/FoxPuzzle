@@ -15,6 +15,8 @@ public class SceneCompletion : MonoBehaviour
     private readonly float lerpSpeed = 0.05f;
 
     // Start is called before the first frame update
+    //get the number of food in scene and the number of food collected
+    //sets up values for display on the completion slider on GUI
     async void Start()
     {
         while (!FoodTracker.isInit){    //DEV ONLY await FoodTracker Completion

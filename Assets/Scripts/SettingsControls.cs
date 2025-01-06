@@ -22,8 +22,30 @@ public class SettingsControls : MonoBehaviour
     private GameObject keyboardControlsMenuFirst;
     [SerializeField]
     private GameObject gamepadControlsMenuFirst;
+    [SerializeField]
+    private Button normalButton;
+    [SerializeField]
+    private Button hardButton;
     private bool menuActivated = false;
+    //code shared by main meny's settings panel and the pause menu
+    //sets the colour of difficulty buttons at start
+    public void Start(){
+        int diffVal = PlayerPrefs.GetInt("difficulty");
+        Image normImage  = normalButton.GetComponent<Image>();
+        Image hardImage  = hardButton.GetComponent<Image>();
+        Color selectColour;
+        ColorUtility.TryParseHtmlString("#FDD2AD", out selectColour);
+        if (diffVal == 0){
+            normImage.color = selectColour;
+            hardImage.color = Color.white;
+        }
+        else {
+            normImage.color = Color.white;
+            hardImage.color = selectColour;
+        }
+    }
 
+    //called by player, opens pause menu
     public void OnPauseGame(InputValue value){
         if(!menuActivated){
             menuActivated =  true; 
@@ -32,9 +54,11 @@ public class SettingsControls : MonoBehaviour
         }
         else if(menuActivated){
             CloseSettings();
+            menuActivated = false;
         }
     }
 
+    //used on main menu to open settings page
     public void OpenSettings() {
         SettingsPanel.SetActive(true);
         StartCoroutine(SelectAfterFrame(settingsMenuFirst));
@@ -57,14 +81,17 @@ public class SettingsControls : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
+    //closes the settings/pause menu with if statement on the type of scene it is
     public void CloseSettings(){
         SettingsPanel.SetActive(false);
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false;
         string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "MainMenu"){
+            Cursor.visible = true;
             EventSystem.current.SetSelectedGameObject(mainMenuFirst);
+        }else{
+            Cursor.lockState = CursorLockMode.Locked; 
+            Cursor.visible = false;
         }
     }
 
@@ -86,5 +113,22 @@ public class SettingsControls : MonoBehaviour
     public void CloseGamepadControlsSettings(){
         GamepadControlsPanel.SetActive(false);
         OpenSettings();
+    }
+
+    // set user prefrence for difficulty and edits button colour
+    public void setDifficulty(int diffVal){
+        PlayerPrefs.SetInt("difficulty", diffVal);
+        Image normImage  = normalButton.GetComponent<Image>();
+        Image hardImage  = hardButton.GetComponent<Image>();
+        Color selectColour;
+        ColorUtility.TryParseHtmlString("#FDD2AD", out selectColour);
+        if (diffVal == 0){
+            normImage.color = selectColour;
+            hardImage.color = Color.white;
+        }
+        else {
+            normImage.color = Color.white;
+            hardImage.color = selectColour;
+        }
     }
 }
