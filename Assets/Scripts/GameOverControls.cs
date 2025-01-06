@@ -20,9 +20,9 @@ public class GameOverControls : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
         //player spawn pos hardcoded in
-        PlayerScenePos.position[0] = 4.06f;
-        PlayerScenePos.position[1] = 0.3f;
-        PlayerScenePos.position[2] = -14.96f;
+        PlayerScenePos.position[0] = 431.33f;
+        PlayerScenePos.position[1] = 6.85f;
+        PlayerScenePos.position[2] = 238.60f;
         RestartProperties();
     } 
 
