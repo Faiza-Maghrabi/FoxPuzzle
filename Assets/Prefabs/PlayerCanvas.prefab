@@ -2641,9 +2641,9 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 4686952365842120742}
+    m_SelectOnDown: {fileID: 6175267491751111682}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 2044760235197237911}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3626,8 +3626,8 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 4686952365842120742}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnDown: {fileID: 6175267491751111682}
+    m_SelectOnLeft: {fileID: 6427504397129858668}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -5627,6 +5627,10 @@ PrefabInstance:
       value: -158.5
       objectReference: {fileID: 0}
     - target: {fileID: 4302354657890932201, guid: c25a27401a11cf941af7029682e9609c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1707128459404851148}
+    - target: {fileID: 4302354657890932201, guid: c25a27401a11cf941af7029682e9609c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SettingsControls, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -5647,9 +5651,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5233978204844222782, guid: c25a27401a11cf941af7029682e9609c, type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 6427504397129858668}
+    - target: {fileID: 5233978204844222782, guid: c25a27401a11cf941af7029682e9609c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1707128459404851148}
     - target: {fileID: 5233978204844222782, guid: c25a27401a11cf941af7029682e9609c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenKeyboardControlsSettings
@@ -5681,7 +5689,7 @@ PrefabInstance:
     - target: {fileID: 6636969095961347354, guid: c25a27401a11cf941af7029682e9609c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1707128459404851148}
     - target: {fileID: 6636969095961347354, guid: c25a27401a11cf941af7029682e9609c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenGamepadControlsSettings
@@ -5805,17 +5813,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3336249054367919541, guid: c25a27401a11cf941af7029682e9609c, type: 3}
   m_PrefabInstance: {fileID: 2094216031680054588}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4686952365842120742 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6636969095961347354, guid: c25a27401a11cf941af7029682e9609c, type: 3}
-  m_PrefabInstance: {fileID: 2094216031680054588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4869468038411300246 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6810556455715367082, guid: c25a27401a11cf941af7029682e9609c, type: 3}
@@ -5825,6 +5822,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6175267491751111682 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5233978204844222782, guid: c25a27401a11cf941af7029682e9609c, type: 3}
+  m_PrefabInstance: {fileID: 2094216031680054588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093435799964626705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7093435799964626705 stripped
