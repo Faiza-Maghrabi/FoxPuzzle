@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2664522, g: 0.46249148, b: 0.61336404, a: 1}
+  m_IndirectSpecularColor: {r: 0.2669443, g: 0.46296188, b: 0.6137226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1196,7 +1196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_LocalScale.x
@@ -2614,7 +2614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_LocalScale.x
@@ -5766,7 +5766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_LocalScale.x
@@ -12632,11 +12632,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9173664002785960789, guid: 4bf8875c01e75e1499fc149b0dbb512f, type: 3}
   m_PrefabInstance: {fileID: 1936649855}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1288817318 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
-  m_PrefabInstance: {fileID: 88903701}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1295360067
 GameObject:
   m_ObjectHideFlags: 0
@@ -14005,11 +14000,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b93d775b381899840a4eb3175c30acb4, type: 3}
---- !u!4 &1415271688 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
-  m_PrefabInstance: {fileID: 626567048}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1418221169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4655740383107222, guid: 103e41c328040496d875f7fea90cfc22, type: 3}
@@ -14819,11 +14809,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6014251386513510827, guid: 3f85149f0ed62964885c4520be59933b, type: 3}
   m_PrefabInstance: {fileID: 1526770162}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1526505554 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
-  m_PrefabInstance: {fileID: 241224076}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1526770162
 PrefabInstance:
@@ -16402,16 +16387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1415271688}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1526505554}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1288817318}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
 --- !u!1001 &1688483973
@@ -19083,7 +19059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eff6d903a0d9ee4a8b45eb20335ef64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 12
+  id: 11
   sceneFade: {fileID: 198146612}
 --- !u!65 &1977091082
 BoxCollider:
