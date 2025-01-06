@@ -22,7 +22,27 @@ public class SettingsControls : MonoBehaviour
     private GameObject keyboardControlsMenuFirst;
     [SerializeField]
     private GameObject gamepadControlsMenuFirst;
+    [SerializeField]
+    private Button normalButton;
+    [SerializeField]
+    private Button hardButton;
     private bool menuActivated = false;
+
+    public void Start(){
+        int diffVal = PlayerPrefs.GetInt("difficulty");
+        Image normImage  = normalButton.GetComponent<Image>();
+        Image hardImage  = hardButton.GetComponent<Image>();
+        Color selectColour;
+        ColorUtility.TryParseHtmlString("#FDD2AD", out selectColour);
+        if (diffVal == 0){
+            normImage.color = selectColour;
+            hardImage.color = Color.white;
+        }
+        else {
+            normImage.color = Color.white;
+            hardImage.color = selectColour;
+        }
+    }
 
     public void OnPauseGame(InputValue value){
         if(!menuActivated){
@@ -32,6 +52,7 @@ public class SettingsControls : MonoBehaviour
         }
         else if(menuActivated){
             CloseSettings();
+            menuActivated = false;
         }
     }
 
@@ -60,11 +81,13 @@ public class SettingsControls : MonoBehaviour
     public void CloseSettings(){
         SettingsPanel.SetActive(false);
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false;
         string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "MainMenu"){
+            Cursor.visible = true;
             EventSystem.current.SetSelectedGameObject(mainMenuFirst);
+        }else{
+            Cursor.lockState = CursorLockMode.Locked; 
+            Cursor.visible = false;
         }
     }
 
@@ -91,5 +114,17 @@ public class SettingsControls : MonoBehaviour
     // set user prefrence for difficulty
     public void setDifficulty(int diffVal){
         PlayerPrefs.SetInt("difficulty", diffVal);
+        Image normImage  = normalButton.GetComponent<Image>();
+        Image hardImage  = hardButton.GetComponent<Image>();
+        Color selectColour;
+        ColorUtility.TryParseHtmlString("#FDD2AD", out selectColour);
+        if (diffVal == 0){
+            normImage.color = selectColour;
+            hardImage.color = Color.white;
+        }
+        else {
+            normImage.color = Color.white;
+            hardImage.color = selectColour;
+        }
     }
 }

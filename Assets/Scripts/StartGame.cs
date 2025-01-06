@@ -10,7 +10,6 @@ public class StartGame : MonoBehaviour
 {
     [SerializeField]
     private GameObject mainMenuFirst;
-    [SerializeField]
 
     public void Awake(){
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
@@ -21,7 +20,6 @@ public class StartGame : MonoBehaviour
         {
             setDifficulty(0);
         }
-        Debug.Log(PlayerPrefs.GetInt("difficulty"));
     }
     
 

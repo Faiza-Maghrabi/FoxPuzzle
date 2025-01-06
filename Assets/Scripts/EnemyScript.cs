@@ -137,6 +137,10 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
+        if(PlayerPrefs.HasKey("difficulty"))
+        {
+            difficultyAdd = PlayerPrefs.GetInt("difficulty");
+        }
         DrawVisionCone();
         int tempOldVal = dangerVal;
         dangerVal = SceneCompletion.getDangerLevel() + difficultyAdd;
