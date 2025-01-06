@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         //comment out if testing specific locations
         rb.position = new Vector3(PlayerScenePos.position[0], PlayerScenePos.position[1], PlayerScenePos.position[2]);
         //use this to find coords to input in SceneList.json
-        Debug.Log(rb.position);
+        //Debug.Log(rb.position);
     }
 
     //play audio on move and get move val
