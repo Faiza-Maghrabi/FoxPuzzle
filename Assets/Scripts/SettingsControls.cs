@@ -70,7 +70,7 @@ public class SettingsControls : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void OnToggleChanged(bool value)
+    public void OnToggleChanged(bool value)
     {
         // Update the boolean based on the toggle's state
         PlayerController.isDamageFlashOn = value;
