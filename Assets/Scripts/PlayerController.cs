@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public static int health;
     //player inventory
     public Inventory inventory;
+    public SettingsControls settings;
     public GameObject selectedItemIcon;
     public GameObject gameOverObj;
     public GameObject restartButton;
@@ -156,6 +157,10 @@ public class PlayerController : MonoBehaviour
     void OnInventory(InputValue value){
         inventory.OnInventory(value);
         StartCoroutine(SelectAfterFrame(selectedItemIcon));
+    }
+
+    void OnPauseGame(InputValue value){
+        settings.OnPauseGame(value);
     }
 
     void OnJump(InputValue input){
