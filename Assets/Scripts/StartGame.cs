@@ -15,6 +15,7 @@ public class StartGame : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
     }
 
+    //sets difficulty as normal on start
     public void Start(){
         if(!PlayerPrefs.HasKey("difficulty"))
         {
@@ -42,6 +43,7 @@ public class StartGame : MonoBehaviour
         PlayerController.init = false;
     }
 
+    //loads tutorial scene
     public void LoadTutorial() {
         PlayerScenePos.position[0] = 49.7f;
         PlayerScenePos.position[1] = 0.0f;

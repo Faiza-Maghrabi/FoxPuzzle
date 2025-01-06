@@ -5,6 +5,7 @@ using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//type for the danger data saved in dictionary at start()
 [System.Serializable]
 public class DangerData {
     public Material material;
@@ -22,6 +23,7 @@ public class DangerData {
     }
 }
 
+//types of enemy used for audio differentiation
 public enum EnemyType
 {
     EnemyDog,
@@ -65,29 +67,31 @@ public class EnemyScript : MonoBehaviour
     public Material highDangerMaterial;
     public Material maxDangerMaterial;
     private MeshRenderer coneRenderer;
-    //enemy difficulty level
-    private int difficultyAdd = 0;
-    private int dangerVal;
-    private Dictionary<int, DangerData> dangerToData;
     public int visionConeResolution = 120;
     private Mesh visionConeMesh;
     private MeshFilter meshFilter;
     private float coneAngle;
+    //enemy difficulty level
+    private int difficultyAdd = 0;
+    private int dangerVal;
+    private Dictionary<int, DangerData> dangerToData;
+    //enemy audio data
     AudioManager audioManager;
     public EnemyType enemyType;
 
+    //set audio manager on awake
     void Awake(){
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   //init values
         attackVal = attackVal == 0 ? 10 : attackVal;
         playerInView = false;
         player = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody>();
-
+        //set dictionary for values for danger level increase
         dangerToData = new Dictionary<int, DangerData> {
             {0, new DangerData(lowDangerMaterial, 0.7f, 0.3f, 0.6f)},
             {1, new DangerData(mediumDangerMaterial, 0.8f, 0.6f, 0.7f)},
@@ -95,12 +99,12 @@ public class EnemyScript : MonoBehaviour
             {3, new DangerData(maxDangerMaterial, 1.0f, 1.0f, 1.0f)},
         };
 
-        
+        //get preset difficulty values
         if(PlayerPrefs.HasKey("difficulty"))
         {
             difficultyAdd = PlayerPrefs.GetInt("difficulty");
         }
-
+        //initialisethe vision cone, add mesh and material and iit enemy values range, angle and speed
         dangerVal = SceneCompletion.getDangerLevel() + difficultyAdd;
         dangerVal = dangerVal > 3 ? 3 : dangerVal;
         visionCone.transform.AddComponent<MeshRenderer>().material = dangerToData[dangerVal].material;
@@ -181,6 +185,7 @@ public class EnemyScript : MonoBehaviour
 
     }
 
+    //plays the correct SFX based on type of enemy
     private void PlayEnemySFX(){
         switch(enemyType)
         {
@@ -236,10 +241,12 @@ public class EnemyScript : MonoBehaviour
         coneAngle = fovAngle * Mathf.Deg2Rad;
     }
 
+    //returns enemy attack val
     public int getAttackVal() {
         return attackVal;
     }
 
+    //looks for the player and returns true if its found
     private bool FoundPlayer() {
         //use a sphere layers on the 'PlayerLayer' to see if player is nearby enemy
         //is player is stealthing, detection radisus and FOV is reduced slightly
@@ -278,6 +285,8 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+
+    //draws the enemy vision cone and updates if something is blocking its view
     void DrawVisionCone() {
         int[] triangles = new int[(visionConeResolution - 1) * 3];
     	UnityEngine.Vector3[] Vertices = new UnityEngine.Vector3[visionConeResolution + 1];

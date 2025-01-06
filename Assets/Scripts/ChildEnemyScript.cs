@@ -13,6 +13,7 @@ public class ChildEnemyScript : EnemyScript {
 
     void ShootProjectile() {
         //used as animation event in Throw Object
+        //throws a projectile aimed at the player
         if (playerInView && !hitPlayer) {
             GameObject projectileObj = Instantiate(projectile, spawnPoint.transform.position, spawnPoint.transform.rotation);
             Rigidbody projectileRig = projectileObj.GetComponent<Rigidbody>();

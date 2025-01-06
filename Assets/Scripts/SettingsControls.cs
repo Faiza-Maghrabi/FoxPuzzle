@@ -27,7 +27,8 @@ public class SettingsControls : MonoBehaviour
     [SerializeField]
     private Button hardButton;
     private bool menuActivated = false;
-
+    //code shared by main meny's settings panel and the pause menu
+    //sets the colour of difficulty buttons at start
     public void Start(){
         int diffVal = PlayerPrefs.GetInt("difficulty");
         Image normImage  = normalButton.GetComponent<Image>();
@@ -44,6 +45,7 @@ public class SettingsControls : MonoBehaviour
         }
     }
 
+    //called by player, opens pause menu
     public void OnPauseGame(InputValue value){
         if(!menuActivated){
             menuActivated =  true; 
@@ -56,6 +58,7 @@ public class SettingsControls : MonoBehaviour
         }
     }
 
+    //used on main menu to open settings page
     public void OpenSettings() {
         SettingsPanel.SetActive(true);
         StartCoroutine(SelectAfterFrame(settingsMenuFirst));
@@ -78,6 +81,7 @@ public class SettingsControls : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(button);
     }
 
+    //closes the settings/pause menu with if statement on the type of scene it is
     public void CloseSettings(){
         SettingsPanel.SetActive(false);
         Time.timeScale = 1;
@@ -111,7 +115,7 @@ public class SettingsControls : MonoBehaviour
         OpenSettings();
     }
 
-    // set user prefrence for difficulty
+    // set user prefrence for difficulty and edits button colour
     public void setDifficulty(int diffVal){
         PlayerPrefs.SetInt("difficulty", diffVal);
         Image normImage  = normalButton.GetComponent<Image>();
