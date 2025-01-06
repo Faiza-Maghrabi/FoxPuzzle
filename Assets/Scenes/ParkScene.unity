@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26723576, g: 0.46336117, b: 0.6141723, a: 1}
+  m_IndirectSpecularColor: {r: 0.26746747, g: 0.4635078, b: 0.6141554, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1188,7 +1188,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2096421794}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_Name
@@ -2606,7 +2606,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2096421794}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_Name
@@ -4501,7 +4501,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5774656049096402053, guid: f73b384f6559b6d45957b2fb5e7809ee, type: 3}
       propertyPath: m_RootOrder
-      value: 41
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5774656049096402053, guid: f73b384f6559b6d45957b2fb5e7809ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5763,7 +5763,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2096421794}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_Name
@@ -11228,7 +11228,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2096421794}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_Name
@@ -11455,7 +11455,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2096421794}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_Name
@@ -16214,9 +16214,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 112678025468265247, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_RootOrder
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -605.9
+      value: 382
       objectReference: {fileID: 0}
     - target: {fileID: 171502939440667194, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16314,7 +16318,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -70.1
       objectReference: {fileID: 0}
-    - target: {fileID: 4672728335876961712, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - target: {fileID: 4672728335876961712, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       propertyPath: m_Name
       value: Mountainous Stones
       objectReference: {fileID: 0}
@@ -16398,26 +16402,38 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -330
       objectReference: {fileID: 0}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.64305
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 382
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 379402700}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1415271688}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 989345890}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1526505554}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1288817318}
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
 --- !u!1001 &1688483973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20798,11 +20814,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4741025231437942, guid: 3914f508665fb406ca4aabc4bd5cbbea, type: 3}
   m_PrefabInstance: {fileID: 676876841}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2096421794 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2587850397134346048, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
-  m_PrefabInstance: {fileID: 1684544129}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2096524657
 PrefabInstance:
