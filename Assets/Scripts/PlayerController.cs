@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using UnityEditor.Timeline.Actions;
 
 // Jump functionality properties
 [Serializable]
@@ -211,6 +210,7 @@ public class PlayerController : MonoBehaviour
         yield return null;  // Wait for the next frame
         EventSystem.current.SetSelectedGameObject(button);
     }
+
 
     //toggles damage flash
     public void ToggleFlash(){
