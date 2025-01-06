@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26746747, g: 0.4635078, b: 0.6141554, a: 1}
+  m_IndirectSpecularColor: {r: 0.26789248, g: 0.46371636, b: 0.61400473, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9144,11 +9144,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3914f508665fb406ca4aabc4bd5cbbea, type: 3}
---- !u!4 &989345890 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
-  m_PrefabInstance: {fileID: 1174042662}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &998700767 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4261624345619718, guid: 335654d21784b4997986a40fdc8fa524, type: 3}
@@ -11463,7 +11458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae00611da43004afe9e1a2095d8b9198, type: 3}
       propertyPath: m_LocalScale.x
@@ -16219,8 +16214,20 @@ PrefabInstance:
       value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.64305
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       propertyPath: m_LocalPosition.x
       value: 382
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4672728335876961712, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
+      propertyPath: m_Name
+      value: Mountainous Stones
       objectReference: {fileID: 0}
     - target: {fileID: 171502939440667194, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16318,10 +16325,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -70.1
       objectReference: {fileID: 0}
-    - target: {fileID: 4672728335876961712, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      propertyPath: m_Name
-      value: Mountainous Stones
-      objectReference: {fileID: 0}
     - target: {fileID: 5043081475939419236, guid: 25520b7912d493b4bb2ba47940141936, type: 3}
       propertyPath: m_LocalPosition.x
       value: -84.2
@@ -16402,18 +16405,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -330
       objectReference: {fileID: 0}
-    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.64305
-      objectReference: {fileID: 0}
-    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 382
-      objectReference: {fileID: 0}
-    - target: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 95
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -16423,9 +16414,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1415271688}
-    - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 989345890}
     - targetCorrespondingSourceObject: {fileID: 2587850397134346048, guid: 0468f4082e6815d4b9f0447b3a63ab72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1526505554}
@@ -19376,7 +19364,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1758056108156894, guid: 9423742832090404eb59a341f56e0219, type: 3}
       propertyPath: m_Name
-      value: ExitCylinder
+      value: ExitCylinderP
       objectReference: {fileID: 0}
     - target: {fileID: 4488818886751972, guid: 9423742832090404eb59a341f56e0219, type: 3}
       propertyPath: m_RootOrder
