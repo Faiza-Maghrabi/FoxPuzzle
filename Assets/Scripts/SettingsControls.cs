@@ -87,4 +87,9 @@ public class SettingsControls : MonoBehaviour
         GamepadControlsPanel.SetActive(false);
         OpenSettings();
     }
+
+    // set user prefrence for difficulty
+    public void setDifficulty(int diffVal){
+        PlayerPrefs.SetInt("difficulty", diffVal);
+    }
 }

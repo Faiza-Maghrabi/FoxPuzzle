@@ -55,4 +55,9 @@ public class StartGame : MonoBehaviour
         Cursor.visible = false;
     }
 
+    // set user prefrence for difficulty
+    public void setDifficulty(int diffVal){
+        PlayerPrefs.SetInt("difficulty", diffVal);
+    }
+
 }
